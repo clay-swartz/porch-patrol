@@ -2542,7 +2542,7 @@ html {
       </div>
 
       <form class="signup-card" id="signup">
-        <input type="hidden" name="Plan" id="selected-plan" value="Base — Spruce Up">
+        <input type="hidden" name="Plan" id="selected-plan" value="Front Entry">
         <input type="hidden" name="_subject" value="New Porch Patrol service request">
         <input type="hidden" name="_template" value="table">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
@@ -2556,7 +2556,7 @@ html {
           <button class="button" type="submit">Start service</button>
         </div>
 
-        <div class="form-note" id="form-plan-note">$99/month · Base selected</div>
+        <div class="form-note" id="form-plan-note">$99/month · Front Entry selected</div>
         <div class="mobile-form-note" id="mobile-form-note">From $99/month · 2 visits included · Cancel anytime.</div>
         <div class="success" id="form-success" role="status" aria-live="polite">Got it. We’ll text you to confirm your route.</div>
         <div class="form-error" id="form-error" role="alert" aria-live="assertive">Something didn’t send. Please call us at <a href="tel:+19034618877">903-461-8877</a>.</div>
@@ -2589,7 +2589,7 @@ html {
               <div class="tier-media-label">Recurring front-entry care</div>
             </div>
             <div class="tier-heading-row">
-              <h3 class="tier-name">Spruce Up</h3>
+              <h3 class="tier-name">Front Entry</h3>
               <div class="tier-price tier-price-box">
                 <strong>$99</strong>
                 <span>/mo</span>
@@ -2605,7 +2605,7 @@ html {
             </ul>
 
             <div class="tier-cta">
-              <button type="button" class="button alt plan-dialog-open" data-plan="Base — Spruce Up" data-dialog-title="Start Spruce Up" data-dialog-note="$99/month · 2 visits included · Cancel anytime.">Choose Base</button>
+              <button type="button" class="button alt plan-dialog-open" data-plan="Front Entry" data-dialog-title="Start Front Entry" data-dialog-note="$99/month · 2 visits included · Cancel anytime.">Choose Front Entry</button>
             </div>
           </article>
 
@@ -2618,7 +2618,7 @@ html {
               <div class="tier-media-label">Front + back porch care</div>
             </div>
             <div class="tier-heading-row">
-              <h3 class="tier-name">Curb Appeal</h3>
+              <h3 class="tier-name">Front + Back</h3>
               <div class="tier-price tier-price-box">
                 <strong>$148</strong>
                 <span>/mo</span>
@@ -2635,7 +2635,7 @@ html {
             </ul>
 
             <div class="tier-cta">
-              <button type="button" class="button plan-dialog-open" data-plan="Plus — Curb Appeal" data-dialog-title="Start Curb Appeal" data-dialog-note="$148/month · 2 visits included · Cancel anytime.">Choose Plus</button>
+              <button type="button" class="button plan-dialog-open" data-plan="Front + Back" data-dialog-title="Start Front + Back" data-dialog-note="$148/month · 2 visits included · Cancel anytime.">Choose Front + Back</button>
             </div>
           </article>
 
@@ -2647,7 +2647,7 @@ html {
               <div class="tier-media-label">Projects & exterior upgrades</div>
             </div>
             <div class="tier-heading-row concierge-heading-row">
-              <h3 class="tier-name">Concierge</h3>
+              <h3 class="tier-name">Whole Home</h3>
             </div>
 
             <p class="tier-copy concierge-copy">Priced per project — pick any combination below.</p>
@@ -2660,7 +2660,7 @@ html {
             </ul>
 
             <div class="tier-cta">
-              <button type="button" class="button dark plan-dialog-open" data-plan="Priority — Concierge" data-dialog-title="Get a Concierge Quote" data-dialog-note="Tell us where to reach you. We’ll follow up personally.">Get a Quote</button>
+              <button type="button" class="button dark plan-dialog-open" data-plan="Whole Home" data-dialog-title="Get a Whole Home Quote" data-dialog-note="Tell us where to reach you. We’ll follow up personally.">Get a Quote</button>
             </div>
           </article>
 
@@ -2682,7 +2682,7 @@ html {
       </div>
 
       <form id="plan-dialog-form">
-        <input type="hidden" name="Plan" id="dialog-selected-plan" value="Base — Spruce Up">
+        <input type="hidden" name="Plan" id="dialog-selected-plan" value="Front Entry">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
 
         <div class="form-stack">
@@ -2737,7 +2737,7 @@ html {
       name: String(formData.get("Name") || "").trim(),
       home_address: String(formData.get("Home Address") || "").trim(),
       mobile: String(formData.get("Mobile") || "").trim(),
-      plan: String(formData.get("Plan") || "Base — Spruce Up").trim(),
+      plan: String(formData.get("Plan") || "Front Entry").trim(),
       _honey: String(formData.get("_honey") || "")
     };
 
@@ -2797,8 +2797,8 @@ html {
 
     if (ok) {
       heroForm.reset();
-      heroPlanInput.value = "Base — Spruce Up";
-      heroPlanNote.textContent = "$99/month · Base selected";
+      heroPlanInput.value = "Front Entry";
+      heroPlanNote.textContent = "$99/month · Front Entry selected";
       if (mobilePlanNote) {
         mobilePlanNote.textContent = "From $99/month · 2 visits included · Cancel anytime.";
       }
