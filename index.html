@@ -2130,6 +2130,19 @@ html {
   }
 }
 
+
+/* LATEST CONTENT SIMPLIFICATION */
+.concierge-copy {
+  align-self: start;
+  margin-top: 4px;
+}
+
+@media (max-width: 560px) {
+  .final-cta {
+    display: none !important;
+  }
+}
+
 </style>
 </head>
 
@@ -2267,12 +2280,7 @@ html {
             <p class="tier-level">Priority</p>
             <h3 class="tier-name">Concierge</h3>
 
-            <div class="tier-price">
-              <strong>Custom</strong>
-              <span>quote</span>
-            </div>
-
-            <p class="tier-copy">Priced per project — pick any combination below.</p>
+            <p class="tier-copy concierge-copy">Priced per project — pick any combination below.</p>
 
             <ul class="tier-list">
               <li><strong>Front door restore or replacement</strong></li>
