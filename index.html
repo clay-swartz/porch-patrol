@@ -2221,6 +2221,86 @@ html {
   }
 }
 
+
+/* PACKAGE PRICE HEADER REFINEMENT */
+.tier-heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 2px 0 18px;
+}
+
+.tier-heading-row .tier-name {
+  margin: 4px 0 0;
+  flex: 1 1 auto;
+}
+
+.tier-price-box {
+  flex: 0 0 auto;
+  min-width: 86px;
+  min-height: 58px;
+  margin: 0;
+  padding: 9px 11px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+  border: 1px solid rgba(11, 106, 100, .18);
+  border-radius: 6px;
+  background: #f7f3ea;
+  color: var(--navy);
+}
+
+.tier-price-box strong {
+  display: block;
+  font-size: 27px;
+  line-height: .95;
+  letter-spacing: -.035em;
+}
+
+.tier-price-box span {
+  display: block;
+  color: #747b7b;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.concierge-heading-row {
+  margin-bottom: 18px;
+}
+
+.concierge-heading-row .tier-name {
+  margin-top: 4px;
+}
+
+.tier-copy {
+  margin-top: 0;
+}
+
+@media (max-width: 560px) {
+  .tier-heading-row {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .tier-price-box {
+    min-width: 78px;
+    min-height: 54px;
+    padding: 8px 10px 7px;
+  }
+
+  .tier-price-box strong {
+    font-size: 24px;
+  }
+
+  .tier-price-box span {
+    font-size: 10px;
+  }
+}
+
 </style>
 </head>
 
@@ -2294,11 +2374,12 @@ html {
               <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1691783444138-689dfd7eab35?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Tidy porch with front door, chairs and clean porch floor">
               <div class="tier-media-label">Recurring front-entry care</div>
             </div>
-            <h3 class="tier-name">Spruce Up</h3>
-
-            <div class="tier-price">
-              <strong>$99</strong>
-              <span>per month</span>
+            <div class="tier-heading-row">
+              <h3 class="tier-name">Spruce Up</h3>
+              <div class="tier-price tier-price-box">
+                <strong>$99</strong>
+                <span>/mo</span>
+              </div>
             </div>
 
             <p class="tier-copy">Simple recurring care for your front entry.</p>
@@ -2322,11 +2403,12 @@ html {
               <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1781921131519-8830442ea1b6?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Screened porch and outdoor seating area">
               <div class="tier-media-label">Front + back porch care</div>
             </div>
-            <h3 class="tier-name">Curb Appeal</h3>
-
-            <div class="tier-price">
-              <strong>$148</strong>
-              <span>per month</span>
+            <div class="tier-heading-row">
+              <h3 class="tier-name">Curb Appeal</h3>
+              <div class="tier-price tier-price-box">
+                <strong>$148</strong>
+                <span>/mo</span>
+              </div>
             </div>
 
             <p class="tier-copy">More coverage for homes that want the front and back looking right.</p>
@@ -2350,7 +2432,9 @@ html {
               <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1764393188388-71ed75437a04?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Exterior porch lighting fixture on a home">
               <div class="tier-media-label">Projects & exterior upgrades</div>
             </div>
-            <h3 class="tier-name">Concierge</h3>
+            <div class="tier-heading-row concierge-heading-row">
+              <h3 class="tier-name">Concierge</h3>
+            </div>
 
             <p class="tier-copy concierge-copy">Priced per project — pick any combination below.</p>
 
