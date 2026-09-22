@@ -2528,6 +2528,130 @@ html {
   }
 }
 
+
+/* PACKAGE IMAGE CAROUSELS */
+.package-carousel {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+  background: #e9e8e2;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0,0,0);
+  transition: transform 480ms cubic-bezier(.22,.61,.36,1);
+  will-change: transform;
+}
+
+.package-carousel .carousel-track img {
+  position: relative !important;
+  inset: auto !important;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1 !important;
+  transition: none !important;
+  pointer-events: none;
+}
+
+.carousel-arrow {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 50%;
+  background: rgba(251,250,246,.88);
+  color: var(--navy);
+  box-shadow: 0 3px 14px rgba(17,36,48,.12);
+  font: 500 25px/1 var(--sans);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: opacity 160ms ease, background 160ms ease;
+}
+
+.carousel-prev { left: 10px; }
+.carousel-next { right: 10px; }
+
+.package-carousel:hover .carousel-arrow,
+.package-carousel:focus-within .carousel-arrow {
+  opacity: 1;
+}
+
+.carousel-arrow:hover {
+  background: #fff;
+}
+
+.carousel-dots {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 7px;
+  border-radius: 999px;
+  background: rgba(16,36,56,.28);
+  transform: translateX(-50%);
+  backdrop-filter: blur(4px);
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.55);
+  cursor: pointer;
+  transition: width 180ms ease, border-radius 180ms ease, background 180ms ease;
+}
+
+.carousel-dot.active {
+  width: 17px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+@media (max-width: 560px) {
+  .carousel-arrow {
+    display: none;
+  }
+
+  .carousel-dots {
+    bottom: 9px;
+    gap: 5px;
+    padding: 5px 7px;
+  }
+
+  .carousel-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .carousel-dot.active {
+    width: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    transition: none;
+  }
+}
+
 </style>
 </head>
 
@@ -2595,11 +2719,19 @@ html {
         <div class="tiers">
 
           <article class="tier accent-gray">
-            <div class="tier-media" data-rotator>
-              <img loading="lazy" decoding="async" class="active" src="https://images.unsplash.com/photo-1653569511862-8a0320ae66cc?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Clean, cared-for front porch and walkway">
-              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1634044229962-2f82612f81d8?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Front door with seasonal wreath, lanterns and welcome mat">
-              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1691783444138-689dfd7eab35?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Tidy porch with front door, chairs and clean porch floor">
-              <div class="tier-media-label">Recurring front-entry care</div>
+            <div class="tier-media package-carousel" data-carousel aria-label="Front Entry service examples">
+              <div class="carousel-track">
+
+                <img class="active" fetchpriority="low" decoding="async" src="https://images.unsplash.com/photo-1653569511862-8a0320ae66cc?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Clean, cared-for front porch and walkway">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1670989292166-8b20b9530438?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Professional exterior cleaning at a home">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1691783444138-689dfd7eab35?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Tidy front porch with chairs, door and clean floor">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1634044229962-2f82612f81d8?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Welcoming front door with wreath, lanterns and doormat">
+              </div>
+              <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
+              <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
+              <div class="carousel-dots" aria-label="Choose an image">
+                <button type="button" class="carousel-dot active" aria-label="Show image 1 of 4" aria-pressed="true"></button><button type="button" class="carousel-dot" aria-label="Show image 2 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 3 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 4 of 4" aria-pressed="false"></button>
+              </div>
             </div>
             <div class="tier-heading-row">
               <h3 class="tier-name">Front Entry</h3>
@@ -2624,11 +2756,19 @@ html {
 
           <article class="tier featured accent-coral">
             <div class="tier-tag">Most popular</div>
-            <div class="tier-media" data-rotator>
-              <img loading="lazy" decoding="async" class="active" src="https://images.unsplash.com/photo-1754597215918-b4b1f113ca77?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Furnished wraparound porch with outdoor seating">
-              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1720706439286-a642d2cd0db2?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Porch with table, chairs and flowers">
-              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1781921131519-8830442ea1b6?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Screened porch and outdoor seating area">
-              <div class="tier-media-label">Front + back porch care</div>
+            <div class="tier-media package-carousel" data-carousel aria-label="Front and Back service examples">
+              <div class="carousel-track">
+
+                <img class="active" fetchpriority="low" decoding="async" src="https://images.unsplash.com/photo-1754597215918-b4b1f113ca77?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Furnished wraparound porch with outdoor seating">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1701893850250-13d3ee3709e1?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Seasonal wreath decorating a welcoming front door">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1684280851894-8743c359d0f1?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Front entry styled with beautiful porch pots and flowers">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1637267286338-068462128026?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Inviting outdoor seating with flowers and patio furniture">
+              </div>
+              <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
+              <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
+              <div class="carousel-dots" aria-label="Choose an image">
+                <button type="button" class="carousel-dot active" aria-label="Show image 1 of 4" aria-pressed="true"></button><button type="button" class="carousel-dot" aria-label="Show image 2 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 3 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 4 of 4" aria-pressed="false"></button>
+              </div>
             </div>
             <div class="tier-heading-row">
               <h3 class="tier-name">Front + Back</h3>
@@ -2641,7 +2781,7 @@ html {
             <p class="tier-copy">More coverage, plus a little extra help keeping things fresh through the seasons.</p>
 
             <ul class="tier-list">
-              <li><strong>Everything in Base</strong></li>
+              <li><strong>Everything in Front Entry</strong></li>
               <li><strong>Back porch included.</strong> Outdoor furniture reset and light clean-up for the space you actually use.</li>
               <li><strong>Add a little seasonal cheer.</strong> Wreath swaps, porch pots, seasonal touches and simple holiday refreshes.</li>
               <li><strong>Detailed photo report.</strong> Front and back, every visit.</li>
@@ -2653,11 +2793,19 @@ html {
           </article>
 
           <article class="tier accent-blue">
-            <div class="tier-media" data-rotator>
-              <img loading="lazy" decoding="async" class="active" src="https://images.unsplash.com/photo-1682979460174-95470b1d92fd?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Black front door and exterior entry steps">
-              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1682979461319-67bae677bd41?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="House exterior with path leading to the front door">
-              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1764393188388-71ed75437a04?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Exterior porch lighting fixture on a home">
-              <div class="tier-media-label">Projects & exterior upgrades</div>
+            <div class="tier-media package-carousel" data-carousel aria-label="Whole Home project examples">
+              <div class="carousel-track">
+
+                <img class="active" fetchpriority="low" decoding="async" src="https://images.unsplash.com/photo-1682979460174-95470b1d92fd?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Refreshed black front door and exterior entry steps">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1682979461319-67bae677bd41?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Updated home entry with a finished walkway leading to the front door">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1764393188388-71ed75437a04?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Exterior porch lighting improvement on a home">
+                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1712195855605-31613010d065?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Welcoming home exterior with refreshed landscaping and flowers">
+              </div>
+              <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
+              <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
+              <div class="carousel-dots" aria-label="Choose an image">
+                <button type="button" class="carousel-dot active" aria-label="Show image 1 of 4" aria-pressed="true"></button><button type="button" class="carousel-dot" aria-label="Show image 2 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 3 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 4 of 4" aria-pressed="false"></button>
+              </div>
             </div>
             <div class="tier-heading-row concierge-heading-row">
               <h3 class="tier-name">Whole Home</h3>
@@ -2865,6 +3013,137 @@ html {
     if (ok) {
       dialogForm.querySelectorAll(".field").forEach((field) => field.value = "");
     }
+  });
+})();
+</script>
+
+
+<script>
+(() => {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll("[data-carousel]").forEach((carousel, carouselIndex) => {
+    const track = carousel.querySelector(".carousel-track");
+    const slides = [...track.querySelectorAll("img")];
+    const dots = [...carousel.querySelectorAll(".carousel-dot")];
+    const prev = carousel.querySelector(".carousel-prev");
+    const next = carousel.querySelector(".carousel-next");
+
+    if (slides.length < 2) return;
+
+    let index = 0;
+    let timer = null;
+    let pointerStartX = null;
+    let pointerStartY = null;
+    let paused = false;
+
+    const show = (nextIndex, userInitiated = false) => {
+      index = (nextIndex + slides.length) % slides.length;
+      track.style.transform = `translate3d(-${index * 100}%,0,0)`;
+
+      dots.forEach((dot, i) => {
+        const active = i === index;
+        dot.classList.toggle("active", active);
+        dot.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      // Once someone interacts, give them time to look instead of fighting them.
+      if (userInitiated) {
+        stop();
+        window.setTimeout(() => {
+          if (!paused && !reduceMotion) start();
+        }, 8500);
+      }
+    };
+
+    const start = () => {
+      if (reduceMotion || paused || document.hidden) return;
+      stop();
+      timer = window.setInterval(() => show(index + 1), 5200 + carouselIndex * 450);
+    };
+
+    const stop = () => {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    };
+
+    prev.addEventListener("click", () => show(index - 1, true));
+    next.addEventListener("click", () => show(index + 1, true));
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => show(i, true));
+    });
+
+    carousel.addEventListener("mouseenter", () => {
+      paused = true;
+      stop();
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+      paused = false;
+      start();
+    });
+
+    carousel.addEventListener("focusin", () => {
+      paused = true;
+      stop();
+    });
+
+    carousel.addEventListener("focusout", (event) => {
+      if (!carousel.contains(event.relatedTarget)) {
+        paused = false;
+        start();
+      }
+    });
+
+    carousel.addEventListener("pointerdown", (event) => {
+      pointerStartX = event.clientX;
+      pointerStartY = event.clientY;
+      paused = true;
+      stop();
+    });
+
+    carousel.addEventListener("pointerup", (event) => {
+      if (pointerStartX == null || pointerStartY == null) return;
+
+      const dx = event.clientX - pointerStartX;
+      const dy = event.clientY - pointerStartY;
+      pointerStartX = null;
+      pointerStartY = null;
+
+      // Only treat a predominantly horizontal gesture as a carousel swipe.
+      if (Math.abs(dx) > 38 && Math.abs(dx) > Math.abs(dy) * 1.15) {
+        show(index + (dx < 0 ? 1 : -1), true);
+      } else {
+        paused = false;
+        start();
+      }
+    });
+
+    carousel.addEventListener("pointercancel", () => {
+      pointerStartX = null;
+      pointerStartY = null;
+      paused = false;
+      start();
+    });
+
+    carousel.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        show(index - 1, true);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        show(index + 1, true);
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else start();
+    });
+
+    show(0);
+    start();
   });
 })();
 </script>
