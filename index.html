@@ -2652,6 +2652,71 @@ html {
   }
 }
 
+
+/* PACKAGE STORY IMAGERY — USER-SUPPLIED PHOTO PASS */
+.tiers {
+  align-items: start;
+}
+
+.tier,
+.tier.featured {
+  min-height: 0 !important;
+}
+
+.tier-media,
+.package-carousel {
+  height: auto !important;
+  flex-basis: auto !important;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 16px;
+}
+
+.tier-heading-row {
+  margin-bottom: 14px;
+}
+
+.tier-copy {
+  margin-bottom: 14px;
+}
+
+.tier-list {
+  flex: 0 0 auto;
+  gap: 11px;
+  padding-bottom: 18px;
+}
+
+.tier-cta {
+  margin-top: 4px;
+}
+
+@media (max-width: 560px) {
+  .tier-media,
+  .package-carousel {
+    height: auto !important;
+    flex-basis: auto !important;
+    aspect-ratio: 5 / 4;
+    margin-bottom: 15px;
+  }
+
+  .tier,
+  .tier.featured {
+    padding-bottom: 15px;
+  }
+
+  .tier-heading-row {
+    margin-bottom: 12px;
+  }
+
+  .tier-copy {
+    margin-bottom: 13px;
+  }
+
+  .tier-list {
+    gap: 10px;
+    padding-bottom: 15px;
+  }
+}
+
 </style>
 </head>
 
@@ -2719,18 +2784,18 @@ html {
         <div class="tiers">
 
           <article class="tier accent-gray">
-            <div class="tier-media package-carousel" data-carousel aria-label="Front Entry service examples">
+            <div class="tier-media package-carousel" data-carousel aria-label="Front Entry care examples">
               <div class="carousel-track">
-
-                <img class="active" fetchpriority="low" decoding="async" src="https://images.unsplash.com/photo-1653569511862-8a0320ae66cc?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Clean, cared-for front porch and walkway">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1670989292166-8b20b9530438?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Professional exterior cleaning at a home">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1691783444138-689dfd7eab35?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Tidy front porch with chairs, door and clean floor">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1634044229962-2f82612f81d8?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Welcoming front door with wreath, lanterns and doormat">
+                <img loading="lazy" decoding="async" class="active" src="/images/front-entry-powerwash.webp" alt="Powerwashing a front walk and porch surface">
+                <img loading="lazy" decoding="async" src="/images/front-entry-finished.webp" alt="Clean front entry with a black door, fresh planters, mat and rocking chair">
+                <img loading="lazy" decoding="async" src="/images/front-entry-planters.webp" alt="Layered spring porch planters beside a welcoming front door">
               </div>
               <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
               <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
               <div class="carousel-dots" aria-label="Choose an image">
-                <button type="button" class="carousel-dot active" aria-label="Show image 1 of 4" aria-pressed="true"></button><button type="button" class="carousel-dot" aria-label="Show image 2 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 3 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 4 of 4" aria-pressed="false"></button>
+                  <button type="button" class="carousel-dot active" aria-label="Show image 1 of 3" aria-pressed="true"></button>
+                  <button type="button" class="carousel-dot" aria-label="Show image 2 of 3" aria-pressed="false"></button>
+                  <button type="button" class="carousel-dot" aria-label="Show image 3 of 3" aria-pressed="false"></button>
               </div>
             </div>
             <div class="tier-heading-row">
@@ -2744,7 +2809,7 @@ html {
             <p class="tier-copy">Simple recurring care for your front entry.</p>
 
             <ul class="tier-list">
-              <li><strong>Clean it up.</strong> Dirt, debris, cobwebs and bugs.</li>
+              <li><strong>Clean it up.</strong> Dirt, debris, cobwebs and bugs, with light powerwashing where needed.</li>
               <li><strong>Keep it looking right.</strong> Mats straight, pillows fluffed, wreaths, planters, furniture and décor reset.</li>
               <li><strong>Keep you in the know.</strong> Detailed photo report after each visit.</li>
             </ul>
@@ -2756,18 +2821,20 @@ html {
 
           <article class="tier featured accent-coral">
             <div class="tier-tag">Most popular</div>
-            <div class="tier-media package-carousel" data-carousel aria-label="Front and Back service examples">
+            <div class="tier-media package-carousel" data-carousel aria-label="Front and Back care examples">
               <div class="carousel-track">
-
-                <img class="active" fetchpriority="low" decoding="async" src="https://images.unsplash.com/photo-1754597215918-b4b1f113ca77?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Furnished wraparound porch with outdoor seating">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1701893850250-13d3ee3709e1?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Seasonal wreath decorating a welcoming front door">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1684280851894-8743c359d0f1?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Front entry styled with beautiful porch pots and flowers">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1637267286338-068462128026?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Inviting outdoor seating with flowers and patio furniture">
+                <img loading="lazy" decoding="async" class="active" src="/images/front-back-rockers.webp" alt="Neatly arranged rocking chairs and pillows on a cared-for porch">
+                <img loading="lazy" decoding="async" src="/images/front-back-styled.webp" alt="Styled covered porch with clean furniture, pillows and flowers">
+                <img loading="lazy" decoding="async" src="/images/front-back-wide.webp" alt="Inviting covered porch with coordinated outdoor furniture">
+                <img loading="lazy" decoding="async" src="/images/front-back-seasonal.webp" alt="Front entry dressed with tasteful holiday greenery, garland and a wreath">
               </div>
               <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
               <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
               <div class="carousel-dots" aria-label="Choose an image">
-                <button type="button" class="carousel-dot active" aria-label="Show image 1 of 4" aria-pressed="true"></button><button type="button" class="carousel-dot" aria-label="Show image 2 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 3 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 4 of 4" aria-pressed="false"></button>
+                  <button type="button" class="carousel-dot active" aria-label="Show image 1 of 4" aria-pressed="true"></button>
+                  <button type="button" class="carousel-dot" aria-label="Show image 2 of 4" aria-pressed="false"></button>
+                  <button type="button" class="carousel-dot" aria-label="Show image 3 of 4" aria-pressed="false"></button>
+                  <button type="button" class="carousel-dot" aria-label="Show image 4 of 4" aria-pressed="false"></button>
               </div>
             </div>
             <div class="tier-heading-row">
@@ -2795,16 +2862,16 @@ html {
           <article class="tier accent-blue">
             <div class="tier-media package-carousel" data-carousel aria-label="Whole Home project examples">
               <div class="carousel-track">
-
-                <img class="active" fetchpriority="low" decoding="async" src="https://images.unsplash.com/photo-1682979460174-95470b1d92fd?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Refreshed black front door and exterior entry steps">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1682979461319-67bae677bd41?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Updated home entry with a finished walkway leading to the front door">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1764393188388-71ed75437a04?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Exterior porch lighting improvement on a home">
-                <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1712195855605-31613010d065?auto=format&fit=crop&fm=jpg&q=82&w=1200" alt="Welcoming home exterior with refreshed landscaping and flowers">
+                <img loading="lazy" decoding="async" class="active" src="/images/whole-home-door.webp" alt="Front door being professionally restored and refinished">
+                <img loading="lazy" decoding="async" src="/images/whole-home-path.webp" alt="Finished exterior walkway and refreshed landscaping around a home">
+                <img loading="lazy" decoding="async" src="/images/whole-home-porch.webp" alt="Refreshed porch with painted floor, shutters and updated landscaping">
               </div>
               <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
               <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
               <div class="carousel-dots" aria-label="Choose an image">
-                <button type="button" class="carousel-dot active" aria-label="Show image 1 of 4" aria-pressed="true"></button><button type="button" class="carousel-dot" aria-label="Show image 2 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 3 of 4" aria-pressed="false"></button><button type="button" class="carousel-dot" aria-label="Show image 4 of 4" aria-pressed="false"></button>
+                  <button type="button" class="carousel-dot active" aria-label="Show image 1 of 3" aria-pressed="true"></button>
+                  <button type="button" class="carousel-dot" aria-label="Show image 2 of 3" aria-pressed="false"></button>
+                  <button type="button" class="carousel-dot" aria-label="Show image 3 of 3" aria-pressed="false"></button>
               </div>
             </div>
             <div class="tier-heading-row concierge-heading-row">
