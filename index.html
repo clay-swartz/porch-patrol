@@ -2158,6 +2158,69 @@ html {
   }
 }
 
+
+/* PACKAGE LABEL CLEANUP */
+.tier {
+  display: flex;
+  flex-direction: column;
+}
+
+.tier-media {
+  flex: 0 0 176px;
+}
+
+.tier-name {
+  margin: 2px 0 16px;
+}
+
+.tier-price {
+  margin: 0 0 18px;
+  min-height: 34px;
+}
+
+.tier-copy {
+  margin: 0 0 18px;
+}
+
+.tier-list {
+  flex: 1 1 auto;
+  padding-bottom: 22px;
+}
+
+.tier-cta {
+  margin-top: auto;
+}
+
+.concierge-copy {
+  margin-top: 0;
+}
+
+@media (max-width: 1020px) {
+  .tier,
+  .tier.featured {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .tier-media {
+    flex-basis: 154px;
+  }
+
+  .tier-name {
+    margin-bottom: 14px;
+  }
+
+  .tier-price {
+    margin-bottom: 16px;
+  }
+
+  .tier-copy {
+    margin-bottom: 16px;
+  }
+}
+
 </style>
 </head>
 
@@ -2231,8 +2294,6 @@ html {
               <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1691783444138-689dfd7eab35?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Tidy porch with front door, chairs and clean porch floor">
               <div class="tier-media-label">Recurring front-entry care</div>
             </div>
-
-            <p class="tier-level">Base</p>
             <h3 class="tier-name">Spruce Up</h3>
 
             <div class="tier-price">
@@ -2261,8 +2322,6 @@ html {
               <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1781921131519-8830442ea1b6?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Screened porch and outdoor seating area">
               <div class="tier-media-label">Front + back porch care</div>
             </div>
-
-            <p class="tier-level">Plus</p>
             <h3 class="tier-name">Curb Appeal</h3>
 
             <div class="tier-price">
@@ -2291,8 +2350,6 @@ html {
               <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1764393188388-71ed75437a04?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Exterior porch lighting fixture on a home">
               <div class="tier-media-label">Projects & exterior upgrades</div>
             </div>
-
-            <p class="tier-level">Priority</p>
             <h3 class="tier-name">Concierge</h3>
 
             <p class="tier-copy concierge-copy">Priced per project — pick any combination below.</p>
