@@ -1857,6 +1857,251 @@ footer {
   }
 }
 
+
+/* =========================================================
+   PORCH PATROL — MOBILE CONVERSION LAYOUT
+   Desktop is unchanged. Mobile is composed independently.
+   ========================================================= */
+
+.mobile-form-note {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  html {
+    scroll-padding-top: 72px;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+  }
+
+  /* Standard mobile page gutters */
+  .header-inner,
+  .hero-inner,
+  .shell,
+  .footer-inner {
+    width: calc(100% - 32px);
+    max-width: none;
+  }
+
+  /* Header: compact but every interactive target remains tappable */
+  .site-header {
+    height: 68px;
+  }
+
+  .wordmark {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 24px;
+  }
+
+  .phone-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    letter-spacing: .01em;
+  }
+
+  /* The hero itself becomes the neutral page background. The image belongs
+     only to the message area, then the form naturally follows beneath it. */
+  .hero {
+    padding: 0;
+    min-height: 0;
+    background: var(--paper);
+  }
+
+  .hero::after {
+    display: none;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "form"
+      "proof";
+    row-gap: 0;
+    padding: 0 0 26px;
+  }
+
+  .hero-copy {
+    grid-area: copy;
+    max-width: none;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 40px 20px 34px;
+    color: #fff;
+    background-image:
+      linear-gradient(180deg, rgba(16,36,56,.78) 0%, rgba(16,36,56,.65) 58%, rgba(16,36,56,.72) 100%),
+      url("https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&fm=jpg&q=78&w=1000");
+    background-size: cover;
+    background-position: 42% 48%;
+  }
+
+  .hero h1 {
+    max-width: 340px;
+    margin-bottom: 16px;
+    font-size: clamp(46px, 13.1vw, 54px);
+    line-height: .94;
+    letter-spacing: -.042em;
+  }
+
+  .hero h1::after {
+    width: 52px;
+    height: 4px;
+    margin-top: 17px;
+  }
+
+  .hero-lede {
+    max-width: 355px;
+    margin-bottom: 0;
+    font-size: 16.5px;
+    line-height: 1.46;
+  }
+
+  /* On mobile the form is already immediately next, so the scroll CTA would
+     duplicate the same action. */
+  .hero-cta-wrap {
+    display: none;
+  }
+
+  /* Form becomes a true next section, not a floating card over photography. */
+  .signup-card {
+    grid-area: form;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 28px 0 4px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    overflow: visible;
+  }
+
+  .signup-card h2 {
+    margin-bottom: 6px;
+    font-size: 31px;
+    line-height: 1.02;
+  }
+
+  .signup-card .sub {
+    margin: 0 0 19px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .desktop-cancel {
+    display: none;
+  }
+
+  .form-stack {
+    gap: 12px;
+  }
+
+  /* 16px prevents Safari from zooming on focus; 52px is comfortably above
+     the 44px minimum touch target. */
+  .field {
+    width: 100%;
+    height: 52px;
+    min-height: 52px;
+    padding: 0 14px;
+    font-size: 16px;
+    border-radius: 6px;
+  }
+
+  .signup-card .button {
+    min-height: 52px;
+    margin-top: 2px;
+    font-size: 16px;
+  }
+
+  .form-note {
+    display: none;
+  }
+
+  .mobile-form-note {
+    display: block;
+    margin: 10px 0 0;
+    text-align: center;
+    color: #737b7c;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  /* Credibility stays, but reads as quiet proof after the conversion action. */
+  .hero-proof {
+    grid-area: proof;
+    justify-content: center;
+    gap: 6px 8px;
+    margin: 24px 0 0;
+    padding: 17px 4px 0;
+    border-top: 1px solid rgba(24,52,71,.11);
+    color: #6e7779;
+    font-size: 10.5px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .hero-proof i {
+    width: 3px;
+    height: 3px;
+    background: var(--orange);
+  }
+
+  .hero-proof em {
+    color: #8a9090;
+  }
+
+  /* Continue the same 16px-gutter rhythm through plans. */
+  .plans-section {
+    padding: 48px 0 56px;
+  }
+
+  .section-heading {
+    margin-bottom: 24px;
+  }
+
+  .section-heading h2 {
+    font-size: 37px;
+  }
+
+  .section-heading p {
+    max-width: 335px;
+    font-size: 14.5px;
+    line-height: 1.45;
+  }
+
+  .tier,
+  .tier.featured {
+    border-radius: 7px;
+    padding: 20px 16px 17px;
+  }
+
+  .tier-media {
+    margin: -20px -16px 16px;
+    height: 154px;
+  }
+
+  .tier-cta .button {
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  .final-cta .button {
+    min-height: 50px;
+  }
+}
+
 </style>
 </head>
 
@@ -1889,7 +2134,7 @@ footer {
         <input type="hidden" name="_template" value="table">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
         <h2>Add your home.</h2>
-        <p class="sub">We’ll confirm your route day by text. Cancel anytime.</p>
+        <p class="sub">We’ll confirm your route day by text. <span class="desktop-cancel">Cancel anytime.</span></p>
 
         <div class="form-stack">
           <input class="field" type="text" name="Home Address" placeholder="Home address" aria-label="Home address" autocomplete="street-address" required>
@@ -1899,6 +2144,7 @@ footer {
         </div>
 
         <div class="form-note" id="form-plan-note">$99/month · Base selected</div>
+        <div class="mobile-form-note" id="mobile-form-note">From $99/month · 2 visits included · Cancel anytime.</div>
         <div class="success" id="form-success" role="status" aria-live="polite">Got it. We’ll text you to confirm your route.</div>
         <div class="form-error" id="form-error" role="alert" aria-live="assertive">Something didn’t send. Please call us at <a href="tel:+19034618877">903-461-8877</a>.</div>
       </form>
@@ -1924,9 +2170,9 @@ footer {
 
           <article class="tier accent-gray">
             <div class="tier-media" data-rotator>
-              <img class="active" src="https://images.unsplash.com/photo-1653569511862-8a0320ae66cc?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Clean, cared-for front porch and walkway">
-              <img src="https://images.unsplash.com/photo-1634044229962-2f82612f81d8?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Front door with seasonal wreath, lanterns and welcome mat">
-              <img src="https://images.unsplash.com/photo-1691783444138-689dfd7eab35?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Tidy porch with front door, chairs and clean porch floor">
+              <img loading="lazy" decoding="async" class="active" src="https://images.unsplash.com/photo-1653569511862-8a0320ae66cc?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Clean, cared-for front porch and walkway">
+              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1634044229962-2f82612f81d8?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Front door with seasonal wreath, lanterns and welcome mat">
+              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1691783444138-689dfd7eab35?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Tidy porch with front door, chairs and clean porch floor">
               <div class="tier-media-label">Recurring front-entry care</div>
             </div>
 
@@ -1947,16 +2193,16 @@ footer {
             </ul>
 
             <div class="tier-cta">
-              <a href="#signup" class="button alt plan-select" data-plan="Base — Spruce Up" data-note="$99/month · Base selected" style="display:flex;align-items:center;justify-content:center;">Choose Base</a>
+              <a href="#signup" class="button alt plan-select" data-plan="Base — Spruce Up" data-note="$99/month · Base selected" data-mobile-note="From $99/month · 2 visits included · Cancel anytime." style="display:flex;align-items:center;justify-content:center;">Choose Base</a>
             </div>
           </article>
 
           <article class="tier featured accent-coral">
             <div class="tier-tag">Most popular</div>
             <div class="tier-media" data-rotator>
-              <img class="active" src="https://images.unsplash.com/photo-1754597215918-b4b1f113ca77?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Furnished wraparound porch with outdoor seating">
-              <img src="https://images.unsplash.com/photo-1720706439286-a642d2cd0db2?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Porch with table, chairs and flowers">
-              <img src="https://images.unsplash.com/photo-1781921131519-8830442ea1b6?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Screened porch and outdoor seating area">
+              <img loading="lazy" decoding="async" class="active" src="https://images.unsplash.com/photo-1754597215918-b4b1f113ca77?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Furnished wraparound porch with outdoor seating">
+              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1720706439286-a642d2cd0db2?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Porch with table, chairs and flowers">
+              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1781921131519-8830442ea1b6?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Screened porch and outdoor seating area">
               <div class="tier-media-label">Front + back porch care</div>
             </div>
 
@@ -1978,15 +2224,15 @@ footer {
             </ul>
 
             <div class="tier-cta">
-              <a href="#signup" class="button plan-select" data-plan="Plus — Curb Appeal" data-note="$148/month · Plus selected" style="display:flex;align-items:center;justify-content:center;">Choose Plus</a>
+              <a href="#signup" class="button plan-select" data-plan="Plus — Curb Appeal" data-note="$148/month · Plus selected" data-mobile-note="$148/month · 2 visits included · Cancel anytime." style="display:flex;align-items:center;justify-content:center;">Choose Plus</a>
             </div>
           </article>
 
           <article class="tier accent-blue">
             <div class="tier-media" data-rotator>
-              <img class="active" src="https://images.unsplash.com/photo-1682979460174-95470b1d92fd?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Black front door and exterior entry steps">
-              <img src="https://images.unsplash.com/photo-1682979461319-67bae677bd41?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="House exterior with path leading to the front door">
-              <img src="https://images.unsplash.com/photo-1764393188388-71ed75437a04?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Exterior porch lighting fixture on a home">
+              <img loading="lazy" decoding="async" class="active" src="https://images.unsplash.com/photo-1682979460174-95470b1d92fd?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Black front door and exterior entry steps">
+              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1682979461319-67bae677bd41?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="House exterior with path leading to the front door">
+              <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1764393188388-71ed75437a04?auto=format&fit=crop&fm=jpg&q=80&w=1200" alt="Exterior porch lighting fixture on a home">
               <div class="tier-media-label">Projects & exterior upgrades</div>
             </div>
 
@@ -2008,7 +2254,7 @@ footer {
             </ul>
 
             <div class="tier-cta">
-              <a href="#signup" class="button dark plan-select" data-plan="Priority — Concierge" data-note="Priority Concierge · we’ll follow up" style="display:flex;align-items:center;justify-content:center;">Get a Quote</a>
+              <a href="#signup" class="button dark plan-select" data-plan="Priority — Concierge" data-note="Priority Concierge · we’ll follow up" data-mobile-note="Custom quote · We’ll follow up personally." style="display:flex;align-items:center;justify-content:center;">Get a Quote</a>
             </div>
           </article>
 
@@ -2041,6 +2287,7 @@ footer {
   const form = document.getElementById("signup");
   const planInput = document.getElementById("selected-plan");
   const planNote = document.getElementById("form-plan-note");
+  const mobilePlanNote = document.getElementById("mobile-form-note");
   const success = document.getElementById("form-success");
   const error = document.getElementById("form-error");
   const submit = form.querySelector('button[type="submit"]');
