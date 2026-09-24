@@ -2717,6 +2717,78 @@ html {
   }
 }
 
+
+/* EVERYDAY HOME CARE STORY */
+.homecare-section {
+  padding: 74px 0;
+  background: var(--cream);
+  border-top: 1px solid rgba(16,36,56,.08);
+  border-bottom: 1px solid rgba(16,36,56,.08);
+}
+.homecare-inner {
+  width: min(1040px, calc(100% - 40px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
+  gap: 58px;
+  align-items: start;
+}
+.homecare-heading {
+  margin: 0;
+  max-width: 430px;
+  font-family: var(--display);
+  font-size: clamp(40px,4vw,54px);
+  line-height: 1.02;
+  letter-spacing: -.03em;
+  color: var(--navy);
+  font-weight: 650;
+}
+.homecare-heading::after {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 5px;
+  margin-top: 20px;
+  background: var(--orange);
+  border-radius: 2px;
+}
+.homecare-copy {
+  max-width: 590px;
+}
+.homecare-copy p {
+  margin: 0 0 18px;
+  color: #4f575c;
+  font-size: 17px;
+  line-height: 1.68;
+}
+.homecare-copy p:last-child {
+  margin-bottom: 0;
+}
+.homecare-close {
+  margin-top: 24px !important;
+  color: var(--navy) !important;
+  font-size: 18px !important;
+  font-weight: 700;
+}
+@media (max-width: 760px) {
+  .homecare-section {
+    padding: 56px 0;
+  }
+  .homecare-inner {
+    width: min(100% - 28px, 1040px);
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .homecare-heading {
+    max-width: 560px;
+    font-size: 42px;
+  }
+  .homecare-copy p {
+    font-size: 16px;
+    line-height: 1.62;
+  }
+}
+
 </style>
 </head>
 
@@ -2898,6 +2970,18 @@ html {
         </div>
 
         <p class="tier-help">Not sure which is right for you? <button type="button" class="tier-help-button plan-dialog-open" data-plan="Help me choose" data-dialog-title="We’ll help you choose" data-dialog-note="Tell us where to reach you and we’ll point you to the right fit.">We’ll help you figure it out.</button></p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="homecare-section">
+    <div class="homecare-inner">
+      <h2 class="homecare-heading">Remember when houses just stayed taken care of?</h2>
+      <div class="homecare-copy">
+        <p>Loose handles got tightened. Weeds between the pavers disappeared. Burned-out bulbs got changed. Small problems got noticed before they became big ones.</p>
+        <p>Porch Patrol brings that kind of everyday home care back. Twice a month, we stop by, handle the little things, and flag anything that needs more attention.</p>
+        <p class="homecare-close">You don’t have to know what to look for. That’s our job.</p>
       </div>
     </div>
   </section>
