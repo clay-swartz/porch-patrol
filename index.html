@@ -2791,6 +2791,383 @@ html {
   }
 }
 
+
+/* HOW A VISIT WORKS */
+.visit-works {
+  padding: 72px 0 76px;
+  background: var(--paper);
+}
+.visit-works .section-heading {
+  margin-bottom: 30px;
+}
+.visit-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 16px;
+}
+.visit-step {
+  position: relative;
+  min-height: 210px;
+  padding: 24px 20px 22px;
+  border: 1px solid #e4ddd2;
+  border-radius: 14px;
+  background: #fffdfa;
+  box-shadow: 0 10px 28px rgba(16,36,56,.055);
+}
+.visit-step-number {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+.visit-step-icon {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 16px;
+  color: var(--orange);
+}
+.visit-step h3 {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-size: 24px;
+  line-height: 1.05;
+  color: var(--navy);
+  font-weight: 650;
+}
+.visit-step p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.visit-supplies-note {
+  margin: 18px auto 0;
+  padding: 13px 16px;
+  border-radius: 10px;
+  background: var(--cream);
+  color: #596168;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+.visit-supplies-note strong {
+  color: var(--navy);
+}
+
+/* SAMPLE VISIT REPORT */
+.sample-report-section {
+  padding: 78px 0;
+  background: var(--paper);
+}
+.sample-report-wrap {
+  width: min(1040px, calc(100% - 40px));
+  margin: 0 auto;
+}
+.sample-report-heading {
+  max-width: 720px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+.sample-report-heading .eyebrow {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.sample-report-heading h2 {
+  margin: 0 0 10px;
+  font-family: var(--display);
+  color: var(--navy);
+  font-size: clamp(38px,4vw,52px);
+  line-height: 1;
+  letter-spacing: -.03em;
+  font-weight: 650;
+}
+.sample-report-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+.sample-report {
+  overflow: hidden;
+  border: 1px solid #e2dbd0;
+  border-radius: 18px;
+  background: #fffdfa;
+  box-shadow: 0 18px 46px rgba(16,36,56,.08);
+}
+.sample-report-topline {
+  height: 6px;
+  background: linear-gradient(90deg,var(--orange) 0 42%,var(--yellow) 42% 69%,var(--teal) 69% 100%);
+}
+.sample-report-head {
+  padding: 24px 28px 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid #e7e0d6;
+}
+.sample-report-title {
+  min-width: 0;
+}
+.sample-report-title .small {
+  margin: 0 0 4px;
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+.sample-report-title h3 {
+  margin: 0;
+  font-family: var(--display);
+  color: var(--navy);
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 650;
+}
+.sample-report-title p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.sample-report-home {
+  flex: 0 0 auto;
+  align-self: center;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: var(--cream);
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+}
+.sample-report-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 22px 28px 0;
+}
+.sample-report-photo {
+  overflow: hidden;
+  border: 1px solid #e4ddd2;
+  border-radius: 10px;
+  background: #fff;
+}
+.sample-report-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+}
+.sample-report-photo span {
+  display: block;
+  padding: 9px 11px 10px;
+  color: #5a646a;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.sample-report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 22px 28px;
+}
+.report-panel {
+  border: 1px solid #e4ddd2;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+.report-panel h4 {
+  margin: 0;
+  padding: 13px 15px;
+  font-family: var(--display);
+  font-size: 20px;
+  line-height: 1;
+  color: var(--navy);
+  font-weight: 650;
+}
+.report-panel.done h4 {
+  background: #edf6f2;
+}
+.report-panel.watch h4 {
+  background: #fff4dc;
+}
+.report-list {
+  list-style: none;
+  margin: 0;
+  padding: 12px 15px 14px;
+  display: grid;
+  gap: 10px;
+}
+.report-list li {
+  position: relative;
+  padding-left: 24px;
+  color: #445058;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.report-list li::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 800;
+}
+.report-panel.done .report-list li::before {
+  content: "✓";
+  color: var(--teal);
+}
+.report-panel.watch .report-list li::before {
+  content: "!";
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: 11px;
+}
+.report-note {
+  margin: 0 28px 24px;
+  padding: 15px 17px;
+  border-radius: 11px;
+  background: #eef4f5;
+  color: #43515a;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.report-note strong {
+  color: var(--navy);
+}
+.report-actions {
+  padding: 0 28px 28px;
+  display: flex;
+  gap: 12px;
+}
+.report-actions .button {
+  min-height: 46px;
+}
+.report-actions .button.alt {
+  background: #fff;
+}
+
+/* FAQ */
+.faq-section {
+  padding: 72px 0 78px;
+  background: var(--cream);
+  border-top: 1px solid rgba(16,36,56,.08);
+}
+.faq-wrap {
+  width: min(900px, calc(100% - 40px));
+  margin: 0 auto;
+}
+.faq-wrap .section-heading {
+  margin-bottom: 24px;
+}
+.faq-list {
+  display: grid;
+  gap: 10px;
+}
+.faq-item {
+  border: 1px solid #e1d8cb;
+  border-radius: 11px;
+  background: #fffdfa;
+  overflow: hidden;
+}
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 17px 48px 17px 18px;
+  position: relative;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 700;
+}
+.faq-item summary::-webkit-details-marker { display:none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--teal);
+  font-size: 22px;
+  font-weight: 500;
+}
+.faq-item[open] summary::after { content: "–"; }
+.faq-item p {
+  margin: 0;
+  padding: 0 18px 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.faq-interior {
+  margin-top: 18px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: var(--teal);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+}
+.faq-interior strong {
+  display: block;
+  margin-bottom: 3px;
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1.05;
+  font-weight: 650;
+}
+.faq-interior span {
+  color: rgba(255,255,255,.84);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.faq-interior .button {
+  flex: 0 0 auto;
+  min-height: 44px;
+  background: var(--yellow);
+  color: var(--navy);
+}
+
+@media (max-width: 900px) {
+  .visit-steps { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 700px) {
+  .sample-report-head { flex-direction: column; }
+  .sample-report-home { align-self: flex-start; }
+  .sample-report-photos { grid-template-columns: 1fr; }
+  .sample-report-grid { grid-template-columns: 1fr; }
+  .report-actions { flex-direction: column; }
+  .faq-interior { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 560px) {
+  .visit-works,
+  .sample-report-section,
+  .faq-section { padding: 54px 0 58px; }
+  .visit-steps { grid-template-columns: 1fr; }
+  .visit-step { min-height: 0; }
+  .sample-report-wrap,
+  .faq-wrap { width: min(100% - 28px, 1040px); }
+  .sample-report-head,
+  .sample-report-photos,
+  .sample-report-grid,
+  .report-actions { padding-left: 16px; padding-right: 16px; }
+  .report-note { margin-left: 16px; margin-right: 16px; }
+}
+
 </style>
 </head>
 
@@ -2837,14 +3214,6 @@ html {
         <div class="success" id="form-success" role="status" aria-live="polite">Got it. We’ll text you to confirm your route.</div>
         <div class="form-error" id="form-error" role="alert" aria-live="assertive">Something didn’t send. Please call us at <a href="tel:+19034618877">903-461-8877</a>.</div>
       </form>
-
-      <div class="hero-proof" aria-label="Porch Patrol credentials">
-        <span>HomeAdvisor Top Rated</span>
-        <i></i>
-        <span>BBB Accredited</span>
-        <i></i>
-        <span>Trustpilot 4.8 <em>· 347 reviews</em></span>
-      </div>
     </div>
 </section>
 <section class="section plans-section">
@@ -2977,6 +3346,48 @@ html {
   </section>
 
 
+
+  <section class="visit-works">
+    <div class="shell">
+      <div class="section-heading">
+        <h2>How a visit works</h2>
+        <p>A quick exterior sweep, small fixes handled, and a clear report every time.</p>
+      </div>
+
+      <div class="visit-steps">
+        <article class="visit-step">
+          <div class="visit-step-number">1</div>
+          <svg class="visit-step-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10v9h13v-9M9 19v-5h6v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>We stop by</h3>
+          <p>No scheduling hassle and no need to be home.</p>
+        </article>
+
+        <article class="visit-step">
+          <div class="visit-step-number">2</div>
+          <svg class="visit-step-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7M18 10l2 2-5 5-3 1 1-3 5-5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>We make the sweep</h3>
+          <p>Entry, walkways, lights, pavers, railings, planters, gates, gutters and the little things homeowners miss.</p>
+        </article>
+
+        <article class="visit-step">
+          <div class="visit-step-number">3</div>
+          <svg class="visit-step-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5.5 4 4M12 8l4 4M4 20l4.5-1 10-10-3.5-3.5-10 10L4 20ZM3 7h6M6 4v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>We handle the little stuff</h3>
+          <p>Sweep, straighten, clear debris, tighten hardware, replace bulbs and take care of standard upkeep on the spot.</p>
+        </article>
+
+        <article class="visit-step">
+          <div class="visit-step-number">4</div>
+          <svg class="visit-step-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4H7V3ZM5 5H4a1 1 0 0 0-1 1v14h18V6a1 1 0 0 0-1-1h-1M7 11h10M7 15h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>You get the report</h3>
+          <p>Photos, what we handled, what to watch and a quote if something bigger needs attention.</p>
+        </article>
+      </div>
+
+      <div class="visit-supplies-note"><strong>Standard supplies are included.</strong> Cleaning basics, nails, screws, common bulbs and the odds-and-ends needed for normal upkeep are part of the service. If we need something special, we’ll note it and bring it next time.</div>
+    </div>
+  </section>
+
   <section class="homecare-section">
     <div class="homecare-inner">
       <h2 class="homecare-heading">Remember when houses just stayed taken care of?</h2>
@@ -2984,6 +3395,115 @@ html {
         <p>Loose handles got tightened. Weeds between the pavers disappeared. Burned-out bulbs got changed. Small problems got noticed before they became big ones.</p>
         <p>Porch Patrol brings that kind of everyday home care back. Twice a month, we stop by, handle the little things, and flag anything that needs more attention.</p>
         <p class="homecare-close">You don’t have to know what to look for. That’s our job.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sample-report-section">
+    <div class="sample-report-wrap">
+      <div class="sample-report-heading">
+        <p class="eyebrow">Sample visit report</p>
+        <h2>Know exactly what got handled.</h2>
+        <p>Every visit ends with a clear photo update, so you know what we took care of and what may need attention next.</p>
+      </div>
+
+      <div class="sample-report" aria-label="Example Porch Patrol visit report">
+        <div class="sample-report-topline"></div>
+        <div class="sample-report-head">
+          <div class="sample-report-title">
+            <p class="small">Porch Patrol</p>
+            <h3>Today’s visit</h3>
+            <p>Exterior service complete · Photo update sent</p>
+          </div>
+          <div class="sample-report-home">Sample home</div>
+        </div>
+
+        <div class="sample-report-photos">
+          <div class="sample-report-photo">
+            <img loading="lazy" decoding="async" src="/images/images-1.jpg" alt="Tidy front entry after service">
+            <span>Front entry refreshed</span>
+          </div>
+          <div class="sample-report-photo">
+            <img loading="lazy" decoding="async" src="/images/front-entry-powerwash.webp" alt="Walkway being cleaned">
+            <span>Walkway cleaned and weeds cleared</span>
+          </div>
+          <div class="sample-report-photo">
+            <img loading="lazy" decoding="async" src="/images/image-6463.jpg" alt="Exterior light and front porch area">
+            <span>Porch light checked and exterior details reset</span>
+          </div>
+        </div>
+
+        <div class="sample-report-grid">
+          <div class="report-panel done">
+            <h4>Handled today</h4>
+            <ul class="report-list">
+              <li>Cleared cobwebs and debris from front entry</li>
+              <li>Straightened mat, chairs and planters</li>
+              <li>Replaced burned-out porch bulb</li>
+              <li>Tightened loose gate latch</li>
+              <li>Pulled weeds between pavers</li>
+            </ul>
+          </div>
+
+          <div class="report-panel watch">
+            <h4>Worth a look</h4>
+            <ul class="report-list">
+              <li>Gutter strap at left front corner is starting to loosen</li>
+              <li>Front planter is ready for a seasonal refresh</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="report-note"><strong>From your crew:</strong> Your exterior is in good shape overall. We handled the small items above and flagged two things worth addressing before they become bigger projects.</p>
+
+        <div class="report-actions">
+          <button type="button" class="button dark plan-dialog-open" data-plan="Project request" data-dialog-title="Ask us to handle it" data-dialog-note="Tell us what you want taken care of and we’ll follow up personally.">Ask us to handle it</button>
+          <button type="button" class="button alt" disabled aria-disabled="true">Full photo report included with every visit</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="faq-wrap">
+      <div class="section-heading">
+        <h2>Good to know</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Do I need to be home?</summary>
+          <p>No. Porch Patrol is designed to be easy. We handle your exterior service on your regular route day and send your report when we’re finished.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What’s included in my monthly rate?</summary>
+          <p>Your recurring visits, standard exterior upkeep, routine small fixes and the basic supplies we normally carry—cleaning supplies, nails, screws, common bulbs and similar odds and ends. Front Entry covers the entry area; Full Exterior extends the sweep around the home.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Are materials ever extra?</summary>
+          <p>Only when the job calls for something beyond normal upkeep—specialty bulbs or hardware, new décor, replacement pillows or rugs, plants, project materials and similar purchases. We’ll let you know first.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What if you find something bigger?</summary>
+          <p>We’ll flag it in your visit report and tell you what we found. Nothing beyond your regular service gets added without your approval. Members get preferred pricing on larger projects.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Will I usually see the same crew?</summary>
+          <p>Yes. We assign regular routes so your home is typically cared for by the same Porch Patrol team whenever possible.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I cancel anytime?</summary>
+          <p>Yes. There’s no long-term contract required.</p>
+        </details>
+      </div>
+
+      <div class="faq-interior">
+        <div>
+          <strong>We start outside. Need help indoors? Just ask.</strong>
+          <span>Interior handyman help is available by request and quoted separately when needed.</span>
+        </div>
+        <button type="button" class="button plan-dialog-open" data-plan="Interior help" data-dialog-title="Need help inside?" data-dialog-note="Tell us what you need handled and we’ll follow up personally.">Ask about interior help</button>
       </div>
     </div>
   </section>
