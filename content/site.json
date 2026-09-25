@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "site": {
+    "name": "Porch Patrol",
+    "phoneDisplay": "903-461-8877",
+    "phoneHref": "tel:+19034618877",
+    "serviceAreaShort": "Heath + Rockwall",
+    "serviceAreaLong": "Heath + Rockwall, Texas",
+    "copyrightYear": 2026
+  },
+  "global": {
+    "header": {
+      "id": "site-header",
+      "type": "siteHeader",
+      "variant": "standard",
+      "enabled": true
+    },
+    "leadDialog": {
+      "id": "lead-dialog",
+      "type": "leadDialog",
+      "variant": "standard",
+      "enabled": true,
+      "eyebrow": "Porch Patrol",
+      "headline": "Start service",
+      "supportingText": "We’ll confirm your route day by text.",
+      "defaultPlan": "Front Entry",
+      "priceNote": "$99/month · 2 visits included · Cancel anytime.",
+      "submitLabel": "Continue",
+      "successMessage": "Got it. We’ll text you shortly."
+    },
+    "footer": {
+      "id": "site-footer",
+      "type": "siteFooter",
+      "variant": "standard",
+      "enabled": true
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Porch Patrol — Heath + Rockwall",
+      "sections": [
+        {
+          "id": "hero",
+          "type": "heroLead",
+          "variant": "patternedNavy",
+          "enabled": true,
+          "headlineLines": [
+            "Curb appeal",
+            "on autopilot."
+          ],
+          "subhead": "Twice a month, we patrol your home’s exterior, take care of the little things, and flag bigger issues early. No scheduling. No need to be home.",
+          "proofLabel": "Think:",
+          "proofItems": [
+            "burned-out bulbs",
+            "loose hardware",
+            "weeds",
+            "cobwebs",
+            "drips",
+            "dirty mats"
+          ],
+          "priceLine": "From $99/month · 2 visits included.",
+          "form": {
+            "headline": "First visit’s on the house.",
+            "defaultPlan": "Front Entry",
+            "fields": [
+              {
+                "name": "Home Address",
+                "label": "Home address",
+                "type": "text",
+                "autocomplete": "street-address",
+                "required": true
+              },
+              {
+                "name": "Name",
+                "label": "Your name",
+                "type": "text",
+                "autocomplete": "name",
+                "required": true
+              },
+              {
+                "name": "Mobile",
+                "label": "Mobile number",
+                "type": "tel",
+                "autocomplete": "tel",
+                "inputmode": "tel",
+                "required": true
+              }
+            ],
+            "submitLabel": "Add my home",
+            "reassurance": "We’ll confirm your route day by text. Cancel anytime.",
+            "successMessage": "Got it. We’ll text you to confirm your route."
+          }
+        },
+        {
+          "id": "process",
+          "type": "processSteps",
+          "variant": "mediaSwap",
+          "enabled": true,
+          "eyebrow": "Our Process",
+          "headline": "What to expect each visit.",
+          "supportingText": "We look everything over, handle what we can, flag what needs attention and send you the details.",
+          "steps": [
+            {
+              "heading": "A closer eye on the little things",
+              "body": "Our trusted experts visit on schedule to spot what’s changed, what’s out of place, and what could become a bigger problem.",
+              "mediaLabel": "Patrol visit",
+              "image": {
+                "src": "/images/process-patrol.png",
+                "alt": "Porch Patrol team member inspecting a home's front porch"
+              }
+            },
+            {
+              "heading": "We take care of the small stuff",
+              "body": "Quick fixes and routine upkeep get handled instead of being added to another to-do list.",
+              "mediaLabel": "Work in progress",
+              "image": {
+                "src": "/images/process-work.png",
+                "alt": "Porch Patrol team member washing a residential sidewalk"
+              }
+            },
+            {
+              "heading": "You stay in the know",
+              "body": "After each visit, you get a detailed report showing what we handled, what we noticed, and what needs attention.",
+              "mediaLabel": "Visit report",
+              "image": {
+                "src": "/images/process-report.png",
+                "alt": "Homeowner reviewing a Porch Patrol visit report on her phone"
+              }
+            }
+          ]
+        },
+        {
+          "id": "service-ticker",
+          "type": "serviceTicker",
+          "variant": "creamBento",
+          "enabled": true,
+          "ariaLabel": "Examples of what Porch Patrol handles",
+          "pauseInstruction": "Examples of what Porch Patrol handles. Hover or focus to pause.",
+          "items": [
+            { "icon": "water_drop", "label": "Drips & Leaks" },
+            { "icon": "home_repair_service", "label": "Siding & Hardware" },
+            { "icon": "construction", "label": "Caulk & Sealant" },
+            { "icon": "rainy", "label": "Gutter Issues" },
+            { "icon": "lightbulb", "label": "Light Bulbs" },
+            { "icon": "grass", "label": "Weeds & Debris" },
+            { "icon": "cleaning_services", "label": "Cobweb Removal" },
+            { "icon": "ink_eraser", "label": "Stain Removal" },
+            { "icon": "chair", "label": "Mat & Furniture Reset" },
+            { "icon": "celebration", "label": "Décor Reset" },
+            { "icon": "potted_plant", "label": "Planter Care" },
+            { "icon": "auto_awesome", "label": "Scrubbing & Polishing" }
+          ],
+          "cta": {
+            "label": "Patrol my place.",
+            "href": "#signup",
+            "showArrow": true
+          }
+        },
+        {
+          "id": "faq",
+          "type": "faqAccordion",
+          "variant": "standard",
+          "enabled": true,
+          "headline": "Good to know",
+          "intro": {
+            "prefix": "Have another question? Feel free to",
+            "linkLabel": "call or text us anytime",
+            "href": "tel:+19034618877"
+          },
+          "items": [
+            {
+              "question": "How does a visit work?",
+              "lead": "We stop by on your regular route day.",
+              "answer": "No appointment window and no need to be home. We walk the area covered by your plan, handle the routine upkeep and small fixes we can take care of on the spot, note anything that needs a special part or a return visit, and send you a photo report when we’re done. If we spot something bigger, we’ll flag it and let you decide what happens next."
+            },
+            {
+              "question": "Do I need to be home?",
+              "answer": "No. That’s part of the point. Porch Patrol is an exterior service, so we can take care of your regular visit whether you’re at work, out of town or just busy doing something else."
+            },
+            {
+              "question": "What’s included in my monthly rate?",
+              "answer": "Your two recurring visits each month, standard upkeep, routine small fixes, a photo report after each visit and the everyday supplies we normally carry. That includes things like cleaning supplies, nails, screws, common bulbs and other small odds and ends used for normal upkeep. Front Entry covers the entry area; Full Exterior extends the sweep around your home."
+            },
+            {
+              "question": "What kinds of little things will you actually handle?",
+              "answer": "Think of the things that make a house feel cared for: clearing cobwebs and debris, straightening mats and outdoor furniture, replacing common burned-out bulbs, tightening loose hardware, pulling weeds between pavers, resetting planters or décor, cleaning up around entries and handling other small maintenance items we notice along the way."
+            },
+            {
+              "question": "Are supplies or materials ever extra?",
+              "answer": "Most of the little stuff is included. If a job needs something we don’t normally carry—specialty hardware, a unique bulb, replacement décor, new pillows or rugs, plants or project materials—we’ll let you know. If it’s a simple item we can bring on the next visit, we’ll note it and come prepared."
+            },
+            {
+              "question": "What if you find something bigger?",
+              "answer": "We’ll show you what we found in your visit report and explain what needs attention. Nothing outside your regular service is added without your approval. If you want us to take care of it, members get preferred pricing on larger repairs and exterior projects."
+            },
+            {
+              "question": "Will I usually have the same crew?",
+              "answer": "Yes. Porch Patrol is family-owned and our team works regular routes, so we’ll keep the same people familiar with your home whenever possible."
+            },
+            {
+              "question": "Can you help with something inside the house?",
+              "answer": "Yes—when you ask. The recurring service stays outside so it stays simple, but members can request interior handyman help for things like a loose cabinet hinge, changing filters, replacing indoor bulbs or other small jobs. We’ll quote anything outside your regular membership before doing the work."
+            },
+            {
+              "question": "Can I cancel anytime?",
+              "answer": "Yes. There’s no long-term contract. If Porch Patrol stops being useful for your home, you can cancel."
+            }
+          ]
+        },
+        {
+          "id": "final-cta",
+          "type": "ctaBand",
+          "variant": "centered",
+          "enabled": true,
+          "headline": "Let us keep up with the upkeep.",
+          "cta": {
+            "label": "Start service",
+            "href": "#signup"
+          }
+        }
+      ]
+    }
+  }
+}
