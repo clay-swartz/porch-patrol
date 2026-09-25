@@ -54,10 +54,13 @@ export function renderSiteHeader(site, component = {}) {
   ].join("");
 }
 
-export function renderHeroLead(component) {
+export function renderHeroLead(component, context = {}) {
   if (component.enabled === false) return "";
 
   const form = component.form || {};
+  const site = context.site || {};
+  const phoneHref = site.phoneHref || "tel:+19034618877";
+  const phoneDisplay = site.phoneDisplay || "903-461-8877";
   const fields = (form.fields || []).map((field) => {
     return [
       '<input class="field"',
@@ -100,7 +103,7 @@ export function renderHeroLead(component) {
           '<div class="form-note" id="form-plan-note">' + escapeHtml(form.reassurance) + "</div>",
           '<div class="mobile-form-note" id="mobile-form-note">' + escapeHtml(form.reassurance) + "</div>",
           '<div class="success" id="form-success" role="status" aria-live="polite">' + escapeHtml(form.successMessage) + "</div>",
-          '<div class="form-error" id="form-error" role="alert" aria-live="assertive">Something didn’t send. Please call us.</div>',
+          '<div class="form-error" id="form-error" role="alert" aria-live="assertive">Something didn’t send. Please call us at <a' + attr("href", phoneHref) + '>' + escapeHtml(phoneDisplay) + '</a>.</div>',
         "</form>",
       "</div>",
     "</section>"
@@ -266,8 +269,12 @@ export function renderCTABand(component) {
   ].join("");
 }
 
-export function renderLeadDialog(component) {
+export function renderLeadDialog(component, context = {}) {
   if (component.enabled === false) return "";
+
+  const site = context.site || {};
+  const phoneHref = site.phoneHref || "tel:+19034618877";
+  const phoneDisplay = site.phoneDisplay || "903-461-8877";
 
   return [
     '<dialog class="plan-dialog" id="plan-dialog" aria-labelledby="plan-dialog-title" data-pp-component="leadDialog">',
@@ -289,7 +296,7 @@ export function renderLeadDialog(component) {
           "</div>",
           '<div class="plan-dialog-price" id="plan-dialog-price">' + escapeHtml(component.priceNote) + "</div>",
           '<div class="success" id="dialog-success" role="status" aria-live="polite">' + escapeHtml(component.successMessage) + "</div>",
-          '<div class="form-error" id="dialog-error" role="alert" aria-live="assertive">Something didn’t send. Please call us.</div>',
+          '<div class="form-error" id="dialog-error" role="alert" aria-live="assertive">Something didn’t send. Please call us at <a' + attr("href", phoneHref) + '>' + escapeHtml(phoneDisplay) + '</a>.</div>',
         "</form>",
       "</div>",
     "</dialog>"
@@ -322,7 +329,7 @@ export const componentRenderers = {
   ctaBand: renderCTABand
 };
 
-export function renderPage(page) {
+export function renderPage(page, context = {}) {
   return (page.sections || [])
     .filter((section) => section.enabled !== false)
     .map((section) => {
@@ -331,7 +338,7 @@ export function renderPage(page) {
         console.warn("Unknown Porch Patrol component type:", section.type);
         return "";
       }
-      return renderer(section);
+      return renderer(section, context);
     })
     .join("");
 }
