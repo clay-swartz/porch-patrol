@@ -8,10 +8,8 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 const authView = document.getElementById("auth-view");
 const editorView = document.getElementById("editor-view");
 const authStatus = document.getElementById("auth-status");
-const passwordForm = document.getElementById("password-form");
-const authEmail = document.getElementById("auth-email");
-const authPassword = document.getElementById("auth-password");
-const magicLinkButton = document.getElementById("magic-link-button");
+const passcodeForm = document.getElementById("passcode-form");
+const editorPasscode = document.getElementById("editor-passcode");
 const saveStatus = document.getElementById("save-status");
 const sectionList = document.getElementById("section-list");
 const editorForm = document.getElementById("component-editor");
@@ -28,7 +26,7 @@ const confirmAction = document.getElementById("confirm-action");
 let state = null;
 let selected = "global";
 let dirty = false;
-let user = null;
+let editorToken = sessionStorage.getItem("porchPatrolEditorToken") || "";
 
 const labels = {
   heroLead: "Hero",
@@ -445,53 +443,32 @@ function newSection(type) {
 async function loadEditor() {
   setStatus("Loading…");
 
-  const [{ data: settings, error: settingsError }, { data: page, error: pageError }] = await Promise.all([
-    supabase.from("porch_patrol_site_settings").select("*").eq("id", "global").single(),
-    supabase.from("porch_patrol_site_pages").select("*").eq("slug", "home").single()
-  ]);
+  const { data, error } = await supabase.rpc("get_porch_patrol_editor_state", {
+    p_token: editorToken
+  });
 
-  if (settingsError || pageError) {
-    throw new Error("This account does not have access to the Porch Patrol editor.");
+  if (error || !data) {
+    throw new Error("Editor session expired. Enter the passcode again.");
   }
 
-  state = {
-    schemaVersion: settings.schema_version || 1,
-    ...structuredClone(settings.draft_content),
-    pages: { home: structuredClone(page.draft_content) }
-  };
-
+  state = structuredClone(data);
   dirty = false;
   setStatus("Draft loaded", "good");
   renderAll();
 }
 
 async function saveDraft() {
-  if (!state || !user) return;
+  if (!state || !editorToken) return;
   setStatus("Saving…");
 
-  const globalPayload = { site: state.site, global: state.global };
-  const pagePayload = state.pages.home;
-  const now = new Date().toISOString();
+  const { error } = await supabase.rpc("save_porch_patrol_editor_draft", {
+    p_token: editorToken,
+    p_content: state
+  });
 
-  const [{ error: settingsError }, { error: pageError }] = await Promise.all([
-    supabase.from("porch_patrol_site_settings").update({
-      schema_version: state.schemaVersion,
-      draft_content: globalPayload,
-      draft_updated_at: now,
-      updated_by: user.id
-    }).eq("id", "global"),
-    supabase.from("porch_patrol_site_pages").update({
-      title: pagePayload.title,
-      schema_version: state.schemaVersion,
-      draft_content: pagePayload,
-      draft_updated_at: now,
-      updated_by: user.id
-    }).eq("slug", "home")
-  ]);
-
-  if (settingsError || pageError) {
+  if (error) {
     setStatus("Save failed", "error");
-    throw settingsError || pageError;
+    throw error;
   }
 
   dirty = false;
@@ -502,96 +479,71 @@ async function publish() {
   await saveDraft();
   setStatus("Publishing…");
 
-  const now = new Date().toISOString();
-  const globalPayload = { site: state.site, global: state.global };
-  const pagePayload = state.pages.home;
+  const { error } = await supabase.rpc("publish_porch_patrol_editor_draft", {
+    p_token: editorToken
+  });
 
-  const [{ error: settingsError }, { error: pageError }] = await Promise.all([
-    supabase.from("porch_patrol_site_settings").update({
-      published_content: globalPayload,
-      published_at: now,
-      updated_by: user.id
-    }).eq("id", "global"),
-    supabase.from("porch_patrol_site_pages").update({
-      published_content: pagePayload,
-      published_at: now,
-      updated_by: user.id
-    }).eq("slug", "home")
-  ]);
-
-  if (settingsError || pageError) {
+  if (error) {
     setStatus("Publish failed", "error");
-    throw settingsError || pageError;
+    throw error;
   }
 
-  setStatus("Published to CMS", "good");
+  setStatus("Published", "good");
 }
 
-async function showEditorForSession(session) {
-  user = session?.user || null;
-  if (!user) {
-    authView.hidden = false;
-    editorView.hidden = true;
-    return;
-  }
+function showLogin(message = "") {
+  state = null;
+  editorView.hidden = true;
+  authView.hidden = false;
+  authStatus.textContent = message;
+  setStatus("Ready");
+}
 
+async function openEditor() {
   authView.hidden = true;
   editorView.hidden = false;
 
   try {
     await loadEditor();
   } catch (error) {
-    editorView.hidden = true;
-    authView.hidden = false;
-    authStatus.textContent = error.message;
-    await supabase.auth.signOut();
+    editorToken = "";
+    sessionStorage.removeItem("porchPatrolEditorToken");
+    showLogin(error.message);
   }
 }
 
-passwordForm.addEventListener("submit", async (event) => {
+passcodeForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  authStatus.textContent = "Signing in…";
+  authStatus.textContent = "Opening editor…";
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: authEmail.value.trim(),
-    password: authPassword.value
+  const { data, error } = await supabase.rpc("porch_patrol_editor_login", {
+    p_passcode: editorPasscode.value
   });
 
-  if (error) {
-    authStatus.textContent = error.message;
+  if (error || !data) {
+    authStatus.textContent = "That passcode didn’t work.";
+    editorPasscode.select();
     return;
   }
 
+  editorToken = data;
+  sessionStorage.setItem("porchPatrolEditorToken", editorToken);
+  editorPasscode.value = "";
   authStatus.textContent = "";
-  await showEditorForSession(data.session);
-});
-
-magicLinkButton.addEventListener("click", async () => {
-  const email = authEmail.value.trim();
-  if (!email) {
-    authStatus.textContent = "Enter your email first.";
-    authEmail.focus();
-    return;
-  }
-
-  authStatus.textContent = "Sending sign-in link…";
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options:{
-      shouldCreateUser:false,
-      emailRedirectTo: window.location.origin + "/admin/"
-    }
-  });
-
-  authStatus.textContent = error ? error.message : "Check your email for the sign-in link.";
+  await openEditor();
 });
 
 signoutButton.addEventListener("click", async () => {
-  await supabase.auth.signOut();
-  state = null;
-  user = null;
-  editorView.hidden = true;
-  authView.hidden = false;
+  if (editorToken) {
+    await supabase.rpc("porch_patrol_editor_logout", {
+      p_token: editorToken
+    });
+  }
+
+  editorToken = "";
+  sessionStorage.removeItem("porchPatrolEditorToken");
+  dirty = false;
+  showLogin();
 });
 
 editorForm.addEventListener("submit", (event) => event.preventDefault());
@@ -726,10 +678,8 @@ window.addEventListener("beforeunload", (event) => {
   event.returnValue = "";
 });
 
-const { data: { session } } = await supabase.auth.getSession();
-await showEditorForSession(session);
-
-supabase.auth.onAuthStateChange((_event, session) => {
-  if (session?.user?.id === user?.id) return;
-  showEditorForSession(session);
-});
+if (editorToken) {
+  await openEditor();
+} else {
+  showLogin();
+}

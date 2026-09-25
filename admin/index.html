@@ -17,21 +17,15 @@
       <div class="brand">Porch <span>Patrol</span></div>
       <p class="eyebrow">SITE EDITOR</p>
       <h1>Keep the site current.</h1>
-      <p class="auth-copy">Sign in with an existing Porch Patrol admin account.</p>
+      <p class="auth-copy">Enter the Porch Patrol editor passcode.</p>
 
-      <form id="password-form" class="auth-form">
+      <form id="passcode-form" class="auth-form">
         <label>
-          <span>Email</span>
-          <input id="auth-email" type="email" autocomplete="email" required>
+          <span>Editor passcode</span>
+          <input id="editor-passcode" type="password" autocomplete="current-password" required>
         </label>
-        <label>
-          <span>Password</span>
-          <input id="auth-password" type="password" autocomplete="current-password">
-        </label>
-        <button class="primary-button" type="submit">Sign in</button>
+        <button class="primary-button" type="submit">Open editor</button>
       </form>
-
-      <button id="magic-link-button" class="text-button" type="button">Email me a sign-in link instead</button>
       <p id="auth-status" class="status-message" role="status" aria-live="polite"></p>
     </div>
   </div>
