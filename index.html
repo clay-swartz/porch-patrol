@@ -3486,6 +3486,89 @@ html {
   }
 }
 
+
+/* =========================================================
+   HERO CLARITY + CONVERSION — 2026-09-25
+   Production baseline preserved; proof line + compact form.
+   ========================================================= */
+.hero.hero-patterned .hero-lede {
+  margin-bottom: 0 !important;
+}
+
+.hero.hero-patterned .hero-proof-line {
+  max-width: 610px;
+  margin: 14px 0 0;
+  color: rgba(255,250,241,.72);
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 500;
+  letter-spacing: .005em;
+}
+
+.hero.hero-patterned .hero-proof-line strong {
+  color: var(--yellow);
+  font-weight: 800;
+}
+
+.hero.hero-patterned .hero-price-note {
+  margin-top: 16px;
+  padding-left: 0;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.hero.hero-patterned .signup-card {
+  max-width: 430px;
+  padding: 28px !important;
+  border-radius: 16px !important;
+}
+
+.hero.hero-patterned .hero-form-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+}
+
+.hero.hero-patterned .hero-form-grid input[name="Home Address"],
+.hero.hero-patterned .hero-form-grid .button {
+  grid-column: 1 / -1;
+}
+
+.hero.hero-patterned .hero-form-grid .field {
+  min-width: 0;
+  height: 52px !important;
+}
+
+.hero.hero-patterned .hero-form-grid .button {
+  min-height: 52px !important;
+}
+
+@media (max-width: 560px) {
+  .hero.hero-patterned .hero-proof-line {
+    max-width: 355px;
+    margin-top: 13px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .hero.hero-patterned .hero-price-note {
+    margin-top: 14px;
+  }
+
+  .hero.hero-patterned .signup-card {
+    padding: 24px 18px 20px !important;
+    border-radius: 14px !important;
+  }
+
+  .hero.hero-patterned .hero-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero.hero-patterned .hero-form-grid input[name="Home Address"],
+  .hero.hero-patterned .hero-form-grid .button {
+    grid-column: 1;
+  }
+}
+
 </style>
 </head>
 
@@ -3521,11 +3604,9 @@ html {
     <div class="hero-inner">
       <div class="hero-copy">
         <h1>Curb appeal<br>on autopilot.</h1>
-        <p class="hero-lede">Twice a month, we patrol your home’s exterior, take care of the little things, and catch bigger issues early. No scheduling. No need to be home. One flat monthly rate.</p>
-        <div class="hero-cta-wrap">
-          <a href="#signup" class="button" style="display:inline-flex;align-items:center;">Add my home</a>
-          <div class="hero-price-note">From $99/month · 2 visits included.</div>
-        </div>
+        <p class="hero-lede">Twice a month, we patrol your home’s exterior, take care of the little things, and flag bigger issues early. No scheduling. No need to be home.</p>
+        <p class="hero-proof-line"><strong>Think:</strong> burned-out bulbs · loose hardware · weeds · cobwebs · drips · dirty mats</p>
+        <div class="hero-price-note">From $99/month · 2 visits included.</div>
       </div>
 
       <form class="signup-card" id="signup">
@@ -3536,11 +3617,11 @@ html {
         <h2>First visit’s on the house.</h2>
         <p class="sub">We’ll confirm your route day by text. <span class="desktop-cancel">Cancel anytime.</span></p>
 
-        <div class="form-stack">
+        <div class="form-stack hero-form-grid">
           <input class="field" type="text" name="Home Address" placeholder="Home address" aria-label="Home address" autocomplete="street-address" required>
           <input class="field" type="text" name="Name" placeholder="Your name" aria-label="Your name" autocomplete="name" required>
           <input class="field" type="tel" name="Mobile" placeholder="Mobile number" aria-label="Mobile number" autocomplete="tel" inputmode="tel" required>
-          <button class="button" type="submit">Spruce up my home</button>
+          <button class="button" type="submit">Add my home</button>
         </div>
 
         <div class="form-note" id="form-plan-note">$99/month · Front Entry selected</div>
