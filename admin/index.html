@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Porch Patrol — Site Editor</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,650;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <div id="auth-view" class="auth-shell" hidden>
+    <div class="auth-card">
+      <div class="brand">Porch <span>Patrol</span></div>
+      <p class="eyebrow">SITE EDITOR</p>
+      <h1>Keep the site current.</h1>
+      <p class="auth-copy">Sign in with an existing Porch Patrol admin account.</p>
+
+      <form id="password-form" class="auth-form">
+        <label>
+          <span>Email</span>
+          <input id="auth-email" type="email" autocomplete="email" required>
+        </label>
+        <label>
+          <span>Password</span>
+          <input id="auth-password" type="password" autocomplete="current-password">
+        </label>
+        <button class="primary-button" type="submit">Sign in</button>
+      </form>
+
+      <button id="magic-link-button" class="text-button" type="button">Email me a sign-in link instead</button>
+      <p id="auth-status" class="status-message" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div id="editor-view" class="app-shell" hidden>
+    <header class="editor-header">
+      <div>
+        <div class="brand brand-small">Porch <span>Patrol</span></div>
+        <div class="editor-subtitle">Site Editor</div>
+      </div>
+
+      <div class="header-actions">
+        <span id="save-status" class="save-status">Ready</span>
+        <button id="preview-button" class="secondary-button" type="button">Preview</button>
+        <button id="save-button" class="secondary-button" type="button">Save draft</button>
+        <button id="publish-button" class="primary-button" type="button">Publish</button>
+        <button id="signout-button" class="quiet-button" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <main class="editor-layout">
+      <aside class="outline-panel">
+        <div class="outline-heading">
+          <div>
+            <p class="eyebrow">HOME PAGE</p>
+            <h2>Sections</h2>
+          </div>
+        </div>
+
+        <button class="outline-item outline-item-global" type="button" data-select="global">
+          <span class="outline-index">G</span>
+          <span>
+            <strong>Site settings</strong>
+            <small>Header, phone, service area</small>
+          </span>
+        </button>
+
+        <div id="section-list" class="section-list"></div>
+
+        <div class="add-section">
+          <select id="add-section-type" aria-label="Component to add">
+            <option value="">Add section…</option>
+            <option value="horizontalContentStrip">Horizontal content strip</option>
+            <option value="processSteps">Process / steps</option>
+            <option value="serviceTicker">Service ticker</option>
+            <option value="faqAccordion">FAQ</option>
+            <option value="ctaBand">CTA band</option>
+          </select>
+          <button id="add-section-button" type="button" class="add-button">Add</button>
+        </div>
+      </aside>
+
+      <section class="editor-panel">
+        <div id="editor-empty" class="editor-empty">
+          <p>Select a component to edit.</p>
+        </div>
+        <form id="component-editor" class="component-editor" hidden></form>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="confirm-dialog" class="confirm-dialog">
+    <form method="dialog">
+      <h2 id="confirm-title">Publish changes?</h2>
+      <p id="confirm-copy">This will replace the published CMS content with your current draft.</p>
+      <div class="confirm-actions">
+        <button value="cancel" class="secondary-button">Cancel</button>
+        <button id="confirm-action" value="confirm" class="primary-button">Publish</button>
+      </div>
+    </form>
+  </dialog>
+
+<script type="module" src="/admin/admin.js"></script>
+</body>
+</html>
