@@ -202,6 +202,30 @@
         }
       ]
     },
+    "horizontalContentStrip": {
+      "allOf": [
+        { "$ref": "#/$defs/baseComponent" },
+        {
+          "type": "object",
+          "required": ["headline", "items"],
+          "properties": {
+            "type": { "const": "horizontalContentStrip" },
+            "variant": { "enum": ["cream", "white", "navy"] },
+            "eyebrow": { "type": "string", "maxLength": 60 },
+            "headline": { "type": "string", "minLength": 1, "maxLength": 120 },
+            "supportingText": { "type": "string", "maxLength": 280 },
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 24,
+              "items": { "$ref": "#/$defs/iconLabelItem" }
+            },
+            "density": { "enum": ["compact", "standard"], "default": "compact" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
     "faqItem": {
       "type": "object",
       "required": ["question", "answer"],
@@ -265,6 +289,7 @@
         { "$ref": "#/$defs/heroLead" },
         { "$ref": "#/$defs/processSteps" },
         { "$ref": "#/$defs/serviceTicker" },
+        { "$ref": "#/$defs/horizontalContentStrip" },
         { "$ref": "#/$defs/faqAccordion" },
         { "$ref": "#/$defs/ctaBand" }
       ]
