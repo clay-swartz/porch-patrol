@@ -5,7 +5,10 @@ import {
   renderSiteFooter
 } from "./components/renderers.js";
 
-const CONTENT_URL = "/content/site.json";
+const STATIC_CONTENT_URL = "/content/site.json";
+const CMS_CONTENT_URL =
+  "https://uymwsivcgtapckzjoywk.supabase.co/rest/v1/rpc/get_porch_patrol_published_site";
+const CMS_PUBLISHABLE_KEY = "sb_publishable_Zv_J_fCv2wTC-qlsV3h_Mg_i7nkJPZG";
 
 function assertContentShape(content) {
   if (!content || typeof content !== "object") {
@@ -44,20 +47,8 @@ function assertRenderedPage(rendered) {
     throw new Error("Header renderer returned invalid markup.");
   }
 
-  if (!rendered.main.includes('id="signup"')) {
-    throw new Error("Hero form renderer returned invalid markup.");
-  }
-
-  if (!rendered.main.includes("pp-process-section")) {
-    throw new Error("Process renderer returned invalid markup.");
-  }
-
-  if (!rendered.main.includes("pp-service-ticker-wrap")) {
-    throw new Error("Service ticker renderer returned invalid markup.");
-  }
-
-  if (!rendered.main.includes("faq-section")) {
-    throw new Error("FAQ renderer returned invalid markup.");
+  if (!rendered.main.includes("<section")) {
+    throw new Error("Page renderer returned no visible sections.");
   }
 
   if (!rendered.footer.includes("<footer")) {
@@ -65,7 +56,7 @@ function assertRenderedPage(rendered) {
   }
 }
 
-function commitRenderedPage(rendered) {
+function commitRenderedPage(rendered, source) {
   const header = document.querySelector(".site-header");
   const main = document.querySelector("main");
   const footer = document.querySelector("footer");
@@ -75,53 +66,98 @@ function commitRenderedPage(rendered) {
   }
 
   /*
-   * Important safety behavior:
-   * We build and validate every component before touching the page.
-   * Only after all renderers succeed do we replace the static fallback DOM.
+   * Safety behavior:
+   * We build and validate the complete replacement before touching the page.
+   * If CMS content cannot load or render, we try the repository JSON snapshot.
+   * If both fail, the original static production HTML remains untouched.
    */
   header.outerHTML = rendered.header;
   main.innerHTML = rendered.main;
   footer.outerHTML = rendered.footer;
   document.title = rendered.title;
 
-  document.documentElement.dataset.ppContentSource = "json";
+  document.documentElement.dataset.ppContentSource = source;
 }
 
-async function loadContent() {
-  const response = await fetch(CONTENT_URL, {
-    headers: { Accept: "application/json" },
+async function fetchCmsContent() {
+  const response = await fetch(CMS_CONTENT_URL, {
+    method: "POST",
+    headers: {
+      "apikey": CMS_PUBLISHABLE_KEY,
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: "{}",
     cache: "no-store"
   });
 
   if (!response.ok) {
-    throw new Error("Could not load site content (" + response.status + ").");
+    throw new Error("CMS content request failed (" + response.status + ").");
   }
 
   return response.json();
 }
 
+async function fetchStaticContent() {
+  const response = await fetch(STATIC_CONTENT_URL, {
+    headers: { Accept: "application/json" },
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error("Static content request failed (" + response.status + ").");
+  }
+
+  return response.json();
+}
+
+function validateAndRender(content) {
+  assertContentShape(content);
+  const rendered = buildRenderedPage(content);
+  assertRenderedPage(rendered);
+  return rendered;
+}
+
+async function getPreferredContent() {
+  try {
+    const content = await fetchCmsContent();
+    return {
+      content,
+      rendered: validateAndRender(content),
+      source: "cms"
+    };
+  } catch (cmsError) {
+    console.warn(
+      "[Porch Patrol] Published CMS content unavailable. Using repository JSON snapshot.",
+      cmsError
+    );
+  }
+
+  const content = await fetchStaticContent();
+  return {
+    content,
+    rendered: validateAndRender(content),
+    source: "json-fallback"
+  };
+}
+
 async function migratePageToContentRuntime() {
   try {
-    const content = await loadContent();
-    assertContentShape(content);
-
-    const rendered = buildRenderedPage(content);
-    assertRenderedPage(rendered);
-    commitRenderedPage(rendered);
+    const result = await getPreferredContent();
+    commitRenderedPage(result.rendered, result.source);
 
     window.dispatchEvent(new CustomEvent("porchpatrol:content-rendered", {
       detail: {
-        source: CONTENT_URL,
-        schemaVersion: content.schemaVersion
+        source: result.source,
+        schemaVersion: result.content.schemaVersion
       }
     }));
   } catch (error) {
-    /*
-     * The existing HTML remains untouched if any part of the migration fails.
-     * That is the rollback/fallback path for the runtime layer.
-     */
     document.documentElement.dataset.ppContentSource = "static-fallback";
-    console.warn("[Porch Patrol] Content runtime fell back to static HTML.", error);
+    console.warn(
+      "[Porch Patrol] Content runtime fell back to static production HTML.",
+      error
+    );
 
     window.dispatchEvent(new CustomEvent("porchpatrol:content-fallback", {
       detail: { message: error instanceof Error ? error.message : String(error) }
