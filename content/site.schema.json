@@ -3,7 +3,12 @@
   "$id": "https://porchpatrol.com/schemas/site.schema.json",
   "title": "Porch Patrol Site Content",
   "type": "object",
-  "required": ["schemaVersion", "site", "global", "pages"],
+  "required": [
+    "schemaVersion",
+    "site",
+    "global",
+    "pages"
+  ],
   "properties": {
     "schemaVersion": {
       "type": "integer",
@@ -17,7 +22,9 @@
     },
     "pages": {
       "type": "object",
-      "required": ["home"],
+      "required": [
+        "home"
+      ],
       "properties": {
         "home": {
           "$ref": "#/$defs/page"
@@ -32,334 +39,736 @@
   "$defs": {
     "siteMeta": {
       "type": "object",
-      "required": ["name", "phoneDisplay", "phoneHref", "serviceAreaShort", "serviceAreaLong", "copyrightYear"],
+      "required": [
+        "name",
+        "phoneDisplay",
+        "phoneHref",
+        "serviceAreaShort",
+        "serviceAreaLong",
+        "copyrightYear"
+      ],
       "properties": {
-        "name": { "type": "string", "minLength": 1 },
-        "phoneDisplay": { "type": "string", "minLength": 1 },
-        "phoneHref": { "type": "string", "pattern": "^tel:" },
-        "serviceAreaShort": { "type": "string", "minLength": 1 },
-        "serviceAreaLong": { "type": "string", "minLength": 1 },
-        "copyrightYear": { "type": "integer", "minimum": 2020, "maximum": 2100 }
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phoneDisplay": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phoneHref": {
+          "type": "string",
+          "pattern": "^tel:"
+        },
+        "serviceAreaShort": {
+          "type": "string",
+          "minLength": 1
+        },
+        "serviceAreaLong": {
+          "type": "string",
+          "minLength": 1
+        },
+        "copyrightYear": {
+          "type": "integer",
+          "minimum": 2020,
+          "maximum": 2100
+        }
       },
       "additionalProperties": false
     },
     "baseComponent": {
       "type": "object",
-      "required": ["id", "type", "variant", "enabled"],
+      "required": [
+        "id",
+        "type",
+        "variant",
+        "enabled"
+      ],
       "properties": {
         "id": {
           "type": "string",
           "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
         },
-        "type": { "type": "string" },
-        "variant": { "type": "string" },
-        "enabled": { "type": "boolean" }
+        "type": {
+          "type": "string"
+        },
+        "variant": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
       }
     },
     "cta": {
       "type": "object",
-      "required": ["label", "href"],
+      "required": [
+        "label",
+        "href"
+      ],
       "properties": {
-        "label": { "type": "string", "minLength": 1, "maxLength": 80 },
-        "href": { "type": "string", "minLength": 1 },
-        "showArrow": { "type": "boolean", "default": false }
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "href": {
+          "type": "string",
+          "minLength": 1
+        },
+        "showArrow": {
+          "type": "boolean",
+          "default": false
+        }
       },
       "additionalProperties": false
     },
     "image": {
       "type": "object",
-      "required": ["src", "alt"],
+      "required": [
+        "src",
+        "alt"
+      ],
       "properties": {
-        "src": { "type": "string", "minLength": 1 },
-        "alt": { "type": "string" }
+        "src": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alt": {
+          "type": "string"
+        }
       },
       "additionalProperties": false
     },
     "formField": {
       "type": "object",
-      "required": ["name", "label", "type", "required"],
+      "required": [
+        "name",
+        "label",
+        "type",
+        "required"
+      ],
       "properties": {
-        "name": { "type": "string", "minLength": 1 },
-        "label": { "type": "string", "minLength": 1 },
-        "type": { "enum": ["text", "tel", "email"] },
-        "autocomplete": { "type": "string" },
-        "inputmode": { "type": "string" },
-        "required": { "type": "boolean" }
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "text",
+            "tel",
+            "email"
+          ]
+        },
+        "autocomplete": {
+          "type": "string"
+        },
+        "inputmode": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     },
     "heroForm": {
       "type": "object",
-      "required": ["headline", "defaultPlan", "fields", "submitLabel", "reassurance", "successMessage"],
+      "required": [
+        "headline",
+        "defaultPlan",
+        "fields",
+        "submitLabel",
+        "reassurance",
+        "successMessage"
+      ],
       "properties": {
-        "headline": { "type": "string", "minLength": 1, "maxLength": 100 },
-        "defaultPlan": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "headline": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "defaultPlan": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
         "fields": {
           "type": "array",
           "minItems": 1,
           "maxItems": 6,
-          "items": { "$ref": "#/$defs/formField" }
+          "items": {
+            "$ref": "#/$defs/formField"
+          }
         },
-        "submitLabel": { "type": "string", "minLength": 1, "maxLength": 50 },
-        "reassurance": { "type": "string", "maxLength": 160 },
-        "successMessage": { "type": "string", "maxLength": 160 }
+        "submitLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "reassurance": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "successMessage": {
+          "type": "string",
+          "maxLength": 160
+        }
       },
       "additionalProperties": false
     },
     "heroLead": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
-          "required": ["headlineLines", "subhead", "proofLabel", "proofItems", "priceLine", "form"],
+          "required": [
+            "headlineLines",
+            "subhead",
+            "proofLabel",
+            "proofItems",
+            "priceLine",
+            "form"
+          ],
           "properties": {
-            "type": { "const": "heroLead" },
-            "variant": { "enum": ["patternedNavy"] },
+            "type": {
+              "const": "heroLead"
+            },
+            "variant": {
+              "enum": [
+                "patternedNavy"
+              ]
+            },
             "headlineLines": {
               "type": "array",
               "minItems": 1,
               "maxItems": 3,
-              "items": { "type": "string", "minLength": 1, "maxLength": 60 }
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60
+              }
             },
-            "subhead": { "type": "string", "minLength": 1, "maxLength": 320 },
-            "proofLabel": { "type": "string", "maxLength": 40 },
+            "subhead": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 320
+            },
+            "proofLabel": {
+              "type": "string",
+              "maxLength": 40
+            },
             "proofItems": {
               "type": "array",
               "minItems": 1,
               "maxItems": 12,
-              "items": { "type": "string", "minLength": 1, "maxLength": 60 }
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60
+              }
             },
-            "priceLine": { "type": "string", "minLength": 1, "maxLength": 120 },
-            "form": { "$ref": "#/$defs/heroForm" }
-          },
-          "additionalProperties": false
+            "priceLine": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "form": {
+              "$ref": "#/$defs/heroForm"
+            }
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "processStep": {
       "type": "object",
-      "required": ["heading", "body", "mediaLabel", "image"],
+      "required": [
+        "heading",
+        "body",
+        "mediaLabel",
+        "image"
+      ],
       "properties": {
-        "heading": { "type": "string", "minLength": 1, "maxLength": 100 },
-        "body": { "type": "string", "minLength": 1, "maxLength": 360 },
-        "mediaLabel": { "type": "string", "minLength": 1, "maxLength": 60 },
-        "image": { "$ref": "#/$defs/image" }
+        "heading": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 360
+        },
+        "mediaLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        }
       },
       "additionalProperties": false
     },
     "processSteps": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
-          "required": ["eyebrow", "headline", "supportingText", "steps"],
+          "required": [
+            "eyebrow",
+            "headline",
+            "supportingText",
+            "steps"
+          ],
           "properties": {
-            "type": { "const": "processSteps" },
-            "variant": { "enum": ["mediaSwap"] },
-            "eyebrow": { "type": "string", "maxLength": 60 },
-            "headline": { "type": "string", "minLength": 1, "maxLength": 100 },
-            "supportingText": { "type": "string", "maxLength": 280 },
+            "type": {
+              "const": "processSteps"
+            },
+            "variant": {
+              "enum": [
+                "mediaSwap"
+              ]
+            },
+            "eyebrow": {
+              "type": "string",
+              "maxLength": 60
+            },
+            "headline": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "supportingText": {
+              "type": "string",
+              "maxLength": 280
+            },
             "steps": {
               "type": "array",
               "minItems": 2,
               "maxItems": 6,
-              "items": { "$ref": "#/$defs/processStep" }
+              "items": {
+                "$ref": "#/$defs/processStep"
+              }
             }
-          },
-          "additionalProperties": false
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "iconLabelItem": {
       "type": "object",
-      "required": ["icon", "label"],
+      "required": [
+        "icon",
+        "label"
+      ],
       "properties": {
-        "icon": { "type": "string", "minLength": 1, "maxLength": 80 },
-        "label": { "type": "string", "minLength": 1, "maxLength": 80 }
+        "icon": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
       },
       "additionalProperties": false
     },
     "serviceTicker": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
-          "required": ["ariaLabel", "pauseInstruction", "items", "cta"],
+          "required": [
+            "ariaLabel",
+            "pauseInstruction",
+            "items",
+            "cta"
+          ],
           "properties": {
-            "type": { "const": "serviceTicker" },
-            "variant": { "enum": ["creamBento"] },
-            "ariaLabel": { "type": "string", "minLength": 1, "maxLength": 160 },
-            "pauseInstruction": { "type": "string", "minLength": 1, "maxLength": 200 },
+            "type": {
+              "const": "serviceTicker"
+            },
+            "variant": {
+              "enum": [
+                "creamBento"
+              ]
+            },
+            "ariaLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "pauseInstruction": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
             "items": {
               "type": "array",
               "minItems": 3,
               "maxItems": 30,
-              "items": { "$ref": "#/$defs/iconLabelItem" }
+              "items": {
+                "$ref": "#/$defs/iconLabelItem"
+              }
             },
-            "cta": { "$ref": "#/$defs/cta" }
-          },
-          "additionalProperties": false
+            "cta": {
+              "$ref": "#/$defs/cta"
+            }
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "horizontalContentStrip": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
-          "required": ["headline", "items"],
+          "required": [
+            "headline",
+            "items"
+          ],
           "properties": {
-            "type": { "const": "horizontalContentStrip" },
-            "variant": { "enum": ["cream", "white", "navy"] },
-            "eyebrow": { "type": "string", "maxLength": 60 },
-            "headline": { "type": "string", "minLength": 1, "maxLength": 120 },
-            "supportingText": { "type": "string", "maxLength": 280 },
+            "type": {
+              "const": "horizontalContentStrip"
+            },
+            "variant": {
+              "enum": [
+                "cream",
+                "white",
+                "navy"
+              ]
+            },
+            "eyebrow": {
+              "type": "string",
+              "maxLength": 60
+            },
+            "headline": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "supportingText": {
+              "type": "string",
+              "maxLength": 280
+            },
             "items": {
               "type": "array",
               "minItems": 2,
               "maxItems": 24,
-              "items": { "$ref": "#/$defs/iconLabelItem" }
+              "items": {
+                "$ref": "#/$defs/iconLabelItem"
+              }
             },
-            "density": { "enum": ["compact", "standard"], "default": "compact" }
-          },
-          "additionalProperties": false
+            "density": {
+              "enum": [
+                "compact",
+                "standard"
+              ],
+              "default": "compact"
+            }
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "faqItem": {
       "type": "object",
-      "required": ["question", "answer"],
+      "required": [
+        "question",
+        "answer"
+      ],
       "properties": {
-        "question": { "type": "string", "minLength": 1, "maxLength": 180 },
-        "lead": { "type": "string", "maxLength": 180 },
-        "answer": { "type": "string", "minLength": 1, "maxLength": 1200 }
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "lead": {
+          "type": "string",
+          "maxLength": 180
+        },
+        "answer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1200
+        }
       },
       "additionalProperties": false
     },
     "faqIntro": {
       "type": "object",
-      "required": ["prefix", "linkLabel", "href"],
+      "required": [
+        "prefix",
+        "linkLabel",
+        "href"
+      ],
       "properties": {
-        "prefix": { "type": "string", "maxLength": 180 },
-        "linkLabel": { "type": "string", "maxLength": 100 },
-        "href": { "type": "string", "minLength": 1 }
+        "prefix": {
+          "type": "string",
+          "maxLength": 180
+        },
+        "linkLabel": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "href": {
+          "type": "string",
+          "minLength": 1
+        }
       },
       "additionalProperties": false
     },
     "faqAccordion": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
-          "required": ["headline", "intro", "items"],
+          "required": [
+            "headline",
+            "intro",
+            "items"
+          ],
           "properties": {
-            "type": { "const": "faqAccordion" },
-            "variant": { "enum": ["standard"] },
-            "headline": { "type": "string", "minLength": 1, "maxLength": 100 },
-            "intro": { "$ref": "#/$defs/faqIntro" },
+            "type": {
+              "const": "faqAccordion"
+            },
+            "variant": {
+              "enum": [
+                "standard"
+              ]
+            },
+            "headline": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "intro": {
+              "$ref": "#/$defs/faqIntro"
+            },
             "items": {
               "type": "array",
               "minItems": 1,
               "maxItems": 30,
-              "items": { "$ref": "#/$defs/faqItem" }
+              "items": {
+                "$ref": "#/$defs/faqItem"
+              }
             }
-          },
-          "additionalProperties": false
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "ctaBand": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
-          "required": ["headline", "cta"],
+          "required": [
+            "headline",
+            "cta"
+          ],
           "properties": {
-            "type": { "const": "ctaBand" },
-            "variant": { "enum": ["centered"] },
-            "headline": { "type": "string", "minLength": 1, "maxLength": 120 },
-            "cta": { "$ref": "#/$defs/cta" }
-          },
-          "additionalProperties": false
+            "type": {
+              "const": "ctaBand"
+            },
+            "variant": {
+              "enum": [
+                "centered"
+              ]
+            },
+            "headline": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "cta": {
+              "$ref": "#/$defs/cta"
+            }
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "section": {
       "oneOf": [
-        { "$ref": "#/$defs/heroLead" },
-        { "$ref": "#/$defs/processSteps" },
-        { "$ref": "#/$defs/serviceTicker" },
-        { "$ref": "#/$defs/horizontalContentStrip" },
-        { "$ref": "#/$defs/faqAccordion" },
-        { "$ref": "#/$defs/ctaBand" }
+        {
+          "$ref": "#/$defs/heroLead"
+        },
+        {
+          "$ref": "#/$defs/processSteps"
+        },
+        {
+          "$ref": "#/$defs/serviceTicker"
+        },
+        {
+          "$ref": "#/$defs/horizontalContentStrip"
+        },
+        {
+          "$ref": "#/$defs/faqAccordion"
+        },
+        {
+          "$ref": "#/$defs/ctaBand"
+        }
       ]
     },
     "page": {
       "type": "object",
-      "required": ["title", "sections"],
+      "required": [
+        "title",
+        "sections"
+      ],
       "properties": {
-        "title": { "type": "string", "minLength": 1 },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
         "sections": {
           "type": "array",
-          "items": { "$ref": "#/$defs/section" }
+          "items": {
+            "$ref": "#/$defs/section"
+          }
         }
       },
       "additionalProperties": false
     },
     "siteHeader": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
           "properties": {
-            "type": { "const": "siteHeader" },
-            "variant": { "enum": ["standard"] }
-          },
-          "additionalProperties": false
+            "type": {
+              "const": "siteHeader"
+            },
+            "variant": {
+              "enum": [
+                "standard"
+              ]
+            }
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "leadDialog": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
-          "required": ["eyebrow", "headline", "supportingText", "defaultPlan", "priceNote", "submitLabel", "successMessage"],
+          "required": [
+            "eyebrow",
+            "headline",
+            "supportingText",
+            "defaultPlan",
+            "priceNote",
+            "submitLabel",
+            "successMessage"
+          ],
           "properties": {
-            "type": { "const": "leadDialog" },
-            "variant": { "enum": ["standard"] },
-            "eyebrow": { "type": "string", "maxLength": 60 },
-            "headline": { "type": "string", "maxLength": 100 },
-            "supportingText": { "type": "string", "maxLength": 220 },
-            "defaultPlan": { "type": "string", "maxLength": 80 },
-            "priceNote": { "type": "string", "maxLength": 160 },
-            "submitLabel": { "type": "string", "maxLength": 60 },
-            "successMessage": { "type": "string", "maxLength": 160 }
-          },
-          "additionalProperties": false
+            "type": {
+              "const": "leadDialog"
+            },
+            "variant": {
+              "enum": [
+                "standard"
+              ]
+            },
+            "eyebrow": {
+              "type": "string",
+              "maxLength": 60
+            },
+            "headline": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "supportingText": {
+              "type": "string",
+              "maxLength": 220
+            },
+            "defaultPlan": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "priceNote": {
+              "type": "string",
+              "maxLength": 160
+            },
+            "submitLabel": {
+              "type": "string",
+              "maxLength": 60
+            },
+            "successMessage": {
+              "type": "string",
+              "maxLength": 160
+            }
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "siteFooter": {
       "allOf": [
-        { "$ref": "#/$defs/baseComponent" },
+        {
+          "$ref": "#/$defs/baseComponent"
+        },
         {
           "type": "object",
           "properties": {
-            "type": { "const": "siteFooter" },
-            "variant": { "enum": ["standard"] }
-          },
-          "additionalProperties": false
+            "type": {
+              "const": "siteFooter"
+            },
+            "variant": {
+              "enum": [
+                "standard"
+              ]
+            }
+          }
         }
-      ]
+      ],
+      "unevaluatedProperties": false
     },
     "globalComponents": {
       "type": "object",
-      "required": ["header", "leadDialog", "footer"],
+      "required": [
+        "header",
+        "leadDialog",
+        "footer"
+      ],
       "properties": {
-        "header": { "$ref": "#/$defs/siteHeader" },
-        "leadDialog": { "$ref": "#/$defs/leadDialog" },
-        "footer": { "$ref": "#/$defs/siteFooter" }
+        "header": {
+          "$ref": "#/$defs/siteHeader"
+        },
+        "leadDialog": {
+          "$ref": "#/$defs/leadDialog"
+        },
+        "footer": {
+          "$ref": "#/$defs/siteFooter"
+        }
       },
       "additionalProperties": false
     }
