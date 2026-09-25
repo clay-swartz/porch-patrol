@@ -3569,6 +3569,406 @@ html {
   }
 }
 
+
+/* =========================================================
+   PORCH PATROL — PROCESS + REUSABLE CONTENT STRIP
+   Production component system · 2026-09-25
+   ========================================================= */
+
+.pp-process-section {
+  background: var(--paper);
+}
+
+.pp-process-intro {
+  max-width: 720px;
+  margin: 0 0 34px;
+}
+
+.pp-process-eyebrow {
+  margin: 0 0 9px;
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.pp-process-intro h2 {
+  max-width: 15ch;
+  margin: 0;
+  color: var(--navy);
+  font-family: var(--display);
+  font-size: clamp(40px, 4vw, 52px);
+  font-weight: 650;
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.pp-process-intro p {
+  max-width: 650px;
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 16.5px;
+  font-weight: 600;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.pp-process-intro::after {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 4px;
+  margin-top: 17px;
+  background: var(--orange);
+}
+
+.pp-process-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  gap: 48px;
+  align-items: stretch;
+}
+
+.pp-process-steps {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.pp-process-step {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  padding: 20px 22px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .16s ease;
+}
+
+.pp-process-step:last-child {
+  border-bottom: 0;
+}
+
+.pp-process-step:hover,
+.pp-process-step:focus-visible {
+  background: #f8f5ef;
+}
+
+.pp-process-step.active {
+  background: var(--soft);
+}
+
+.pp-process-step:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 3px solid rgba(0,100,95,.16);
+  outline-offset: -3px;
+}
+
+.pp-process-step-number {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  align-self: start;
+  margin-top: 1px;
+  border: 1.5px solid var(--navy);
+  border-radius: 50%;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  transition: background .16s ease, border-color .16s ease, color .16s ease;
+}
+
+.pp-process-step.active .pp-process-step-number {
+  border-color: var(--orange);
+  background: var(--orange);
+  color: #fff;
+}
+
+.pp-process-step-copy {
+  min-width: 0;
+  display: block;
+}
+
+.pp-process-step-copy strong {
+  display: block;
+  margin: 0;
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.012em;
+  text-wrap: balance;
+}
+
+.pp-process-step.active .pp-process-step-copy strong {
+  color: var(--teal);
+}
+
+.pp-process-step-copy > span {
+  display: block;
+  max-width: 490px;
+  margin-top: 7px;
+  color: #555851;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.52;
+  text-wrap: pretty;
+}
+
+.pp-process-media {
+  position: relative;
+  min-width: 0;
+  min-height: 392px;
+  overflow: hidden;
+  border: 1px solid rgba(16,36,56,.10);
+  border-radius: 12px;
+  background: var(--soft-2);
+}
+
+.pp-process-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .24s ease;
+}
+
+.pp-process-photo.active {
+  opacity: 1;
+}
+
+.pp-process-media-label {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(16,36,56,.82);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  backdrop-filter: blur(5px);
+}
+
+/* Reusable horizontal content strip. Use modifiers for alternate backgrounds. */
+.pp-content-strip {
+  padding: 38px 0 42px;
+}
+
+.pp-content-strip--navy {
+  background: var(--navy);
+  color: #fff;
+}
+
+.pp-content-strip__header {
+  max-width: 680px;
+  margin: 0 0 23px;
+}
+
+.pp-content-strip__header h2 {
+  margin: 0;
+  color: inherit;
+  font-family: var(--display);
+  font-size: clamp(30px, 3vw, 36px);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+.pp-content-strip__header p {
+  max-width: 620px;
+  margin: 8px 0 0;
+  color: rgba(255,255,255,.72);
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.pp-content-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 18px;
+}
+
+.pp-content-strip__item {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pp-content-strip__icon {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 9px;
+  background: rgba(255,255,255,.08);
+  color: var(--yellow);
+}
+
+.pp-content-strip__icon .material-symbols-rounded {
+  font-size: 18px;
+}
+
+.pp-content-strip__label {
+  min-width: 0;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-wrap: pretty;
+}
+
+@media (max-width: 980px) {
+  .pp-process-layout {
+    gap: 30px;
+  }
+
+  .pp-process-step {
+    padding: 18px 17px;
+  }
+
+  .pp-content-strip__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .pp-process-section {
+    padding-top: 52px;
+    padding-bottom: 52px;
+  }
+
+  .pp-process-intro {
+    margin-bottom: 26px;
+  }
+
+  .pp-process-intro h2 {
+    font-size: 36px;
+  }
+
+  .pp-process-intro p {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .pp-process-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .pp-process-media {
+    grid-row: 1;
+    min-height: 260px;
+  }
+
+  .pp-process-steps {
+    grid-row: 2;
+    grid-template-rows: auto;
+  }
+
+  .pp-process-step {
+    padding: 17px 16px;
+  }
+
+  .pp-process-step-copy strong {
+    font-size: 17px;
+  }
+
+  .pp-process-step-copy > span {
+    font-size: 13px;
+    line-height: 1.46;
+  }
+
+  .pp-content-strip {
+    padding: 32px 0 36px;
+  }
+
+  .pp-content-strip__header {
+    margin-bottom: 20px;
+  }
+
+  .pp-content-strip__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 18px;
+    row-gap: 15px;
+  }
+}
+
+@media (max-width: 520px) {
+  .pp-process-intro h2 {
+    font-size: 34px;
+  }
+
+  .pp-process-step {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px 14px;
+  }
+
+  .pp-process-media {
+    min-height: 235px;
+    border-radius: 10px;
+  }
+
+  .pp-content-strip__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pp-content-strip__item {
+    gap: 8px;
+  }
+
+  .pp-content-strip__icon {
+    width: 29px;
+    height: 29px;
+    border-radius: 8px;
+  }
+
+  .pp-content-strip__icon .material-symbols-rounded {
+    font-size: 17px;
+  }
+
+  .pp-content-strip__label {
+    font-size: 11.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-process-photo,
+  .pp-process-step,
+  .pp-process-step-number {
+    transition: none;
+  }
+}
+
 </style>
 </head>
 
@@ -3630,131 +4030,71 @@ html {
       </form>
     </div>
 </section>
-<section class="section plans-section">
+<section class="section pp-process-section" aria-labelledby="pp-process-heading">
     <div class="shell">
-      <div class="section-heading">
-        <h2>Pick a Plan</h2>
-        <p>From simple upkeep to full exterior projects, we’ve got you covered.</p>
+      <div class="pp-process-intro">
+        <div class="pp-process-eyebrow">Our Process</div>
+        <h2 id="pp-process-heading">What to expect each visit.</h2>
+        <p>We look everything over, handle what we can, flag what needs attention and send you the details.</p>
       </div>
 
-      <div class="tiers-wrap">
-        <div class="tiers">
+      <div class="pp-process-layout">
+        <div class="pp-process-steps" role="list" aria-label="What happens each visit">
+          <button type="button" class="pp-process-step active" data-process-index="0" data-process-label="Patrol visit" aria-pressed="true">
+            <span class="pp-process-step-number">1</span>
+            <span class="pp-process-step-copy">
+              <strong>A closer eye on the little things</strong>
+              <span>Our trusted experts visit on schedule to spot what’s changed, what’s out of place, and what could become a bigger problem.</span>
+            </span>
+          </button>
 
-          <article class="tier accent-gray">
-            <div class="tier-media package-carousel" data-carousel aria-label="Front Entry care examples">
-              <div class="carousel-track">
-                <img loading="lazy" decoding="async" class="active" src="/images/front-entry-powerwash.webp" alt="Powerwashing a front walk and porch surface">
-                <img loading="lazy" decoding="async" src="/images/images-1.jpg" alt="Polished front porch with black door, rocking chair, planters and step lighting">
-                <img loading="lazy" decoding="async" src="/images/front-entry-planters.webp" alt="Layered spring porch planters beside a welcoming front door">
-              </div>
-              <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
-              <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
-              <div class="carousel-dots" aria-label="Choose an image">
-                  <button type="button" class="carousel-dot active" aria-label="Show image 1 of 3" aria-pressed="true"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 2 of 3" aria-pressed="false"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 3 of 3" aria-pressed="false"></button>
-              </div>
-            </div>
-            <div class="tier-heading-row">
-              <h3 class="tier-name">Front Entry</h3>
-              <div class="tier-price tier-price-box">
-                <strong>$99</strong>
-                <span>/mo</span>
-              </div>
-            </div>
+          <button type="button" class="pp-process-step" data-process-index="1" data-process-label="Work in progress" aria-pressed="false">
+            <span class="pp-process-step-number">2</span>
+            <span class="pp-process-step-copy">
+              <strong>We take care of the small stuff</strong>
+              <span>Quick fixes and routine upkeep get handled instead of being added to another to-do list.</span>
+            </span>
+          </button>
 
-            <p class="tier-copy">Simple recurring care for your front entry.</p>
-
-            <ul class="tier-list">
-              <li><strong>Clean it up.</strong> Dirt, debris, cobwebs and bugs, with light powerwashing where needed.</li>
-              <li><strong>Keep it looking right.</strong> Mats straight, pillows fluffed, wreaths, planters, furniture and décor reset.</li>
-              <li><strong>Keep you in the know.</strong> Detailed photo report after each visit.</li>
-            </ul>
-
-            <div class="tier-cta">
-              <button type="button" class="button alt plan-dialog-open" data-plan="Front Entry" data-dialog-title="Start Front Entry" data-dialog-note="$99/month · 2 visits included · Cancel anytime.">Choose Front Entry</button>
-            </div>
-          </article>
-
-          <article class="tier featured accent-coral">
-            <div class="tier-tag">Most popular</div>
-            <div class="tier-media package-carousel" data-carousel aria-label="Full Exterior care examples">
-              <div class="carousel-track">
-                <img loading="lazy" decoding="async" class="active" src="/images/front-back-rockers.webp" alt="Neatly arranged rocking chairs and pillows on a cared-for front porch">
-                <img loading="lazy" decoding="async" src="/images/back-porch-rebuild-and-refresh-hero.jpg" alt="Bright back porch with seating, plants and seasonal styling">
-                <img loading="lazy" decoding="async" src="/images/front-back-wide.webp" alt="Inviting covered porch arranged as an outdoor living space">
-                <img loading="lazy" decoding="async" src="/images/front-back-seasonal.webp" alt="Front entry dressed with tasteful holiday greenery, garland and a wreath">
-              </div>
-              <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
-              <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
-              <div class="carousel-dots" aria-label="Choose an image">
-                  <button type="button" class="carousel-dot active" aria-label="Show image 1 of 4" aria-pressed="true"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 2 of 4" aria-pressed="false"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 3 of 4" aria-pressed="false"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 4 of 4" aria-pressed="false"></button>
-              </div>
-            </div>
-            <div class="tier-heading-row">
-              <h3 class="tier-name">Full Exterior</h3>
-              <div class="tier-price tier-price-box">
-                <strong>$148</strong>
-                <span>/mo</span>
-              </div>
-            </div>
-
-            <p class="tier-copy">Complete exterior care for the little things that are easy to miss.</p>
-
-            <ul class="tier-list">
-              <li><strong>Everything in Front Entry.</strong></li>
-              <li><strong>Complete exterior sweep.</strong> Front, back, sides, walkways, fixtures, gates, gutters, patios, pergolas, gazebos and more.</li>
-              <li><strong>Little fixes handled.</strong> Burned-out bulbs, loose hardware, sidewalk weeds, wobbly fixtures and other small issues taken care of on the spot.</li>
-              <li><strong>Bigger issues caught early.</strong> Drips, loose siding, sagging gutters, failing caulk and anything else worth addressing gets flagged.</li>
-            </ul>
-
-            <div class="tier-cta">
-              <button type="button" class="button plan-dialog-open" data-plan="Full Exterior" data-dialog-title="Start Full Exterior" data-dialog-note="$148/month · 2 visits included · Cancel anytime.">Choose Full Exterior</button>
-            </div>
-          </article>
-
-          <article class="tier accent-blue">
-            <div class="tier-media package-carousel" data-carousel aria-label="More Than Maintenance project examples">
-              <div class="carousel-track">
-                <img loading="lazy" decoding="async" class="active" src="/images/whole-home-door.webp" alt="Front door being professionally restored and refinished">
-                <img loading="lazy" decoding="async" src="/images/image-6463.jpg" alt="Front porch transformed with warm exterior and step lighting">
-                <img loading="lazy" decoding="async" src="/images/modern-waterproof-led-long-strip-outdoor-porch-light-4100944.jpg" alt="Backyard entertaining area with outdoor lighting and landscaped surroundings">
-                <img loading="lazy" decoding="async" src="/images/v.jpg" alt="Stone retaining wall and hardscape improvements in a landscaped yard">
-                <img loading="lazy" decoding="async" src="/images/yellow-and-red-flower-garden_3c5a989c7c11c827ad0eaceaf3701f06_800.jpg.webp" alt="Garden path and flower bed improvements for whole-home curb appeal">
-              </div>
-              <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous image">‹</button>
-              <button type="button" class="carousel-arrow carousel-next" aria-label="Next image">›</button>
-              <div class="carousel-dots" aria-label="Choose an image">
-                  <button type="button" class="carousel-dot active" aria-label="Show image 1 of 5" aria-pressed="true"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 2 of 5" aria-pressed="false"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 3 of 5" aria-pressed="false"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 4 of 5" aria-pressed="false"></button>
-                  <button type="button" class="carousel-dot" aria-label="Show image 5 of 5" aria-pressed="false"></button>
-              </div>
-            </div>
-            <div class="tier-heading-row concierge-heading-row">
-              <h3 class="tier-name">More Than Maintenance</h3>
-            </div>
-
-            <p class="tier-copy concierge-copy">Members also get preferred pricing on larger projects, from one-off fixes to major exterior improvements.</p>
-
-            <ul class="tier-list">
-              <li><strong>Repairs and one-off fixes</strong></li>
-              <li><strong>Door, paint, siding and shutter updates</strong></li>
-              <li><strong>Lighting, hardscape and exterior improvements</strong></li>
-            </ul>
-
-            <div class="tier-cta">
-              <button type="button" class="button dark plan-dialog-open" data-plan="More Than Maintenance" data-dialog-title="Plan a Project" data-dialog-note="Tell us what you have in mind. Members get preferred pricing on larger projects.">Plan a Project</button>
-            </div>
-          </article>
-
+          <button type="button" class="pp-process-step" data-process-index="2" data-process-label="Visit report" aria-pressed="false">
+            <span class="pp-process-step-number">3</span>
+            <span class="pp-process-step-copy">
+              <strong>You stay in the know</strong>
+              <span>After each visit, you get a detailed report showing what we handled, what we noticed, and what needs attention.</span>
+            </span>
+          </button>
         </div>
 
-        <p class="tier-help">Not sure which is right for you? <button type="button" class="tier-help-button plan-dialog-open" data-plan="Help me choose" data-dialog-title="We’ll help you choose" data-dialog-note="Tell us where to reach you and we’ll point you to the right fit.">We’ll help you figure it out.</button></p>
+        <div class="pp-process-media" aria-live="polite">
+          <img loading="lazy" decoding="async" class="pp-process-photo active" data-process-photo="0" src="/images/process-patrol.png" alt="Porch Patrol team member inspecting a home's front porch">
+          <img loading="lazy" decoding="async" class="pp-process-photo" data-process-photo="1" src="/images/process-work.png" alt="Porch Patrol team member washing a residential sidewalk">
+          <img loading="lazy" decoding="async" class="pp-process-photo" data-process-photo="2" src="/images/process-report.png" alt="Homeowner reviewing a Porch Patrol visit report on her phone">
+          <div class="pp-process-media-label" id="pp-process-media-label">Patrol visit</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pp-content-strip pp-content-strip--navy" aria-labelledby="pp-handle-heading">
+    <div class="shell">
+      <div class="pp-content-strip__header">
+        <h2 id="pp-handle-heading">What we handle</h2>
+        <p>Small exterior issues and upkeep that are easy to miss, easy to put off and annoying to schedule one by one.</p>
+      </div>
+
+      <div class="pp-content-strip__grid" role="list">
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">water_drop</span></span><span class="pp-content-strip__label">Drips &amp; Leaks</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">home_repair_service</span></span><span class="pp-content-strip__label">Siding &amp; Hardware</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">construction</span></span><span class="pp-content-strip__label">Caulk &amp; Sealant</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">rainy</span></span><span class="pp-content-strip__label">Gutter Issues</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">lightbulb</span></span><span class="pp-content-strip__label">Light Bulbs</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">grass</span></span><span class="pp-content-strip__label">Weeds &amp; Debris</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">cleaning_services</span></span><span class="pp-content-strip__label">Cobweb Removal</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">ink_eraser</span></span><span class="pp-content-strip__label">Stain Removal</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">chair</span></span><span class="pp-content-strip__label">Mat &amp; Furniture Reset</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">celebration</span></span><span class="pp-content-strip__label">Décor Reset</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">potted_plant</span></span><span class="pp-content-strip__label">Planter Care</span></div>
+        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">auto_awesome</span></span><span class="pp-content-strip__label">Scrubbing &amp; Polishing</span></div>
       </div>
     </div>
   </section>
@@ -4182,6 +4522,35 @@ html {
 
     show(0);
     start();
+  });
+})();
+</script>
+
+
+<script>
+(() => {
+  const steps = Array.from(document.querySelectorAll(".pp-process-step"));
+  const photos = Array.from(document.querySelectorAll(".pp-process-photo"));
+  const label = document.getElementById("pp-process-media-label");
+  if (!steps.length || !photos.length || !label) return;
+
+  const activate = (index) => {
+    steps.forEach((step, i) => {
+      const active = i === index;
+      step.classList.toggle("active", active);
+      step.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    photos.forEach((photo, i) => photo.classList.toggle("active", i === index));
+    label.textContent = steps[index].dataset.processLabel || "";
+  };
+
+  steps.forEach((step, index) => {
+    step.addEventListener("click", () => activate(index));
+    step.addEventListener("focus", () => activate(index));
+
+    if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+      step.addEventListener("mouseenter", () => activate(index));
+    }
   });
 })();
 </script>
