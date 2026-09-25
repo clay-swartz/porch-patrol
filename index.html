@@ -3615,7 +3615,6 @@ html {
         <input type="hidden" name="_template" value="table">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
         <h2>First visit’s on the house.</h2>
-        <p class="sub">We’ll confirm your route day by text. <span class="desktop-cancel">Cancel anytime.</span></p>
 
         <div class="form-stack hero-form-grid">
           <input class="field" type="text" name="Home Address" placeholder="Home address" aria-label="Home address" autocomplete="street-address" required>
@@ -3624,8 +3623,8 @@ html {
           <button class="button" type="submit">Add my home</button>
         </div>
 
-        <div class="form-note" id="form-plan-note">$99/month · Front Entry selected</div>
-        <div class="mobile-form-note" id="mobile-form-note">From $99/month · 2 visits included · Cancel anytime.</div>
+        <div class="form-note" id="form-plan-note">We’ll confirm your route day by text. Cancel anytime.</div>
+        <div class="mobile-form-note" id="mobile-form-note">We’ll confirm your route day by text. Cancel anytime.</div>
         <div class="success" id="form-success" role="status" aria-live="polite">Got it. We’ll text you to confirm your route.</div>
         <div class="form-error" id="form-error" role="alert" aria-live="assertive">Something didn’t send. Please call us at <a href="tel:+19034618877">903-461-8877</a>.</div>
       </form>
@@ -3998,9 +3997,9 @@ html {
     if (ok) {
       heroForm.reset();
       heroPlanInput.value = "Front Entry";
-      heroPlanNote.textContent = "$99/month · Front Entry selected";
+      heroPlanNote.textContent = "We’ll confirm your route day by text. Cancel anytime.";
       if (mobilePlanNote) {
-        mobilePlanNote.textContent = "From $99/month · 2 visits included · Cancel anytime.";
+        mobilePlanNote.textContent = "We’ll confirm your route day by text. Cancel anytime.";
       }
     }
   });
