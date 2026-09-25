@@ -3571,16 +3571,17 @@ html {
 
 
 /* =========================================================
-   PORCH PATROL — PROCESS + REUSABLE CONTENT STRIP
+   PORCH PATROL — PROCESS + SERVICE TICKER
    Production component system · 2026-09-25
    ========================================================= */
 
 .pp-process-section {
+  padding: 74px 0 36px;
   background: var(--paper);
 }
 
 .pp-process-intro {
-  max-width: 720px;
+  max-width: 820px;
   margin: 0 0 34px;
 }
 
@@ -3594,15 +3595,14 @@ html {
 }
 
 .pp-process-intro h2 {
-  max-width: 15ch;
   margin: 0;
   color: var(--navy);
   font-family: var(--display);
-  font-size: clamp(40px, 4vw, 52px);
+  font-size: clamp(42px, 4vw, 52px);
   font-weight: 650;
   line-height: 1.02;
   letter-spacing: -.035em;
-  text-wrap: balance;
+  white-space: nowrap;
 }
 
 .pp-process-intro p {
@@ -3771,79 +3771,120 @@ html {
   backdrop-filter: blur(5px);
 }
 
-/* Reusable horizontal content strip. Use modifiers for alternate backgrounds. */
-.pp-content-strip {
-  padding: 38px 0 42px;
+/* Reusable low-footprint service ticker. */
+.pp-service-ticker-wrap {
+  padding: 0 0 70px;
+  background: var(--paper);
 }
 
-.pp-content-strip--navy {
-  background: var(--navy);
-  color: #fff;
-}
-
-.pp-content-strip__header {
-  max-width: 680px;
-  margin: 0 0 23px;
-}
-
-.pp-content-strip__header h2 {
-  margin: 0;
-  color: inherit;
-  font-family: var(--display);
-  font-size: clamp(30px, 3vw, 36px);
-  font-weight: 650;
-  line-height: 1.05;
-  letter-spacing: -.025em;
-  text-wrap: balance;
-}
-
-.pp-content-strip__header p {
-  max-width: 620px;
-  margin: 8px 0 0;
-  color: rgba(255,255,255,.72);
-  font-size: 13.5px;
-  font-weight: 500;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.pp-content-strip__grid {
+.pp-service-ticker {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  column-gap: 24px;
-  row-gap: 18px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: stretch;
 }
 
-.pp-content-strip__item {
+.pp-service-ticker__viewport {
+  position: relative;
   min-width: 0;
+  min-height: 62px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  overflow: hidden;
+  padding: 10px 14px;
+  border: 1px solid #e3ddd3;
+  border-radius: 12px;
+  background: #f7f3eb;
+  box-shadow: 0 8px 24px rgba(24,52,71,.05);
 }
 
-.pp-content-strip__icon {
-  flex: 0 0 auto;
-  width: 32px;
-  height: 32px;
+.pp-service-ticker__track {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  animation: ppServiceTicker 34s linear infinite;
+  will-change: transform;
+}
+
+.pp-service-ticker__viewport:hover .pp-service-ticker__track,
+.pp-service-ticker__viewport:focus .pp-service-ticker__track {
+  animation-play-state: paused;
+}
+
+.pp-service-ticker__set {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-shrink: 0;
+  padding-right: 22px;
+}
+
+.pp-service-ticker__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pp-service-ticker__icon {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 9px;
-  background: rgba(255,255,255,.08);
-  color: var(--yellow);
+  border: 1px solid #d7cfc3;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--teal);
 }
 
-.pp-content-strip__icon .material-symbols-rounded {
-  font-size: 18px;
+.pp-service-ticker__icon .material-symbols-rounded {
+  font-size: 17px;
 }
 
-.pp-content-strip__label {
-  min-width: 0;
+.pp-service-ticker__cta {
+  min-height: 62px;
+  padding: 10px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--navy);
+  border-radius: 12px;
+  background: var(--navy);
   color: #fff;
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1.25;
-  text-wrap: pretty;
+  box-shadow: 0 8px 24px rgba(24,52,71,.10);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform .15s ease, filter .15s ease;
+}
+
+.pp-service-ticker__cta:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.pp-service-ticker__cta:focus-visible {
+  outline: 3px solid rgba(245,198,78,.35);
+  outline-offset: 3px;
+}
+
+.pp-service-ticker__cta-arrow {
+  color: var(--yellow);
+  font-size: 14px;
+  line-height: 1;
+}
+
+@keyframes ppServiceTicker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 @media (max-width: 980px) {
@@ -3854,16 +3895,12 @@ html {
   .pp-process-step {
     padding: 18px 17px;
   }
-
-  .pp-content-strip__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 760px) {
   .pp-process-section {
     padding-top: 52px;
-    padding-bottom: 52px;
+    padding-bottom: 32px;
   }
 
   .pp-process-intro {
@@ -3871,7 +3908,10 @@ html {
   }
 
   .pp-process-intro h2 {
+    max-width: 15ch;
     font-size: 36px;
+    white-space: normal;
+    text-wrap: balance;
   }
 
   .pp-process-intro p {
@@ -3907,18 +3947,23 @@ html {
     line-height: 1.46;
   }
 
-  .pp-content-strip {
-    padding: 32px 0 36px;
+  .pp-service-ticker-wrap {
+    padding-bottom: 54px;
   }
 
-  .pp-content-strip__header {
-    margin-bottom: 20px;
+  .pp-service-ticker {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 
-  .pp-content-strip__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 18px;
-    row-gap: 15px;
+  .pp-service-ticker__viewport {
+    min-height: 58px;
+    border-radius: 11px;
+  }
+
+  .pp-service-ticker__cta {
+    min-height: 48px;
+    border-radius: 11px;
   }
 }
 
@@ -3938,25 +3983,12 @@ html {
     border-radius: 10px;
   }
 
-  .pp-content-strip__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .pp-service-ticker__set {
+    gap: 19px;
+    padding-right: 19px;
   }
 
-  .pp-content-strip__item {
-    gap: 8px;
-  }
-
-  .pp-content-strip__icon {
-    width: 29px;
-    height: 29px;
-    border-radius: 8px;
-  }
-
-  .pp-content-strip__icon .material-symbols-rounded {
-    font-size: 17px;
-  }
-
-  .pp-content-strip__label {
+  .pp-service-ticker__item {
     font-size: 11.5px;
   }
 }
@@ -3966,6 +3998,16 @@ html {
   .pp-process-step,
   .pp-process-step-number {
     transition: none;
+  }
+
+  .pp-service-ticker__track {
+    width: auto;
+    overflow-x: auto;
+    animation: none;
+  }
+
+  .pp-service-ticker__set[aria-hidden="true"] {
+    display: none;
   }
 }
 
@@ -4075,81 +4117,46 @@ html {
     </div>
   </section>
 
-  <section class="pp-content-strip pp-content-strip--navy" aria-labelledby="pp-handle-heading">
+  <section class="pp-service-ticker-wrap" aria-label="Examples of what Porch Patrol handles">
     <div class="shell">
-      <div class="pp-content-strip__header">
-        <h2 id="pp-handle-heading">What we handle</h2>
-        <p>Small exterior issues and upkeep that are easy to miss, easy to put off and annoying to schedule one by one.</p>
-      </div>
-
-      <div class="pp-content-strip__grid" role="list">
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">water_drop</span></span><span class="pp-content-strip__label">Drips &amp; Leaks</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">home_repair_service</span></span><span class="pp-content-strip__label">Siding &amp; Hardware</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">construction</span></span><span class="pp-content-strip__label">Caulk &amp; Sealant</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">rainy</span></span><span class="pp-content-strip__label">Gutter Issues</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">lightbulb</span></span><span class="pp-content-strip__label">Light Bulbs</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">grass</span></span><span class="pp-content-strip__label">Weeds &amp; Debris</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">cleaning_services</span></span><span class="pp-content-strip__label">Cobweb Removal</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">ink_eraser</span></span><span class="pp-content-strip__label">Stain Removal</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">chair</span></span><span class="pp-content-strip__label">Mat &amp; Furniture Reset</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">celebration</span></span><span class="pp-content-strip__label">Décor Reset</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">potted_plant</span></span><span class="pp-content-strip__label">Planter Care</span></div>
-        <div class="pp-content-strip__item" role="listitem"><span class="pp-content-strip__icon"><span class="material-symbols-rounded">auto_awesome</span></span><span class="pp-content-strip__label">Scrubbing &amp; Polishing</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="feature-care">
-    <div class="feature-care-navy-base" aria-hidden="true"></div>
-    <svg class="feature-care-pattern-layer" aria-hidden="true" preserveAspectRatio="none">
-      <defs>
-        <pattern id="porchPatrolFeaturePattern" width="144" height="96" patternUnits="userSpaceOnUse">
-          <text x="20"  y="28" font-size="22">home</text>
-          <text x="68"  y="28" font-size="22">build</text>
-          <text x="116" y="28" font-size="22">lightbulb</text>
-
-          <text x="20"  y="76" font-size="22">cleaning_services</text>
-          <text x="68"  y="76" font-size="22">potted_plant</text>
-          <text x="116" y="76" font-size="22">search</text>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#porchPatrolFeaturePattern)"></rect>
-    </svg>
-    <div class="feature-care-pattern-wash" aria-hidden="true"></div>
-
-    <div class="shell feature-care-grid">
-      <div class="feature-care-copy">
-        <h2>Stay ahead of the<br><span class="headline-lock">little things.</span></h2>
-        <p class="feature-care-sub">Let us handle the everyday upkeep that’s easy to overlook, so small things don’t become bigger ones.</p>
-      </div>
-
-      <div class="feature-care-side">
-        <div class="feature-care-tiles">
-          <article class="feature-care-tile">
-            <div class="feature-care-icon"><span class="material-symbols-rounded">build</span></div>
-            <h3>Loose handle?</h3>
-          </article>
-          <article class="feature-care-tile">
-            <div class="feature-care-icon"><span class="material-symbols-rounded">potted_plant</span></div>
-            <h3>Weeds in the pavers?</h3>
-          </article>
-          <article class="feature-care-tile">
-            <div class="feature-care-icon"><span class="material-symbols-rounded">lightbulb</span></div>
-            <h3>Burned-out bulb?</h3>
-          </article>
-          <article class="feature-care-tile">
-            <div class="feature-care-icon"><span class="material-symbols-rounded">plumbing</span></div>
-            <h3>Leaking faucet?</h3>
-          </article>
+      <div class="pp-service-ticker">
+        <div class="pp-service-ticker__viewport" tabindex="0" aria-label="Examples of what Porch Patrol handles. Hover or focus to pause.">
+          <div class="pp-service-ticker__track">
+            <div class="pp-service-ticker__set" role="list">
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">water_drop</span></span><span>Drips &amp; Leaks</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">home_repair_service</span></span><span>Siding &amp; Hardware</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">construction</span></span><span>Caulk &amp; Sealant</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">rainy</span></span><span>Gutter Issues</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">lightbulb</span></span><span>Light Bulbs</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">grass</span></span><span>Weeds &amp; Debris</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">cleaning_services</span></span><span>Cobweb Removal</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">ink_eraser</span></span><span>Stain Removal</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">chair</span></span><span>Mat &amp; Furniture Reset</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">celebration</span></span><span>Décor Reset</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">potted_plant</span></span><span>Planter Care</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">auto_awesome</span></span><span>Scrubbing &amp; Polishing</span></div>
+            </div>
+            <div class="pp-service-ticker__set" aria-hidden="true">
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">water_drop</span></span><span>Drips &amp; Leaks</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">home_repair_service</span></span><span>Siding &amp; Hardware</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">construction</span></span><span>Caulk &amp; Sealant</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">rainy</span></span><span>Gutter Issues</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">lightbulb</span></span><span>Light Bulbs</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">grass</span></span><span>Weeds &amp; Debris</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">cleaning_services</span></span><span>Cobweb Removal</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">ink_eraser</span></span><span>Stain Removal</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">chair</span></span><span>Mat &amp; Furniture Reset</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">celebration</span></span><span>Décor Reset</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">potted_plant</span></span><span>Planter Care</span></div>
+          <div class="pp-service-ticker__item" role="listitem"><span class="pp-service-ticker__icon"><span class="material-symbols-rounded">auto_awesome</span></span><span>Scrubbing &amp; Polishing</span></div>
+            </div>
+          </div>
         </div>
 
-        <aside class="feature-care-rail">
-          <div class="feature-care-rail-copy">
-            <strong>Need help indoors?</strong>
-            <span>Interior handyman help is available by request.</span>
-          </div>
-          <button type="button" class="feature-care-rail-link plan-dialog-open" data-plan="Interior help" data-dialog-title="Need help inside?" data-dialog-note="Tell us what you need handled and we’ll follow up personally.">Just ask →</button>
-        </aside>
+        <a class="pp-service-ticker__cta" href="#signup">
+          <span>Patrol my place.</span>
+          <span class="pp-service-ticker__cta-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
