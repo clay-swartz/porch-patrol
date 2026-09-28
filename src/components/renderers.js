@@ -180,21 +180,47 @@ export function renderServiceTicker(component) {
   if (component.enabled === false) return "";
 
   const cta = component.cta || {};
+  const inlineLead = cta.action === "inlineLead";
+
   return [
-    '<section class="pp-service-ticker-wrap" data-pp-component="serviceTicker" data-pp-variant="' + escapeHtml(component.variant) + '"' + attr("aria-label", component.ariaLabel) + ">",
+    '<section class="pp-service-ticker-wrap" data-pp-component="serviceTicker" data-pp-variant="' + escapeHtml(component.variant) + '"' + attr("aria-label", component.ariaLabel) + '>',
       '<div class="shell">',
         '<div class="pp-service-ticker">',
-          '<div class="pp-service-ticker__viewport" tabindex="0"' + attr("aria-label", component.pauseInstruction) + ">",
+          '<div class="pp-service-ticker__viewport" tabindex="0"' + attr("aria-label", component.pauseInstruction) + '>',
             '<div class="pp-service-ticker__track">',
               renderTickerItems(component.items, false),
               renderTickerItems(component.items, true),
             "</div>",
           "</div>",
-          '<a class="pp-service-ticker__cta"' + attr("href", cta.href) + ">",
-            "<span>" + escapeHtml(cta.label) + "</span>",
-            cta.showArrow ? '<span class="pp-service-ticker__cta-arrow" aria-hidden="true">→</span>' : "",
-          "</a>",
+          inlineLead
+            ? '<button class="pp-service-ticker__cta" type="button" aria-expanded="false" data-pp-inline-lead-toggle>' +
+                "<span>" + escapeHtml(cta.label) + "</span>" +
+                (cta.showArrow ? '<span class="pp-service-ticker__cta-arrow" aria-hidden="true">→</span>' : "") +
+              "</button>"
+            : '<a class="pp-service-ticker__cta"' + attr("href", cta.href) + ">" +
+                "<span>" + escapeHtml(cta.label) + "</span>" +
+                (cta.showArrow ? '<span class="pp-service-ticker__cta-arrow" aria-hidden="true">→</span>' : "") +
+              "</a>",
         "</div>",
+        inlineLead
+          ? '<div class="pp-service-ticker__lead" hidden data-pp-inline-lead>' +
+              '<div class="pp-service-ticker__lead-copy">' +
+                '<strong>Let’s get your home on patrol.</strong>' +
+                '<span>Tell us where to go and we’ll confirm your route day by text.</span>' +
+              "</div>" +
+              '<form class="pp-service-ticker__lead-form" data-pp-inline-lead-form>' +
+                '<input type="hidden" name="Plan" value="Front Entry">' +
+                '<input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">' +
+                '<input class="field" type="text" name="Home Address" placeholder="Home address" aria-label="Home address" autocomplete="street-address" required>' +
+                '<input class="field" type="text" name="Name" placeholder="Your name" aria-label="Your name" autocomplete="name" required>' +
+                '<input class="field" type="tel" name="Mobile" placeholder="Mobile number" aria-label="Mobile number" autocomplete="tel" inputmode="tel" required>' +
+                '<button class="button" type="submit">Add my home</button>' +
+                '<div class="pp-service-ticker__lead-note">We’ll confirm your route day by text. Cancel anytime.</div>' +
+                '<div class="success" role="status" aria-live="polite">Got it. We’ll text you to confirm your route.</div>' +
+                '<div class="form-error" role="alert" aria-live="assertive">Something didn’t send. Please call us.</div>' +
+              "</form>" +
+            "</div>"
+          : "",
       "</div>",
     "</section>"
   ].join("");
