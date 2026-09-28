@@ -741,6 +741,7 @@ async function restoreRevision(id) {
 async function fetchMediaItems() {
   const response = await fetch(SUPABASE_URL + "/functions/v1/porch-patrol-media", {
     headers: {
+      "apikey": SUPABASE_KEY,
       "x-porch-patrol-editor-token": editorToken
     },
     cache: "no-store"
@@ -797,6 +798,7 @@ async function uploadMedia(file) {
   const response = await fetch(SUPABASE_URL + "/functions/v1/porch-patrol-media", {
     method: "POST",
     headers: {
+      "apikey": SUPABASE_KEY,
       "x-porch-patrol-editor-token": editorToken
     },
     body: form
