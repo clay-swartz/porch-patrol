@@ -20,17 +20,42 @@ function attr(name, value) {
   return " " + name + '="' + escapeHtml(value) + '"';
 }
 
-function patternSvg(id, className) {
+function choice(value, allowed, fallback) {
+  return allowed.includes(value) ? value : fallback;
+}
+
+function patternSvg(id, className, variant = "icons") {
+  if (variant === "none") return "";
+
+  let patternBody = "";
+  let width = 144;
+  let height = 96;
+
+  if (variant === "dots") {
+    width = 42;
+    height = 42;
+    patternBody = '<circle cx="8" cy="8" r="2.2" class="pp-pattern-dot"></circle>';
+  } else if (variant === "grid") {
+    width = 54;
+    height = 54;
+    patternBody =
+      '<path d="M 54 0 L 0 0 0 54" fill="none" class="pp-pattern-grid"></path>';
+  } else {
+    patternBody = [
+      '<text x="20" y="28" font-size="22">home</text>',
+      '<text x="68" y="28" font-size="22">build</text>',
+      '<text x="116" y="28" font-size="22">lightbulb</text>',
+      '<text x="20" y="76" font-size="22">cleaning_services</text>',
+      '<text x="68" y="76" font-size="22">potted_plant</text>',
+      '<text x="116" y="76" font-size="22">search</text>'
+    ].join("");
+  }
+
   return [
     '<svg class="' + className + '" aria-hidden="true" preserveAspectRatio="none">',
       "<defs>",
-        '<pattern id="' + escapeHtml(id) + '" width="144" height="96" patternUnits="userSpaceOnUse">',
-          '<text x="20" y="28" font-size="22">home</text>',
-          '<text x="68" y="28" font-size="22">build</text>',
-          '<text x="116" y="28" font-size="22">lightbulb</text>',
-          '<text x="20" y="76" font-size="22">cleaning_services</text>',
-          '<text x="68" y="76" font-size="22">potted_plant</text>',
-          '<text x="116" y="76" font-size="22">search</text>',
+        '<pattern id="' + escapeHtml(id) + '" width="' + width + '" height="' + height + '" patternUnits="userSpaceOnUse">',
+          patternBody,
         "</pattern>",
       "</defs>",
       '<rect width="100%" height="100%" fill="url(#' + escapeHtml(id) + ')"></rect>',
@@ -58,6 +83,10 @@ export function renderHeroLead(component, context = {}) {
   if (component.enabled === false) return "";
 
   const form = component.form || {};
+  const visual = component.visual || {};
+  const heroTone = choice(visual.tone, ["navy", "teal", "cream"], "navy");
+  const heroPattern = choice(visual.pattern, ["icons", "dots", "grid", "none"], "icons");
+  const heroPatternStrength = choice(visual.patternStrength, ["subtle", "standard", "bold"], "standard");
   const site = context.site || {};
   const phoneHref = site.phoneHref || "tel:+19034618877";
   const phoneDisplay = site.phoneDisplay || "903-461-8877";
@@ -79,9 +108,9 @@ export function renderHeroLead(component, context = {}) {
   const proof = (component.proofItems || []).map(escapeHtml).join(" · ");
 
   return [
-    '<section class="hero hero-patterned" data-pp-component="heroLead" data-pp-variant="' + escapeHtml(component.variant) + '">',
+    '<section class="hero hero-patterned pp-hero-tone--' + heroTone + ' pp-hero-pattern-strength--' + heroPatternStrength + '" data-pp-component="heroLead" data-pp-variant="' + escapeHtml(component.variant) + '">',
       '<div class="hero-navy-base" aria-hidden="true"></div>',
-      patternSvg("porchPatrolHeroPattern", "hero-pattern-layer"),
+      patternSvg("porchPatrolHeroPattern", "hero-pattern-layer", heroPattern),
       '<div class="hero-pattern-wash" aria-hidden="true"></div>',
       '<div class="hero-inner">',
         '<div class="hero-copy">',
@@ -114,6 +143,8 @@ export function renderProcessSteps(component) {
   if (component.enabled === false) return "";
 
   const componentId = component.id || "process";
+  const visual = component.visual || {};
+  const tone = choice(visual.background, ["paper", "cream", "paleBlue"], "paper");
   const headingId = componentId + "-heading";
   const labelId = componentId + "-media-label";
 
@@ -134,8 +165,9 @@ export function renderProcessSteps(component) {
   }).join("");
 
   const photos = (component.steps || []).map((step, index) => {
+    const position = choice(step.image && step.image.position, ["center", "top", "bottom", "left", "right"], "center");
     return [
-      '<img loading="lazy" decoding="async" class="pp-process-photo' + (index === 0 ? " active" : "") + '"',
+      '<img loading="lazy" decoding="async" class="pp-process-photo pp-image-pos--' + position + (index === 0 ? " active" : "") + '"',
       ' data-process-photo="' + index + '"',
       attr("src", step.image && step.image.src),
       attr("alt", step.image && step.image.alt),
@@ -144,7 +176,7 @@ export function renderProcessSteps(component) {
   }).join("");
 
   return [
-    '<section class="section pp-process-section" data-pp-component="processSteps" data-pp-instance="' + escapeHtml(componentId) + '"' + attr("aria-labelledby", headingId) + ">",
+    '<section class="section pp-process-section pp-process-tone--' + tone + '" data-pp-component="processSteps" data-pp-instance="' + escapeHtml(componentId) + '"' + attr("aria-labelledby", headingId) + ">",
       '<div class="shell">',
         '<div class="pp-process-intro">',
           '<div class="pp-process-eyebrow">' + escapeHtml(component.eyebrow) + "</div>",
@@ -180,6 +212,9 @@ export function renderServiceTicker(component) {
   if (component.enabled === false) return "";
 
   const cta = component.cta || {};
+  const visual = component.visual || {};
+  const railTone = choice(visual.railTone, ["cream", "white", "paleBlue", "softTeal"], "cream");
+  const ctaTone = choice(visual.ctaTone, ["navy", "teal", "yellow"], "navy");
   const inlineLead = cta.action === "inlineLead";
 
   return [
@@ -257,6 +292,8 @@ export function renderFAQAccordion(component) {
   if (component.enabled === false) return "";
 
   const intro = component.intro || {};
+  const visual = component.visual || {};
+  const tone = choice(visual.background, ["cream", "paper", "paleBlue"], "cream");
   const items = (component.items || []).map((item) => {
     return [
       '<details class="faq-item">',
@@ -270,7 +307,7 @@ export function renderFAQAccordion(component) {
   }).join("");
 
   return [
-    '<section class="faq-section" data-pp-component="faqAccordion">',
+    '<section class="faq-section pp-faq-tone--' + tone + '" data-pp-component="faqAccordion">',
       '<div class="faq-wrap">',
         '<div class="section-heading">',
           "<h2>" + escapeHtml(component.headline) + "</h2>",
@@ -285,8 +322,11 @@ export function renderFAQAccordion(component) {
 export function renderCTABand(component) {
   if (component.enabled === false) return "";
 
+  const visual = component.visual || {};
+  const tone = choice(visual.background, ["teal", "navy", "cream"], "teal");
+
   return [
-    '<section class="final-cta" data-pp-component="ctaBand">',
+    '<section class="final-cta pp-cta-tone--' + tone + '" data-pp-component="ctaBand">',
       "<h2>" + escapeHtml(component.headline) + "</h2>",
       '<a class="button"' + attr("href", component.cta && component.cta.href) + ' style="display:inline-flex;align-items:center;margin-top:24px;">',
         escapeHtml(component.cta && component.cta.label),
