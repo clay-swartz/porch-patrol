@@ -119,6 +119,13 @@
         "showArrow": {
           "type": "boolean",
           "default": false
+        },
+        "action": {
+          "enum": [
+            "link",
+            "inlineLead"
+          ],
+          "default": "link"
         }
       },
       "additionalProperties": false
