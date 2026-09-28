@@ -39,6 +39,8 @@
 
       <div class="header-actions">
         <span id="save-status" class="save-status">Ready</span>
+        <button id="history-button" class="secondary-button" type="button">History</button>
+        <button id="media-button" class="secondary-button" type="button">Media</button>
         <button id="preview-button" class="secondary-button" type="button">Preview</button>
         <button id="save-button" class="secondary-button" type="button">Save draft</button>
         <button id="publish-button" class="primary-button" type="button">Publish</button>
@@ -96,6 +98,41 @@
         <button id="confirm-action" value="confirm" class="primary-button">Publish</button>
       </div>
     </form>
+  </dialog>
+
+  <dialog id="history-dialog" class="utility-dialog">
+    <div class="utility-dialog-card">
+      <div class="utility-dialog-head">
+        <div>
+          <p class="eyebrow">SAFETY NET</p>
+          <h2>Revision history</h2>
+          <p>Restoring a revision only replaces your draft. Nothing changes live until you publish.</p>
+        </div>
+        <button type="button" class="dialog-close" data-close-dialog="history-dialog" aria-label="Close">×</button>
+      </div>
+      <div id="history-list" class="history-list"></div>
+    </div>
+  </dialog>
+
+  <dialog id="media-dialog" class="utility-dialog utility-dialog-wide">
+    <div class="utility-dialog-card">
+      <div class="utility-dialog-head">
+        <div>
+          <p class="eyebrow">MEDIA LIBRARY</p>
+          <h2>Photos</h2>
+          <p>Upload a JPG, PNG, WebP or AVIF up to 10 MB. Choosing a photo only updates the current draft.</p>
+        </div>
+        <button type="button" class="dialog-close" data-close-dialog="media-dialog" aria-label="Close">×</button>
+      </div>
+      <div class="media-upload-row">
+        <label class="secondary-button media-upload-button">
+          Upload image
+          <input id="media-upload-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+        </label>
+        <span id="media-status" class="status-message" role="status" aria-live="polite"></span>
+      </div>
+      <div id="media-grid" class="media-grid"></div>
+    </div>
   </dialog>
 
 <script type="module" src="/admin/admin.js"></script>
