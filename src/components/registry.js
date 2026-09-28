@@ -105,7 +105,7 @@ export const componentRegistry = {
           label: "CTA",
           fields: [
             { path: "cta.label", label: "Button label", control: "text" },
-            { path: "cta.href", label: "Button link", control: "link" },
+            { path: "cta.action", label: "Action", control: "hidden", value: "inlineLead" },
             { path: "cta.showArrow", label: "Show arrow", control: "toggle" }
           ]
         }
