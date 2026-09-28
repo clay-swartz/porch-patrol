@@ -17,6 +17,14 @@ const editorEmpty = document.getElementById("editor-empty");
 const saveButton = document.getElementById("save-button");
 const publishButton = document.getElementById("publish-button");
 const previewButton = document.getElementById("preview-button");
+const historyButton = document.getElementById("history-button");
+const mediaButton = document.getElementById("media-button");
+const historyDialog = document.getElementById("history-dialog");
+const historyList = document.getElementById("history-list");
+const mediaDialog = document.getElementById("media-dialog");
+const mediaGrid = document.getElementById("media-grid");
+const mediaUploadInput = document.getElementById("media-upload-input");
+const mediaStatus = document.getElementById("media-status");
 const signoutButton = document.getElementById("signout-button");
 const addSectionType = document.getElementById("add-section-type");
 const addSectionButton = document.getElementById("add-section-button");
@@ -27,6 +35,7 @@ let state = null;
 let selected = "global";
 let dirty = false;
 let editorToken = sessionStorage.getItem("porchPatrolEditorToken") || "";
+let mediaTargetPath = "";
 
 const labels = {
   heroLead: "Hero",
@@ -89,6 +98,80 @@ function field(label, path, options = {}) {
   return '<label class="field-group"><span class="field-label">' + esc(label) + "</span>" + control + help + "</label>";
 }
 
+function presetPicker(label, path, options) {
+  const value = getByPath(state, path) ?? options[0]?.value ?? "";
+  return [
+    '<div class="field-group">',
+      '<span class="field-label">' + esc(label) + '</span>',
+      '<div class="preset-grid">',
+        options.map((item) =>
+          '<button type="button" class="preset-option' + (item.value === value ? ' active' : '') + '"' +
+          ' data-preset-path="' + esc(path) + '" data-preset-value="' + esc(item.value) + '">' +
+            '<span class="preset-swatch swatch-' + esc(item.swatch || item.value) + '"></span>' +
+            '<strong>' + esc(item.label) + '</strong>' +
+          '</button>'
+        ).join(''),
+      '</div>',
+    '</div>'
+  ].join('');
+}
+
+function mediaField(label, path) {
+  const value = getByPath(state, path) ?? "";
+  return [
+    '<div class="field-group">',
+      '<span class="field-label">' + esc(label) + '</span>',
+      '<div class="media-field">',
+        '<div class="media-thumb">' +
+          (value ? '<img src="' + esc(value) + '" alt="Current image">' : '') +
+        '</div>',
+        '<div class="media-field-actions">',
+          '<button type="button" class="secondary-button" data-media-path="' + esc(path) + '">Replace image</button>',
+          '<div class="media-field-path">' + esc(value || 'No image selected') + '</div>',
+        '</div>',
+      '</div>',
+    '</div>'
+  ].join('');
+}
+
+function normalizeVisualDefaults(content) {
+  const sections = content?.pages?.home?.sections || [];
+
+  sections.forEach((section) => {
+    if (section.type === "heroLead") {
+      section.visual ||= {};
+      section.visual.tone ||= "navy";
+      section.visual.pattern ||= "icons";
+      section.visual.patternStrength ||= "standard";
+    }
+
+    if (section.type === "processSteps") {
+      section.visual ||= {};
+      section.visual.background ||= "paper";
+      (section.steps || []).forEach((step) => {
+        step.image ||= {};
+        step.image.position ||= "center";
+      });
+    }
+
+    if (section.type === "serviceTicker") {
+      section.visual ||= {};
+      section.visual.railTone ||= "cream";
+      section.visual.ctaTone ||= "navy";
+    }
+
+    if (section.type === "faqAccordion") {
+      section.visual ||= {};
+      section.visual.background ||= "cream";
+    }
+
+    if (section.type === "ctaBand") {
+      section.visual ||= {};
+      section.visual.background ||= "teal";
+    }
+  });
+}
+
 function sectionBlock(title, inner) {
   return '<section class="field-section"><h2>' + esc(title) + "</h2>" + inner + "</section>";
 }
@@ -149,17 +232,24 @@ function processRepeater(arrayPath) {
             '<div class="repeater-grid">' +
               field("Heading", arrayPath + "." + index + ".heading") +
               field("Image label", arrayPath + "." + index + ".mediaLabel") +
-            "</div>" +
+            '</div>' +
             field("Body", arrayPath + "." + index + ".body", { textarea: true }) +
+            mediaField("Photo", arrayPath + "." + index + ".image.src") +
             '<div class="repeater-grid">' +
-              field("Image path", arrayPath + "." + index + ".image.src") +
+              field("Image focal point", arrayPath + "." + index + ".image.position", { select: [
+                {label:"Center",value:"center"},
+                {label:"Top",value:"top"},
+                {label:"Bottom",value:"bottom"},
+                {label:"Left",value:"left"},
+                {label:"Right",value:"right"}
+              ]}) +
               field("Alt text", arrayPath + "." + index + ".image.alt") +
-            "</div>" +
-          "</div>" +
-        "</div>"
-      ).join("") +
+            '</div>' +
+          '</div>' +
+        '</div>'
+      ).join('') +
       '<button type="button" class="add-row-button" data-add-array="' + esc(arrayPath) + '" data-add-kind="processStep">+ Add step</button>' +
-    "</div>"
+    '</div>'
   );
 }
 
@@ -229,6 +319,24 @@ function renderHero(section, index) {
   const base = "pages.home.sections." + index;
   editorForm.innerHTML =
     componentHead("Hero", "The first thing homeowners see.", index) +
+    sectionBlock("Visual style",
+      presetPicker("Background", base + ".visual.tone", [
+        {label:"Navy",value:"navy",swatch:"navy"},
+        {label:"Teal",value:"teal",swatch:"teal"},
+        {label:"Cream",value:"cream",swatch:"cream"}
+      ]) +
+      presetPicker("Pattern", base + ".visual.pattern", [
+        {label:"House icons",value:"icons",swatch:"icons"},
+        {label:"Dots",value:"dots",swatch:"dots"},
+        {label:"Grid",value:"grid",swatch:"grid"},
+        {label:"None",value:"none",swatch:"none"}
+      ]) +
+      field("Pattern strength", base + ".visual.patternStrength", { select: [
+        {label:"Subtle",value:"subtle"},
+        {label:"Standard",value:"standard"},
+        {label:"Bold",value:"bold"}
+      ]})
+    ) +
     sectionBlock("Message",
       field("Headline line 1", base + ".headlineLines.0") +
       field("Headline line 2", base + ".headlineLines.1") +
@@ -236,14 +344,14 @@ function renderHero(section, index) {
       '<div class="field-grid">' +
         field("Proof label", base + ".proofLabel") +
         field("Price line", base + ".priceLine") +
-      "</div>"
+      '</div>'
     ) +
     simpleStringRepeater("Proof examples", base + ".proofItems") +
     sectionBlock("Lead form",
       '<div class="field-grid">' +
         field("Form headline", base + ".form.headline") +
         field("Button label", base + ".form.submitLabel") +
-      "</div>" +
+      '</div>' +
       field("Reassurance", base + ".form.reassurance") +
       field("Success message", base + ".form.successMessage")
     );
@@ -253,11 +361,18 @@ function renderProcess(section, index) {
   const base = "pages.home.sections." + index;
   editorForm.innerHTML =
     componentHead("Process / Steps", "Interactive process copy and matching imagery.", index) +
+    sectionBlock("Visual style",
+      presetPicker("Section background", base + ".visual.background", [
+        {label:"Paper",value:"paper",swatch:"paper"},
+        {label:"Cream",value:"cream",swatch:"cream"},
+        {label:"Pale blue",value:"paleBlue",swatch:"paleBlue"}
+      ])
+    ) +
     sectionBlock("Heading",
       '<div class="field-grid">' +
         field("Eyebrow", base + ".eyebrow") +
         field("Headline", base + ".headline") +
-      "</div>" +
+      '</div>' +
       field("Supporting text", base + ".supportingText", { textarea: true })
     ) +
     processRepeater(base + ".steps");
@@ -267,6 +382,19 @@ function renderTicker(section, index) {
   const base = "pages.home.sections." + index;
   editorForm.innerHTML =
     componentHead("Service Ticker", "A low-footprint stream of examples with a primary CTA.", index) +
+    sectionBlock("Visual style",
+      presetPicker("Ticker background", base + ".visual.railTone", [
+        {label:"Cream",value:"cream",swatch:"cream"},
+        {label:"White",value:"white",swatch:"white"},
+        {label:"Pale blue",value:"paleBlue",swatch:"paleBlue"},
+        {label:"Soft teal",value:"softTeal",swatch:"softTeal"}
+      ]) +
+      presetPicker("CTA color", base + ".visual.ctaTone", [
+        {label:"Navy",value:"navy",swatch:"navy"},
+        {label:"Teal",value:"teal",swatch:"teal"},
+        {label:"Yellow",value:"yellow",swatch:"yellow"}
+      ])
+    ) +
     iconLabelRepeater("Ticker items", base + ".items") +
     sectionBlock("CTA",
       field("Button label", base + ".cta.label") +
@@ -303,13 +431,20 @@ function renderFaq(section, index) {
   const base = "pages.home.sections." + index;
   editorForm.innerHTML =
     componentHead("FAQ", "Questions homeowners can expand on the live site.", index) +
+    sectionBlock("Visual style",
+      presetPicker("Section background", base + ".visual.background", [
+        {label:"Cream",value:"cream",swatch:"cream"},
+        {label:"Paper",value:"paper",swatch:"paper"},
+        {label:"Pale blue",value:"paleBlue",swatch:"paleBlue"}
+      ])
+    ) +
     sectionBlock("Heading",
       field("Headline", base + ".headline") +
       '<div class="field-grid">' +
         field("Intro", base + ".intro.prefix") +
         field("Link label", base + ".intro.linkLabel") +
         field("Link destination", base + ".intro.href") +
-      "</div>"
+      '</div>'
     ) +
     faqRepeater(base + ".items");
 }
@@ -318,12 +453,19 @@ function renderCta(section, index) {
   const base = "pages.home.sections." + index;
   editorForm.innerHTML =
     componentHead("CTA Band", "A simple closing call to action.", index) +
+    sectionBlock("Visual style",
+      presetPicker("Background", base + ".visual.background", [
+        {label:"Teal",value:"teal",swatch:"teal"},
+        {label:"Navy",value:"navy",swatch:"navy"},
+        {label:"Cream",value:"cream",swatch:"cream"}
+      ])
+    ) +
     sectionBlock("CTA",
       field("Headline", base + ".headline") +
       '<div class="field-grid">' +
         field("Button label", base + ".cta.label") +
         field("Button link", base + ".cta.href") +
-      "</div>"
+      '</div>'
     );
 }
 
@@ -404,16 +546,16 @@ function newSection(type) {
   };
 
   if (type === "processSteps") return {
-    id, type, variant:"mediaSwap", enabled:true, eyebrow:"Our Process", headline:"A simple process.",
+    id, type, variant:"mediaSwap", enabled:true, visual:{background:"paper"}, eyebrow:"Our Process", headline:"A simple process.",
     supportingText:"",
     steps:[
-      {heading:"First step",body:"Describe what happens here.",mediaLabel:"First step",image:{src:"/images/process-patrol.png",alt:""}},
-      {heading:"Second step",body:"Describe what happens here.",mediaLabel:"Second step",image:{src:"/images/process-work.png",alt:""}}
+      {heading:"First step",body:"Describe what happens here.",mediaLabel:"First step",image:{src:"/images/process-patrol.png",alt:"",position:"center"}},
+      {heading:"Second step",body:"Describe what happens here.",mediaLabel:"Second step",image:{src:"/images/process-work.png",alt:"",position:"center"}}
     ]
   };
 
   if (type === "serviceTicker") return {
-    id, type, variant:"creamBento", enabled:true,
+    id, type, variant:"creamBento", enabled:true, visual:{railTone:"cream",ctaTone:"navy"},
     ariaLabel:"Examples of what Porch Patrol handles",
     pauseInstruction:"Examples of what Porch Patrol handles. Hover or focus to pause.",
     items:[
@@ -425,13 +567,13 @@ function newSection(type) {
   };
 
   if (type === "faqAccordion") return {
-    id, type, variant:"standard", enabled:true, headline:"Good to know",
+    id, type, variant:"standard", enabled:true, visual:{background:"cream"}, headline:"Good to know",
     intro:{prefix:"Have another question? Feel free to",linkLabel:"call or text us anytime",href:"tel:+19034618877"},
     items:[{question:"New question",lead:"",answer:"Add the answer here."}]
   };
 
   if (type === "ctaBand") return {
-    id, type, variant:"centered", enabled:true, headline:"Ready when you are.",
+    id, type, variant:"centered", enabled:true, visual:{background:"teal"}, headline:"Ready when you are.",
     cta:{label:"Start service",href:"#signup"}
   };
 
@@ -450,6 +592,7 @@ async function loadEditor() {
   }
 
   state = structuredClone(data);
+  normalizeVisualDefaults(state);
   dirty = false;
   setStatus("Draft loaded", "good");
   renderAll();
@@ -544,6 +687,141 @@ signoutButton.addEventListener("click", async () => {
   showLogin();
 });
 
+async function loadHistory() {
+  historyList.innerHTML = '<div class="status-message">Loading history…</div>';
+
+  const { data, error } = await supabase.rpc("list_porch_patrol_editor_revisions", {
+    p_token: editorToken
+  });
+
+  if (error) {
+    historyList.innerHTML = '<div class="status-message">Could not load revision history.</div>';
+    return;
+  }
+
+  const revisions = data || [];
+  historyList.innerHTML = revisions.length
+    ? revisions.map((revision) => {
+        const date = new Date(revision.created_at);
+        return [
+          '<div class="history-item">',
+            '<div>',
+              '<strong>' + esc(revision.label || 'Published') + '</strong>',
+              '<small>' + esc(date.toLocaleString([], {dateStyle:'medium', timeStyle:'short'})) + '</small>',
+            '</div>',
+            '<button type="button" class="small-button" data-restore-revision="' + esc(revision.id) + '">Restore to draft</button>',
+          '</div>'
+        ].join('');
+      }).join('')
+    : '<div class="status-message">No published revisions yet.</div>';
+}
+
+async function restoreRevision(id) {
+  setStatus("Restoring…");
+
+  const { data, error } = await supabase.rpc("restore_porch_patrol_editor_revision", {
+    p_token: editorToken,
+    p_revision_id: id
+  });
+
+  if (error || !data) {
+    setStatus("Restore failed", "error");
+    return;
+  }
+
+  state = structuredClone(data);
+  normalizeVisualDefaults(state);
+  dirty = false;
+  selected = "global";
+  setStatus("Revision restored to draft", "good");
+  historyDialog.close();
+  renderAll();
+}
+
+async function fetchMediaItems() {
+  const response = await fetch(SUPABASE_URL + "/functions/v1/porch-patrol-media", {
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "x-porch-patrol-editor-token": editorToken
+    },
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not load the media library.");
+  }
+
+  const payload = await response.json();
+  return payload.items || [];
+}
+
+function renderMediaItems(items) {
+  mediaGrid.innerHTML = items.length
+    ? items.map((item) => [
+        '<div class="media-card">',
+          '<img src="' + esc(item.url) + '" alt="">',
+          '<div class="media-card-body">',
+            '<div class="media-card-name">' + esc(item.name) + '</div>',
+            '<div class="media-card-actions">',
+              '<button type="button" class="small-button" data-use-media-url="' + esc(item.url) + '">' +
+                (mediaTargetPath ? 'Use image' : 'Copy URL') +
+              '</button>',
+            '</div>',
+          '</div>',
+        '</div>'
+      ].join('')).join('')
+    : '<div class="status-message">No uploaded photos yet.</div>';
+}
+
+async function openMediaLibrary(targetPath = "") {
+  mediaTargetPath = targetPath;
+  mediaStatus.textContent = "Loading…";
+  mediaGrid.innerHTML = "";
+  mediaDialog.showModal();
+
+  try {
+    const items = await fetchMediaItems();
+    renderMediaItems(items);
+    mediaStatus.textContent = "";
+  } catch (error) {
+    mediaStatus.textContent = error.message;
+  }
+}
+
+async function uploadMedia(file) {
+  if (!file) return;
+
+  mediaStatus.textContent = "Uploading…";
+  const form = new FormData();
+  form.append("file", file);
+
+  const response = await fetch(SUPABASE_URL + "/functions/v1/porch-patrol-media", {
+    method: "POST",
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "x-porch-patrol-editor-token": editorToken
+    },
+    body: form
+  });
+
+  const payload = await response.json().catch(() => ({}));
+
+  if (!response.ok || !payload.item) {
+    mediaStatus.textContent = payload.error || "Upload failed.";
+    return;
+  }
+
+  mediaStatus.textContent = "Uploaded.";
+  const items = await fetchMediaItems();
+  renderMediaItems(items);
+
+  if (mediaTargetPath) {
+    setByPath(state, mediaTargetPath, payload.item.url);
+    markDirty();
+    renderEditor();
+  }
+}
+
 editorForm.addEventListener("submit", (event) => event.preventDefault());
 
 editorForm.addEventListener("input", (event) => {
@@ -563,6 +841,20 @@ editorForm.addEventListener("change", (event) => {
 });
 
 editorForm.addEventListener("click", (event) => {
+  const presetButton = event.target.closest("[data-preset-path]");
+  if (presetButton) {
+    setByPath(state, presetButton.dataset.presetPath, presetButton.dataset.presetValue);
+    markDirty();
+    renderEditor();
+    return;
+  }
+
+  const mediaTrigger = event.target.closest("[data-media-path]");
+  if (mediaTrigger) {
+    openMediaLibrary(mediaTrigger.dataset.mediaPath);
+    return;
+  }
+
   const repeatButton = event.target.closest("[data-repeat-action]");
   if (repeatButton) {
     const arrayPath = repeatButton.dataset.arrayPath;
@@ -587,7 +879,7 @@ editorForm.addEventListener("click", (event) => {
 
     if (kind === "string") list.push("New item");
     if (kind === "iconLabel") list.push({icon:"home_repair_service",label:"New item"});
-    if (kind === "processStep") list.push({heading:"New step",body:"Describe what happens here.",mediaLabel:"New step",image:{src:"",alt:""}});
+    if (kind === "processStep") list.push({heading:"New step",body:"Describe what happens here.",mediaLabel:"New step",image:{src:"",alt:"",position:"center"}});
     if (kind === "faq") list.push({question:"New question",lead:"",answer:"Add the answer here."});
 
     markDirty();
@@ -652,6 +944,54 @@ addSectionButton.addEventListener("click", () => {
 saveButton.addEventListener("click", async () => {
   try { await saveDraft(); }
   catch (error) { console.error(error); }
+});
+
+historyButton.addEventListener("click", async () => {
+  historyDialog.showModal();
+  await loadHistory();
+});
+
+mediaButton.addEventListener("click", () => {
+  openMediaLibrary("");
+});
+
+document.querySelectorAll("[data-close-dialog]").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.getElementById(button.dataset.closeDialog)?.close();
+  });
+});
+
+historyList.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-restore-revision]");
+  if (!button) return;
+  await restoreRevision(button.dataset.restoreRevision);
+});
+
+mediaUploadInput.addEventListener("change", async () => {
+  const file = mediaUploadInput.files?.[0];
+  mediaUploadInput.value = "";
+  if (file) await uploadMedia(file);
+});
+
+mediaGrid.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-use-media-url]");
+  if (!button) return;
+
+  const url = button.dataset.useMediaUrl;
+
+  if (mediaTargetPath) {
+    setByPath(state, mediaTargetPath, url);
+    markDirty();
+    renderEditor();
+    mediaDialog.close();
+  } else {
+    try {
+      await navigator.clipboard.writeText(url);
+      mediaStatus.textContent = "Image URL copied.";
+    } catch {
+      mediaStatus.textContent = url;
+    }
+  }
 });
 
 previewButton.addEventListener("click", () => {

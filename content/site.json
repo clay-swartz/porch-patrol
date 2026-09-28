@@ -89,6 +89,11 @@
             "submitLabel": "Add my home",
             "reassurance": "We’ll confirm your route day by text. Cancel anytime.",
             "successMessage": "Got it. We’ll text you to confirm your route."
+          },
+          "visual": {
+            "tone": "navy",
+            "pattern": "icons",
+            "patternStrength": "standard"
           }
         },
         {
@@ -106,7 +111,8 @@
               "mediaLabel": "Patrol visit",
               "image": {
                 "src": "/images/process-patrol.png",
-                "alt": "Porch Patrol team member inspecting a home's front porch"
+                "alt": "Porch Patrol team member inspecting a home's front porch",
+                "position": "center"
               }
             },
             {
@@ -115,7 +121,8 @@
               "mediaLabel": "Work in progress",
               "image": {
                 "src": "/images/process-work.png",
-                "alt": "Porch Patrol team member washing a residential sidewalk"
+                "alt": "Porch Patrol team member washing a residential sidewalk",
+                "position": "center"
               }
             },
             {
@@ -124,10 +131,14 @@
               "mediaLabel": "Visit report",
               "image": {
                 "src": "/images/process-report.png",
-                "alt": "Homeowner reviewing a Porch Patrol visit report on her phone"
+                "alt": "Homeowner reviewing a Porch Patrol visit report on her phone",
+                "position": "center"
               }
             }
-          ]
+          ],
+          "visual": {
+            "background": "paper"
+          }
         },
         {
           "id": "service-ticker",
@@ -191,6 +202,10 @@
             "href": "#signup",
             "showArrow": true,
             "action": "inlineLead"
+          },
+          "visual": {
+            "railTone": "cream",
+            "ctaTone": "navy"
           }
         },
         {
@@ -242,7 +257,10 @@
               "question": "Can I cancel anytime?",
               "answer": "Yes. There’s no long-term contract. If Porch Patrol stops being useful for your home, you can cancel."
             }
-          ]
+          ],
+          "visual": {
+            "background": "cream"
+          }
         },
         {
           "id": "final-cta",
@@ -253,6 +271,9 @@
           "cta": {
             "label": "Start service",
             "href": "#signup"
+          },
+          "visual": {
+            "background": "teal"
           }
         }
       ]

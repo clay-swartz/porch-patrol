@@ -18,6 +18,14 @@ export const componentRegistry = {
     editor: {
       groups: [
         {
+          label: "Visual style",
+          fields: [
+            { path: "visual.tone", label: "Background", control: "preset", options: ["navy", "teal", "cream"] },
+            { path: "visual.pattern", label: "Pattern", control: "preset", options: ["icons", "dots", "grid", "none"] },
+            { path: "visual.patternStrength", label: "Pattern strength", control: "segmented", options: ["subtle", "standard", "bold"] }
+          ]
+        },
+        {
           label: "Message",
           fields: [
             { path: "headlineLines", label: "Headline", control: "lineList", min: 1, max: 3 },
@@ -49,6 +57,12 @@ export const componentRegistry = {
     editor: {
       groups: [
         {
+          label: "Visual style",
+          fields: [
+            { path: "visual.background", label: "Section background", control: "preset", options: ["paper", "cream", "paleBlue"] }
+          ]
+        },
+        {
           label: "Heading",
           fields: [
             { path: "eyebrow", label: "Eyebrow", control: "text" },
@@ -70,7 +84,8 @@ export const componentRegistry = {
                 { path: "heading", label: "Heading", control: "text" },
                 { path: "body", label: "Body", control: "textarea" },
                 { path: "mediaLabel", label: "Image label", control: "text" },
-                { path: "image.src", label: "Image", control: "image" },
+                { path: "image.src", label: "Image", control: "media" },
+                { path: "image.position", label: "Focal point", control: "segmented", options: ["center", "top", "bottom", "left", "right"] },
                 { path: "image.alt", label: "Alt text", control: "text" }
               ]
             }
@@ -88,6 +103,13 @@ export const componentRegistry = {
     defaultVariant: "creamBento",
     editor: {
       groups: [
+        {
+          label: "Visual style",
+          fields: [
+            { path: "visual.railTone", label: "Ticker background", control: "preset", options: ["cream", "white", "paleBlue", "softTeal"] },
+            { path: "visual.ctaTone", label: "CTA color", control: "preset", options: ["navy", "teal", "yellow"] }
+          ]
+        },
         {
           label: "Ticker items",
           fields: [
@@ -169,6 +191,12 @@ export const componentRegistry = {
     editor: {
       groups: [
         {
+          label: "Visual style",
+          fields: [
+            { path: "visual.background", label: "Section background", control: "preset", options: ["cream", "paper", "paleBlue"] }
+          ]
+        },
+        {
           label: "Heading",
           fields: [
             { path: "headline", label: "Headline", control: "text" },
@@ -207,6 +235,12 @@ export const componentRegistry = {
     defaultVariant: "centered",
     editor: {
       groups: [
+        {
+          label: "Visual style",
+          fields: [
+            { path: "visual.background", label: "Background", control: "preset", options: ["teal", "navy", "cream"] }
+          ]
+        },
         {
           label: "CTA",
           fields: [

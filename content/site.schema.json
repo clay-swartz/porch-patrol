@@ -143,6 +143,16 @@
         },
         "alt": {
           "type": "string"
+        },
+        "position": {
+          "enum": [
+            "center",
+            "top",
+            "bottom",
+            "left",
+            "right"
+          ],
+          "default": "center"
         }
       },
       "additionalProperties": false
@@ -288,6 +298,37 @@
             },
             "form": {
               "$ref": "#/$defs/heroForm"
+            },
+            "visual": {
+              "type": "object",
+              "properties": {
+                "tone": {
+                  "enum": [
+                    "navy",
+                    "teal",
+                    "cream"
+                  ],
+                  "default": "navy"
+                },
+                "pattern": {
+                  "enum": [
+                    "icons",
+                    "dots",
+                    "grid",
+                    "none"
+                  ],
+                  "default": "icons"
+                },
+                "patternStrength": {
+                  "enum": [
+                    "subtle",
+                    "standard",
+                    "bold"
+                  ],
+                  "default": "standard"
+                }
+              },
+              "additionalProperties": false
             }
           }
         }
@@ -366,6 +407,20 @@
               "items": {
                 "$ref": "#/$defs/processStep"
               }
+            },
+            "visual": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "enum": [
+                    "paper",
+                    "cream",
+                    "paleBlue"
+                  ],
+                  "default": "paper"
+                }
+              },
+              "additionalProperties": false
             }
           }
         }
@@ -434,6 +489,29 @@
             },
             "cta": {
               "$ref": "#/$defs/cta"
+            },
+            "visual": {
+              "type": "object",
+              "properties": {
+                "railTone": {
+                  "enum": [
+                    "cream",
+                    "white",
+                    "paleBlue",
+                    "softTeal"
+                  ],
+                  "default": "cream"
+                },
+                "ctaTone": {
+                  "enum": [
+                    "navy",
+                    "teal",
+                    "yellow"
+                  ],
+                  "default": "navy"
+                }
+              },
+              "additionalProperties": false
             }
           }
         }
@@ -578,6 +656,20 @@
               "items": {
                 "$ref": "#/$defs/faqItem"
               }
+            },
+            "visual": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "enum": [
+                    "cream",
+                    "paper",
+                    "paleBlue"
+                  ],
+                  "default": "cream"
+                }
+              },
+              "additionalProperties": false
             }
           }
         }
@@ -611,6 +703,20 @@
             },
             "cta": {
               "$ref": "#/$defs/cta"
+            },
+            "visual": {
+              "type": "object",
+              "properties": {
+                "background": {
+                  "enum": [
+                    "teal",
+                    "navy",
+                    "cream"
+                  ],
+                  "default": "teal"
+                }
+              },
+              "additionalProperties": false
             }
           }
         }
