@@ -4123,6 +4123,118 @@ html {
   }
 }
 
+
+/* =========================================================
+   CMS SAFE VISUAL PRESETS
+   Approved choices only; defaults match current production.
+   ========================================================= */
+
+/* Hero tone + pattern */
+.hero.hero-patterned.pp-hero-tone--teal .hero-navy-base {
+  background: linear-gradient(180deg, #07534f 0%, #08443f 100%);
+}
+.hero.hero-patterned.pp-hero-tone--cream .hero-navy-base {
+  background: linear-gradient(180deg, #f4f0e8 0%, #ebe5da 100%);
+}
+.hero.hero-patterned.pp-hero-tone--cream .hero-pattern-wash {
+  background: linear-gradient(90deg, rgba(244,240,232,.16), rgba(235,229,218,.08)) !important;
+}
+.hero.hero-patterned.pp-hero-tone--cream .hero-copy,
+.hero.hero-patterned.pp-hero-tone--cream h1,
+.hero.hero-patterned.pp-hero-tone--cream .hero-lede,
+.hero.hero-patterned.pp-hero-tone--cream .hero-price-note {
+  color: var(--navy) !important;
+}
+.hero.hero-patterned.pp-hero-tone--cream .hero-proof-line {
+  color: rgba(24,52,71,.72) !important;
+}
+.hero.hero-patterned.pp-hero-tone--cream .hero-proof-line strong {
+  color: var(--teal) !important;
+}
+
+.hero.hero-patterned.pp-hero-pattern-strength--subtle .hero-pattern-layer { opacity: .07 !important; }
+.hero.hero-patterned.pp-hero-pattern-strength--standard .hero-pattern-layer { opacity: .14 !important; }
+.hero.hero-patterned.pp-hero-pattern-strength--bold .hero-pattern-layer { opacity: .22 !important; }
+
+.hero.hero-patterned .hero-pattern-layer .pp-pattern-dot {
+  fill: #6f8292;
+}
+.hero.hero-patterned .hero-pattern-layer .pp-pattern-grid {
+  stroke: #6f8292;
+  stroke-width: 1;
+}
+.hero.hero-patterned.pp-hero-tone--cream .hero-pattern-layer text,
+.hero.hero-patterned.pp-hero-tone--cream .hero-pattern-layer .pp-pattern-dot {
+  fill: #6f7d7b;
+}
+.hero.hero-patterned.pp-hero-tone--cream .hero-pattern-layer .pp-pattern-grid {
+  stroke: #6f7d7b;
+}
+
+/* Process background + safe image focal points */
+.pp-process-section.pp-process-tone--paper { background: var(--paper); }
+.pp-process-section.pp-process-tone--cream { background: var(--cream); }
+.pp-process-section.pp-process-tone--paleBlue { background: #edf3f6; }
+
+.pp-process-photo.pp-image-pos--center { object-position: center center; }
+.pp-process-photo.pp-image-pos--top { object-position: center top; }
+.pp-process-photo.pp-image-pos--bottom { object-position: center bottom; }
+.pp-process-photo.pp-image-pos--left { object-position: left center; }
+.pp-process-photo.pp-image-pos--right { object-position: right center; }
+
+/* Service ticker presets */
+.pp-service-ticker-tone--cream .pp-service-ticker__viewport { background: #f7f3eb; }
+.pp-service-ticker-tone--white .pp-service-ticker__viewport { background: #fff; }
+.pp-service-ticker-tone--paleBlue .pp-service-ticker__viewport { background: #edf3f6; }
+.pp-service-ticker-tone--softTeal .pp-service-ticker__viewport { background: #e8f3ef; }
+
+.pp-service-ticker-cta--navy .pp-service-ticker__cta {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+.pp-service-ticker-cta--navy .pp-service-ticker__cta:hover {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+.pp-service-ticker-cta--teal .pp-service-ticker__cta {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.pp-service-ticker-cta--teal .pp-service-ticker__cta:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+.pp-service-ticker-cta--yellow .pp-service-ticker__cta {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--navy);
+  box-shadow: 0 10px 26px rgba(126,94,8,.14);
+}
+.pp-service-ticker-cta--yellow .pp-service-ticker__cta-arrow {
+  color: var(--navy);
+}
+.pp-service-ticker-cta--yellow .pp-service-ticker__cta:hover {
+  background: #f1bb32;
+  border-color: #f1bb32;
+}
+
+/* FAQ and final CTA backgrounds */
+.faq-section.pp-faq-tone--cream { background: var(--cream); }
+.faq-section.pp-faq-tone--paper { background: var(--paper); }
+.faq-section.pp-faq-tone--paleBlue { background: #edf3f6; }
+
+.final-cta.pp-cta-tone--teal { background: var(--teal); }
+.final-cta.pp-cta-tone--navy { background: var(--navy); }
+.final-cta.pp-cta-tone--cream { background: var(--cream); }
+.final-cta.pp-cta-tone--cream h2 { color: var(--navy) !important; }
+.final-cta.pp-cta-tone--cream .button {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 3px 0 rgba(24,52,71,.16);
+}
+
 </style>
 </head>
 
