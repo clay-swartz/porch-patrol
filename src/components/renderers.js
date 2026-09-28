@@ -218,7 +218,7 @@ export function renderServiceTicker(component) {
   const inlineLead = cta.action === "inlineLead";
 
   return [
-    '<section class="pp-service-ticker-wrap" data-pp-component="serviceTicker" data-pp-variant="' + escapeHtml(component.variant) + '"' + attr("aria-label", component.ariaLabel) + '>',
+    '<section class="pp-service-ticker-wrap pp-service-ticker-tone--' + railTone + ' pp-service-ticker-cta--' + ctaTone + '" data-pp-component="serviceTicker" data-pp-variant="' + escapeHtml(component.variant) + '"' + attr("aria-label", component.ariaLabel) + '>',
       '<div class="shell">',
         '<div class="pp-service-ticker">',
           '<div class="pp-service-ticker__viewport" tabindex="0"' + attr("aria-label", component.pauseInstruction) + '>',
