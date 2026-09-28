@@ -137,23 +137,60 @@
           "ariaLabel": "Examples of what Porch Patrol handles",
           "pauseInstruction": "Examples of what Porch Patrol handles. Hover or focus to pause.",
           "items": [
-            { "icon": "water_drop", "label": "Drips & Leaks" },
-            { "icon": "home_repair_service", "label": "Siding & Hardware" },
-            { "icon": "construction", "label": "Caulk & Sealant" },
-            { "icon": "rainy", "label": "Gutter Issues" },
-            { "icon": "lightbulb", "label": "Light Bulbs" },
-            { "icon": "grass", "label": "Weeds & Debris" },
-            { "icon": "cleaning_services", "label": "Cobweb Removal" },
-            { "icon": "ink_eraser", "label": "Stain Removal" },
-            { "icon": "chair", "label": "Mat & Furniture Reset" },
-            { "icon": "celebration", "label": "Décor Reset" },
-            { "icon": "potted_plant", "label": "Planter Care" },
-            { "icon": "auto_awesome", "label": "Scrubbing & Polishing" }
+            {
+              "icon": "water_drop",
+              "label": "Drips & Leaks"
+            },
+            {
+              "icon": "home_repair_service",
+              "label": "Siding & Hardware"
+            },
+            {
+              "icon": "construction",
+              "label": "Caulk & Sealant"
+            },
+            {
+              "icon": "rainy",
+              "label": "Gutter Issues"
+            },
+            {
+              "icon": "lightbulb",
+              "label": "Light Bulbs"
+            },
+            {
+              "icon": "grass",
+              "label": "Weeds & Debris"
+            },
+            {
+              "icon": "cleaning_services",
+              "label": "Cobweb Removal"
+            },
+            {
+              "icon": "ink_eraser",
+              "label": "Stain Removal"
+            },
+            {
+              "icon": "chair",
+              "label": "Mat & Furniture Reset"
+            },
+            {
+              "icon": "celebration",
+              "label": "Décor Reset"
+            },
+            {
+              "icon": "potted_plant",
+              "label": "Planter Care"
+            },
+            {
+              "icon": "auto_awesome",
+              "label": "Scrubbing & Polishing"
+            }
           ],
           "cta": {
             "label": "Patrol my place.",
             "href": "#signup",
-            "showArrow": true
+            "showArrow": true,
+            "action": "inlineLead"
           }
         },
         {
