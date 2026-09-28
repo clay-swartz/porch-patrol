@@ -165,6 +165,56 @@ function initLeadDialog() {
   });
 }
 
+function initServiceTickerLeads() {
+  document.querySelectorAll(".pp-service-ticker-wrap").forEach((section) => {
+    if (section.dataset.ppLeadBound === "true") return;
+
+    const toggle = section.querySelector("[data-pp-inline-lead-toggle]");
+    const panel = section.querySelector("[data-pp-inline-lead]");
+    const form = section.querySelector("[data-pp-inline-lead-form]");
+
+    if (!toggle || !panel || !form) return;
+
+    const successEl = form.querySelector(".success");
+    const errorEl = form.querySelector(".form-error");
+    if (!successEl || !errorEl) return;
+
+    section.dataset.ppLeadBound = "true";
+
+    const open = () => {
+      panel.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+      section.classList.add("pp-service-ticker-wrap--lead-open");
+
+      requestAnimationFrame(() => {
+        const firstField = form.querySelector(".field");
+        if (firstField && window.innerWidth > 560) firstField.focus();
+      });
+    };
+
+    toggle.addEventListener("click", () => {
+      if (panel.hidden) {
+        open();
+      } else {
+        panel.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+        section.classList.remove("pp-service-ticker-wrap--lead-open");
+      }
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const ok = await submitLead(form, successEl, errorEl);
+      if (ok) {
+        form.querySelectorAll(".field").forEach((field) => {
+          field.value = "";
+        });
+      }
+    });
+  });
+}
+
 function initCarousels() {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -338,6 +388,7 @@ function initProcessSections() {
 export function initSiteInteractions() {
   initHeroForm();
   initLeadDialog();
+  initServiceTickerLeads();
   initCarousels();
   initProcessSections();
 }

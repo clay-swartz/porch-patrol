@@ -3895,6 +3895,78 @@ html {
   transform: translateX(2px);
 }
 
+.pp-service-ticker__cta[aria-expanded="true"] .pp-service-ticker__cta-arrow {
+  transform: rotate(90deg);
+}
+
+.pp-service-ticker__lead {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 18px;
+  border: 1px solid #ded8ce;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(24,52,71,.07);
+}
+
+.pp-service-ticker__lead[hidden] {
+  display: none;
+}
+
+.pp-service-ticker__lead-copy strong {
+  display: block;
+  color: var(--navy);
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.pp-service-ticker__lead-copy span {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.pp-service-ticker__lead-form {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 9px;
+  align-items: start;
+}
+
+.pp-service-ticker__lead-form .field,
+.pp-service-ticker__lead-form .button {
+  min-height: 46px;
+}
+
+.pp-service-ticker__lead-form .button {
+  padding-inline: 18px;
+  white-space: nowrap;
+}
+
+.pp-service-ticker__lead-note,
+.pp-service-ticker__lead-form .success,
+.pp-service-ticker__lead-form .form-error {
+  grid-column: 1 / -1;
+}
+
+.pp-service-ticker__lead-note {
+  margin-top: -1px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
 @keyframes ppServiceTicker {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -3980,6 +4052,22 @@ html {
     border-radius: 11px;
     font-size: 15px;
   }
+
+  .pp-service-ticker__lead {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 15px;
+    border-radius: 11px;
+  }
+
+  .pp-service-ticker__lead-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pp-service-ticker__lead-form .field:first-of-type,
+  .pp-service-ticker__lead-form .button {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 520px) {
@@ -4005,6 +4093,15 @@ html {
 
   .pp-service-ticker__item {
     font-size: 11.5px;
+  }
+
+  .pp-service-ticker__lead-form {
+    grid-template-columns: 1fr;
+  }
+
+  .pp-service-ticker__lead-form .field,
+  .pp-service-ticker__lead-form .button {
+    grid-column: 1;
   }
 }
 
@@ -4168,10 +4265,29 @@ html {
           </div>
         </div>
 
-        <a class="pp-service-ticker__cta" href="#signup">
+        <button class="pp-service-ticker__cta" type="button" aria-expanded="false" data-pp-inline-lead-toggle>
           <span>Patrol my place.</span>
           <span class="pp-service-ticker__cta-arrow" aria-hidden="true">→</span>
-        </a>
+        </button>
+      </div>
+
+      <div class="pp-service-ticker__lead" hidden data-pp-inline-lead>
+        <div class="pp-service-ticker__lead-copy">
+          <strong>Let’s get your home on patrol.</strong>
+          <span>Tell us where to go and we’ll confirm your route day by text.</span>
+        </div>
+
+        <form class="pp-service-ticker__lead-form" data-pp-inline-lead-form>
+          <input type="hidden" name="Plan" value="Front Entry">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+          <input class="field" type="text" name="Home Address" placeholder="Home address" aria-label="Home address" autocomplete="street-address" required>
+          <input class="field" type="text" name="Name" placeholder="Your name" aria-label="Your name" autocomplete="name" required>
+          <input class="field" type="tel" name="Mobile" placeholder="Mobile number" aria-label="Mobile number" autocomplete="tel" inputmode="tel" required>
+          <button class="button" type="submit">Add my home</button>
+          <div class="pp-service-ticker__lead-note">We’ll confirm your route day by text. Cancel anytime.</div>
+          <div class="success" role="status" aria-live="polite">Got it. We’ll text you to confirm your route.</div>
+          <div class="form-error" role="alert" aria-live="assertive">Something didn’t send. Please call us.</div>
+        </form>
       </div>
     </div>
   </section>
