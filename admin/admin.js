@@ -687,6 +687,139 @@ signoutButton.addEventListener("click", async () => {
   showLogin();
 });
 
+async function loadHistory() {
+  historyList.innerHTML = '<div class="status-message">Loading history…</div>';
+
+  const { data, error } = await supabase.rpc("list_porch_patrol_editor_revisions", {
+    p_token: editorToken
+  });
+
+  if (error) {
+    historyList.innerHTML = '<div class="status-message">Could not load revision history.</div>';
+    return;
+  }
+
+  const revisions = data || [];
+  historyList.innerHTML = revisions.length
+    ? revisions.map((revision) => {
+        const date = new Date(revision.created_at);
+        return [
+          '<div class="history-item">',
+            '<div>',
+              '<strong>' + esc(revision.label || 'Published') + '</strong>',
+              '<small>' + esc(date.toLocaleString([], {dateStyle:'medium', timeStyle:'short'})) + '</small>',
+            '</div>',
+            '<button type="button" class="small-button" data-restore-revision="' + esc(revision.id) + '">Restore to draft</button>',
+          '</div>'
+        ].join('');
+      }).join('')
+    : '<div class="status-message">No published revisions yet.</div>';
+}
+
+async function restoreRevision(id) {
+  setStatus("Restoring…");
+
+  const { data, error } = await supabase.rpc("restore_porch_patrol_editor_revision", {
+    p_token: editorToken,
+    p_revision_id: id
+  });
+
+  if (error || !data) {
+    setStatus("Restore failed", "error");
+    return;
+  }
+
+  state = structuredClone(data);
+  normalizeVisualDefaults(state);
+  dirty = false;
+  selected = "global";
+  setStatus("Revision restored to draft", "good");
+  historyDialog.close();
+  renderAll();
+}
+
+async function fetchMediaItems() {
+  const response = await fetch(SUPABASE_URL + "/functions/v1/porch-patrol-media", {
+    headers: {
+      "x-porch-patrol-editor-token": editorToken
+    },
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error("Could not load the media library.");
+  }
+
+  const payload = await response.json();
+  return payload.items || [];
+}
+
+function renderMediaItems(items) {
+  mediaGrid.innerHTML = items.length
+    ? items.map((item) => [
+        '<div class="media-card">',
+          '<img src="' + esc(item.url) + '" alt="">',
+          '<div class="media-card-body">',
+            '<div class="media-card-name">' + esc(item.name) + '</div>',
+            '<div class="media-card-actions">',
+              '<button type="button" class="small-button" data-use-media-url="' + esc(item.url) + '">' +
+                (mediaTargetPath ? 'Use image' : 'Copy URL') +
+              '</button>',
+            '</div>',
+          '</div>',
+        '</div>'
+      ].join('')).join('')
+    : '<div class="status-message">No uploaded photos yet.</div>';
+}
+
+async function openMediaLibrary(targetPath = "") {
+  mediaTargetPath = targetPath;
+  mediaStatus.textContent = "Loading…";
+  mediaGrid.innerHTML = "";
+  mediaDialog.showModal();
+
+  try {
+    const items = await fetchMediaItems();
+    renderMediaItems(items);
+    mediaStatus.textContent = "";
+  } catch (error) {
+    mediaStatus.textContent = error.message;
+  }
+}
+
+async function uploadMedia(file) {
+  if (!file) return;
+
+  mediaStatus.textContent = "Uploading…";
+  const form = new FormData();
+  form.append("file", file);
+
+  const response = await fetch(SUPABASE_URL + "/functions/v1/porch-patrol-media", {
+    method: "POST",
+    headers: {
+      "x-porch-patrol-editor-token": editorToken
+    },
+    body: form
+  });
+
+  const payload = await response.json().catch(() => ({}));
+
+  if (!response.ok || !payload.item) {
+    mediaStatus.textContent = payload.error || "Upload failed.";
+    return;
+  }
+
+  mediaStatus.textContent = "Uploaded.";
+  const items = await fetchMediaItems();
+  renderMediaItems(items);
+
+  if (mediaTargetPath) {
+    setByPath(state, mediaTargetPath, payload.item.url);
+    markDirty();
+    renderEditor();
+  }
+}
+
 editorForm.addEventListener("submit", (event) => event.preventDefault());
 
 editorForm.addEventListener("input", (event) => {
@@ -706,6 +839,20 @@ editorForm.addEventListener("change", (event) => {
 });
 
 editorForm.addEventListener("click", (event) => {
+  const presetButton = event.target.closest("[data-preset-path]");
+  if (presetButton) {
+    setByPath(state, presetButton.dataset.presetPath, presetButton.dataset.presetValue);
+    markDirty();
+    renderEditor();
+    return;
+  }
+
+  const mediaTrigger = event.target.closest("[data-media-path]");
+  if (mediaTrigger) {
+    openMediaLibrary(mediaTrigger.dataset.mediaPath);
+    return;
+  }
+
   const repeatButton = event.target.closest("[data-repeat-action]");
   if (repeatButton) {
     const arrayPath = repeatButton.dataset.arrayPath;
@@ -795,6 +942,54 @@ addSectionButton.addEventListener("click", () => {
 saveButton.addEventListener("click", async () => {
   try { await saveDraft(); }
   catch (error) { console.error(error); }
+});
+
+historyButton.addEventListener("click", async () => {
+  historyDialog.showModal();
+  await loadHistory();
+});
+
+mediaButton.addEventListener("click", () => {
+  openMediaLibrary("");
+});
+
+document.querySelectorAll("[data-close-dialog]").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.getElementById(button.dataset.closeDialog)?.close();
+  });
+});
+
+historyList.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-restore-revision]");
+  if (!button) return;
+  await restoreRevision(button.dataset.restoreRevision);
+});
+
+mediaUploadInput.addEventListener("change", async () => {
+  const file = mediaUploadInput.files?.[0];
+  mediaUploadInput.value = "";
+  if (file) await uploadMedia(file);
+});
+
+mediaGrid.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-use-media-url]");
+  if (!button) return;
+
+  const url = button.dataset.useMediaUrl;
+
+  if (mediaTargetPath) {
+    setByPath(state, mediaTargetPath, url);
+    markDirty();
+    renderEditor();
+    mediaDialog.close();
+  } else {
+    try {
+      await navigator.clipboard.writeText(url);
+      mediaStatus.textContent = "Image URL copied.";
+    } catch {
+      mediaStatus.textContent = url;
+    }
+  }
 });
 
 previewButton.addEventListener("click", () => {
