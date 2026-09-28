@@ -269,10 +269,8 @@ function renderTicker(section, index) {
     componentHead("Service Ticker", "A low-footprint stream of examples with a primary CTA.", index) +
     iconLabelRepeater("Ticker items", base + ".items") +
     sectionBlock("CTA",
-      '<div class="field-grid">' +
-        field("Button label", base + ".cta.label") +
-        field("Button link", base + ".cta.href") +
-      "</div>"
+      field("Button label", base + ".cta.label") +
+      '<div class="field-help">This button opens the compact lead form directly beneath the ticker.</div>'
     );
 }
 
@@ -423,7 +421,7 @@ function newSection(type) {
       {icon:"lightbulb",label:"Second item"},
       {icon:"potted_plant",label:"Third item"}
     ],
-    cta:{label:"Patrol my place.",href:"#signup",showArrow:true}
+    cta:{label:"Patrol my place.",href:"#signup",showArrow:true,action:"inlineLead"}
   };
 
   if (type === "faqAccordion") return {
