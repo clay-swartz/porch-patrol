@@ -51,7 +51,7 @@ function markDirty(){
 }
 
 function defaultContent(firstName,locationLabel){
-  const place = String(locationLabel || "").replace(/^Coming to\\s+/i,"").trim();
+  const place = String(locationLabel || "").replace(/^Coming to\s+/i,"").trim();
   return {
     type:"customLandingPage",
     title:place ? "Porch Patrol — " + place : "Porch Patrol",
@@ -125,14 +125,14 @@ function renderEditor(){
     control.value = getByPath(content,control.dataset.path) ?? "";
   });
 
-  document.getElementById("items-field").value = (content.items || []).join("\\n");
+  document.getElementById("items-field").value = (content.items || []).join("\n");
 }
 
 async function saveCurrent(){
   if(!content || !currentSlug) return;
 
   const items = document.getElementById("items-field").value
-    .split("\\n")
+    .split("\n")
     .map((item)=>item.trim())
     .filter(Boolean)
     .slice(0,16);
@@ -177,7 +177,7 @@ async function publishCurrent(){
 function previewCurrent(){
   if(!content || !currentSlug) return;
   content.items = document.getElementById("items-field").value
-    .split("\\n")
+    .split("\n")
     .map((item)=>item.trim())
     .filter(Boolean)
     .slice(0,16);
@@ -193,8 +193,8 @@ async function createPage(event){
   event.preventDefault();
 
   const raw = document.getElementById("new-page-slug").value.trim().toLowerCase();
-  const suffix = raw
-    .replace(/^new\\//,"")
+  const rawSuffix = raw.startsWith("new/") ? raw.slice(4) : raw;
+  const suffix = rawSuffix
     .replace(/[^a-z0-9-]+/g,"-")
     .replace(/^-+|-+$/g,"");
 
