@@ -1,6 +1,12 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/new/:slug",
+      "destination": "/new/landing"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -19,11 +25,5 @@
         }
       ]
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/new/:slug",
-      "destination": "/new/landing.html"
-    }
   ]
-}\n
+}
