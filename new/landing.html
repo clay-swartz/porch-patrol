@@ -41,7 +41,7 @@ button,input{font:inherit}
 .hero-copy{min-width:0}
 .personal-pill{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 13px;margin-bottom:22px;border-radius:999px;background:#fff0d8;color:#744700;font-size:13px;font-weight:700;border:1px solid rgba(217,71,9,.08)}
 .personal-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange)}
-.hero h1{max-width:650px;margin:0;font-family:var(--display);font-size:clamp(60px,6.4vw,92px);line-height:.94;letter-spacing:-.045em;font-weight:600;color:var(--navy)}
+.hero h1{max-width:650px;margin:0;font-family:var(--display);font-size:clamp(58px,5.8vw,84px);line-height:.95;letter-spacing:-.04em;font-weight:700;color:var(--navy)}
 .lead-form{max-width:700px;margin-top:34px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.86fr) auto;gap:10px}
 .field{width:100%;height:54px;border:1px solid #cfc8bd;border-radius:8px;padding:0 14px;background:#fff;color:var(--ink);outline:none}
 .field:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,100,95,.10)}
@@ -55,7 +55,7 @@ button,input{font:inherit}
 
 .check-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--cream);box-shadow:0 18px 44px rgba(16,36,56,.10)}
 .check-card-head{position:relative;isolation:isolate;overflow:hidden;min-height:96px;padding:25px 27px;display:flex;align-items:center;background:linear-gradient(180deg,#102438 0%,#0f2a41 100%);color:#fff}
-.check-card-head h2{position:relative;z-index:2;max-width:315px;margin:0;font-family:var(--display);font-size:30px;line-height:1.01;letter-spacing:-.032em;font-weight:600}
+.check-card-head h2{position:relative;z-index:2;max-width:330px;margin:0;font-family:var(--display);font-size:27px;line-height:1.02;letter-spacing:-.025em;font-weight:700}
 .card-pattern{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none;opacity:.10}
 .check-card[data-pattern-strength="none"] .card-pattern{display:none}
 .check-card[data-pattern-strength="subtle"] .card-pattern{opacity:.08}
@@ -86,7 +86,7 @@ button,input{font:inherit}
   .wordmark{font-size:26px}
   .location-label{font-size:9px;letter-spacing:.09em;text-align:right}
   .hero{padding:42px 0}
-  .hero h1{font-size:56px}
+  .hero h1{font-size:54px}
   .lead-form{grid-template-columns:1fr}
   .button{width:100%}
   .task-list{grid-template-columns:1fr;padding:12px 21px 17px}
@@ -147,7 +147,16 @@ button,input{font:inherit}
           </svg>
           <h2 id="list-headline">Let us handle the little things.</h2>
         </div>
-        <div class="task-list" id="task-list"></div>
+        <div class="task-list" id="task-list">
+            <div class="task"><span class="task-box" aria-hidden="true"><span class="task-check"></span></span><span class="task-label">Bulbs</span></div>
+            <div class="task"><span class="task-box" aria-hidden="true"><span class="task-check"></span></span><span class="task-label">Cobwebs</span></div>
+            <div class="task"><span class="task-box" aria-hidden="true"><span class="task-check"></span></span><span class="task-label">Loose hardware</span></div>
+            <div class="task"><span class="task-box" aria-hidden="true"><span class="task-check"></span></span><span class="task-label">Weeds</span></div>
+            <div class="task"><span class="task-box" aria-hidden="true"><span class="task-check"></span></span><span class="task-label">Mats + furniture</span></div>
+            <div class="task"><span class="task-box" aria-hidden="true"><span class="task-check"></span></span><span class="task-label">Drips</span></div>
+            <div class="task"><span class="task-box" aria-hidden="true"><span class="task-check"></span></span><span class="task-label">Quick fixes</span></div>
+            <div class="task"><span class="task-box" aria-hidden="true"><span class="task-check"></span></span><span class="task-label">Small upkeep</span></div>
+          </div>
       </section>
     </div>
   </main>
@@ -297,8 +306,14 @@ function render(content){
   startChecklist();
 }
 
-const content = await loadContent();
-render(content);
+let content = fallback;
+loadContent().then((loaded)=>{
+  content = loaded;
+  render(content);
+}).catch((error)=>{
+  console.warn("[Porch Patrol] Landing page load failed; using fallback.", error);
+  render(fallback);
+});
 
 document.getElementById("landing-lead-form").addEventListener("submit",async(event)=>{
   event.preventDefault();
