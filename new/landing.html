@@ -167,7 +167,7 @@ const SUPABASE_URL = "https://uymwsivcgtapckzjoywk.supabase.co";
 const SUPABASE_KEY = "sb_publishable_Zv_J_fCv2wTC-qlsV3h_Mg_i7nkJPZG";
 const LEAD_ENDPOINT = SUPABASE_URL + "/functions/v1/submit-porch-patrol-lead";
 
-const slug = location.pathname.replace(/^\\/+|\\/+$/g, "");
+const slug = location.pathname.split("/").filter(Boolean).join("/");
 const fallback = slug === "new/nick" ? {
   type:"customLandingPage",
   title:"Porch Patrol — East Dallas",
