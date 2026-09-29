@@ -19,5 +19,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/new/:slug",
+      "destination": "/new/landing.html"
+    }
   ]
-}
+}\n

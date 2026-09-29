@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Porch Patrol — Custom Landing Pages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,650;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/admin/admin.css">
+<style>
+a{text-decoration:none}
+.editor-nav-link{display:inline-flex;align-items:center;justify-content:center}
+.landing-layout{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:calc(100vh - 72px)}
+.landing-sidebar{padding:22px 18px;border-right:1px solid #e1dbd1;background:#f8f5ef}
+.landing-sidebar-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.landing-sidebar-head h2{margin:0;font-family:var(--display);font-size:24px;color:var(--navy)}
+.landing-list{display:grid;gap:8px}
+.landing-item{width:100%;text-align:left;padding:12px;border:1px solid #ded7cc;border-radius:10px;background:#fff;color:var(--navy)}
+.landing-item.active{border-color:var(--teal);box-shadow:0 0 0 2px rgba(0,100,95,.08)}
+.landing-item strong,.landing-item small{display:block}
+.landing-item small{margin-top:4px;color:var(--muted)}
+.landing-main{padding:28px;max-width:980px}
+.landing-empty{padding:56px 20px;color:var(--muted);text-align:center}
+.landing-editor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px}
+.landing-editor-head h1{margin:3px 0 6px;font-family:var(--display);font-size:38px;line-height:1;color:var(--navy)}
+.page-actions{display:flex;flex-wrap:wrap;gap:8px}
+.path-chip{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:#edf3f2;color:var(--teal);font-size:12px;font-weight:800}
+.item-help{font-size:12px;color:var(--muted);margin-top:7px}
+.landing-dialog{border:0;border-radius:14px;padding:0;box-shadow:0 24px 70px rgba(16,36,56,.2);width:min(520px,calc(100% - 28px))}
+.landing-dialog::backdrop{background:rgba(16,36,56,.38)}
+.landing-dialog form{padding:24px}
+.landing-dialog h2{margin:0 0 18px;font-family:var(--display);font-size:30px}
+.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}
+@media(max-width:840px){.landing-layout{grid-template-columns:1fr}.landing-sidebar{border-right:0;border-bottom:1px solid #e1dbd1}.landing-list{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}.landing-editor-head{flex-direction:column}.landing-main{padding:20px 16px}}
+</style>
+</head>
+<body>
+<div id="landing-app" class="app-shell" hidden>
+  <header class="editor-header">
+    <div>
+      <div class="brand brand-small">Porch <span>Patrol</span></div>
+      <div class="editor-subtitle">Custom Landing Pages</div>
+    </div>
+    <div class="header-actions">
+      <span id="landing-status" class="save-status">Ready</span>
+      <a class="secondary-button editor-nav-link" href="/admin/">Site editor</a>
+      <button id="new-page-button" class="primary-button" type="button">New landing page</button>
+    </div>
+  </header>
+
+  <main class="landing-layout">
+    <aside class="landing-sidebar">
+      <div class="landing-sidebar-head">
+        <h2>Pages</h2>
+      </div>
+      <div id="landing-list" class="landing-list"></div>
+    </aside>
+
+    <section class="landing-main">
+      <div id="auth-needed" class="landing-empty" hidden>
+        <h2>Open the Site Editor first.</h2>
+        <p>Your editor session is required to manage landing pages.</p>
+        <a class="primary-button editor-nav-link" href="/admin/">Open Site Editor</a>
+      </div>
+
+      <div id="landing-empty" class="landing-empty">
+        Select a landing page or create a new one.
+      </div>
+
+      <form id="landing-editor" hidden>
+        <div class="landing-editor-head">
+          <div>
+            <p class="eyebrow">CUSTOM LANDING PAGE</p>
+            <h1 id="editor-title">Landing page</h1>
+            <span id="path-chip" class="path-chip"></span>
+          </div>
+          <div class="page-actions">
+            <button id="preview-page-button" class="secondary-button" type="button">Preview draft</button>
+            <a id="open-live-link" class="secondary-button editor-nav-link" href="#" target="_blank" rel="noopener">Open live</a>
+            <button id="save-page-button" class="secondary-button" type="button">Save draft</button>
+            <button id="publish-page-button" class="primary-button" type="button">Publish</button>
+          </div>
+        </div>
+
+        <section class="field-section">
+          <h2>Page setup</h2>
+          <div class="field-grid">
+            <label class="field-group"><span class="field-label">Browser title</span><input data-path="title"></label>
+            <label class="field-group"><span class="field-label">First name</span><input data-path="firstName"></label>
+          </div>
+          <label class="field-group"><span class="field-label">Location label</span><input data-path="locationLabel"></label>
+        </section>
+
+        <section class="field-section">
+          <h2>Message</h2>
+          <label class="field-group"><span class="field-label">Headline</span><textarea data-path="headline"></textarea></label>
+          <label class="field-group"><span class="field-label">Checklist headline</span><input data-path="listHeadline"></label>
+        </section>
+
+        <section class="field-section">
+          <h2>Checklist</h2>
+          <label class="field-group">
+            <span class="field-label">Items — one per line</span>
+            <textarea id="items-field" rows="9"></textarea>
+            <span class="item-help">Keep this short. The live design supports up to 16 items.</span>
+          </label>
+        </section>
+
+        <section class="field-section">
+          <h2>Lead form</h2>
+          <div class="field-grid">
+            <label class="field-group"><span class="field-label">Address placeholder</span><input data-path="form.addressPlaceholder"></label>
+            <label class="field-group"><span class="field-label">Mobile placeholder</span><input data-path="form.mobilePlaceholder"></label>
+          </div>
+          <div class="field-grid">
+            <label class="field-group"><span class="field-label">Button label</span><input data-path="form.submitLabel"></label>
+            <label class="field-group"><span class="field-label">Form note</span><input data-path="form.note"></label>
+          </div>
+          <label class="field-group"><span class="field-label">Success message</span><input data-path="form.successMessage"></label>
+        </section>
+
+        <section class="field-section">
+          <h2>Visual style</h2>
+          <label class="field-group">
+            <span class="field-label">Pattern strength</span>
+            <select data-path="visual.patternStrength">
+              <option value="none">None</option>
+              <option value="subtle">Subtle</option>
+              <option value="standard">Standard</option>
+              <option value="bold">Bold</option>
+            </select>
+          </label>
+        </section>
+      </form>
+    </section>
+  </main>
+</div>
+
+<dialog id="new-page-dialog" class="landing-dialog">
+  <form method="dialog" id="new-page-form">
+    <h2>Create a custom landing page</h2>
+    <label class="field-group"><span class="field-label">URL ending</span><input id="new-page-slug" placeholder="nick" required><span class="field-help">Creates /new/nick</span></label>
+    <label class="field-group"><span class="field-label">First name</span><input id="new-page-name" placeholder="Nick" required></label>
+    <label class="field-group"><span class="field-label">Location label</span><input id="new-page-location" value="Coming to East Dallas" required></label>
+    <div class="dialog-actions">
+      <button class="secondary-button" value="cancel" type="button" id="cancel-new-page">Cancel</button>
+      <button class="primary-button" value="default" type="submit">Create draft</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="/admin/landing-pages/landing-pages.js"></script>
+</body>
+</html>
